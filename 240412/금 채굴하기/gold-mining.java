@@ -35,7 +35,7 @@ public class Main {
                 if(profit >= 0)  //  손해는 아닐 경우
                     ans = Math.max(ans, cnt);
 
-                for(int k = 1; k <= n - 1; k++) {
+                for(int k = 1; k <= n; k++) {
                     cnt = bfs(y, x, k); //  (y, x)를 중심으로 마름모 꼴로 채굴했을 때의 금 개수
                     profit = cnt * m - k * k - (k + 1) * (k + 1); //  (y, x)를 중심으로 마름모 꼴로 채굴했을 때의 이익
 
