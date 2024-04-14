@@ -33,7 +33,7 @@ public class Main {
 
                 sb.append(isEmpty).append("\n");
             } else if(cmd.equals("top")) {
-                sb.append(pq.peek()).append("\n");
+                sb.append(-pq.peek()).append("\n");
             }
         }
 
