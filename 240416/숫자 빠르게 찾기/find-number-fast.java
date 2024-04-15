@@ -8,19 +8,21 @@ public class Main {
 
     private static int n, m;   //  정렬된 수 개수 n, 찾을 수 개수 m
 
-    private static final List<Integer> nums = new ArrayList<>();
+    private static int[] nums;
 
     public static void main(String[] args) throws IOException {
         tokens = new StringTokenizer(br.readLine());
         
         n = Integer.parseInt(tokens.nextToken());
         m = Integer.parseInt(tokens.nextToken());
+        
+        nums = new int[n];
 
         tokens = new StringTokenizer(br.readLine());
         for(int i = 0; i < n; i++)
-            nums.add(Integer.parseInt(tokens.nextToken()));
+            nums[i] = Integer.parseInt(tokens.nextToken());
 
-        Collections.sort(nums);
+        Arrays.sort(nums);
 
         for(int i = 0; i < m; i++)
             sb.append(binarySearch(Integer.parseInt(br.readLine()))).append("\n");
@@ -35,7 +37,7 @@ public class Main {
 
         while(start <= end) {
             int mid = (start + end) / 2;
-            int midNum = nums.get(mid);
+            int midNum = nums[mid];
             
             if(midNum == target) {  //  중앙값이 target일 경우
                 idx = (mid + 1);
