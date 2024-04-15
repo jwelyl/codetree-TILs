@@ -44,25 +44,6 @@ public class Main {
             rightY[i] = rightY[i + 1] + Math.abs(posY[i] - posY[i + 1]);
         }
 
-        // System.out.print("leftX = ");
-        // for(int i = 1; i <= n; i++)
-        //     System.out.print(leftX[i] + " ");
-        // System.out.println();
-        // System.out.print("rightX = ");
-        // for(int i = 1; i <= n; i++)
-        //     System.out.print(rightX[i] + " ");
-        // System.out.println();
-
-        // System.out.print("leftY = ");
-        // for(int i = 1; i <= n; i++)
-        //     System.out.print(leftY[i] + " ");
-        // System.out.println();
-        // System.out.print("rightY = ");
-        // for(int i = 1; i <= n; i++)
-        //     System.out.print(rightY[i] + " ");
-        // System.out.println();
-
-
         for(int i = 2; i < n; i++)
             ans = Math.min(ans, leftX[i - 1] + Math.abs(posX[i + 1] - posX[i - 1]) + rightX[i + 1] + leftY[i - 1] + Math.abs(posY[i + 1] - posY[i - 1]) + rightY[i + 1]);
         
