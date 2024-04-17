@@ -36,11 +36,6 @@ public class Main {
             }
         }
 
-        // System.out.print("cnt = ");
-        // for(int i = 0; i <= 7; i++)
-        //     System.out.print(cnt[i] + " ");
-        // System.out.println(" ");
-
         for(int i = 1; i <= n - 1 - k; i++) {
             cnt[bombs[i - 1]]--;    //  i-1번째 폭탄에 해당하는 번호 등장 횟수 1 감소
             cnt[bombs[i + k]]++;    //  i+1번째 폭탄에 해당하는 번호 등장 횟수 1 증가
