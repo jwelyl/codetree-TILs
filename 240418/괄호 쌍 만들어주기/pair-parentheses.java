@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 public class Main {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -8,8 +9,10 @@ public class Main {
     private static int[] left;
     private static int[] right;
 
-    private static int leftCnt = 0;
-    private static int rightCnt = 0;
+    private static final List<Integer> leftList = new ArrayList<>();
+    private static final List<Integer> rightList = new ArrayList<>();
+
+    private static int ans = 0;
 
     public static void main(String[] args) throws IOException {
         parentheses = br.readLine().toCharArray();
@@ -25,7 +28,7 @@ public class Main {
                 left[i] = left[i - 1] + 1;
 
             if(left[i] >= 2)
-                leftCnt++;
+                leftList.add(i);
         }
 
         right[len - 1] = parentheses[len - 1] == ')' ? 1 : 0;
@@ -34,16 +37,19 @@ public class Main {
                 right[i] = right[i + 1] + 1;
 
             if(right[i] >= 2)
-                rightCnt++;
+                rightList.add(i);
         }
 
-        // for(int i = 0; i < len; i++)
-        //     System.out.print(left[i] + " ");
-        // System.out.println();
-        // for(int i = 0; i < len; i++)
-        //     System.out.print(right[i] + " ");
-        // System.out.println();
+        for(int i = 0; i < leftList.size(); i++) {
+            int leftPos = leftList.get(i);
+            for(int j = 0; j < rightList.size(); j++) {
+                int rightPos = rightList.get(j);
+            
+                if(leftPos < rightPos)
+                    ans++;
+            }
+        }
 
-        System.out.println(leftCnt * rightCnt);
+        System.out.println(ans);
     }   //  main-end
 }   //  Main-class-end
