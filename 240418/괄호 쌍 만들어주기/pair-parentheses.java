@@ -8,7 +8,7 @@ public class Main {
 
     private static int[] right;
 
-    private static int ans = 0;
+    private static long ans = 0;
 
     public static void main(String[] args) throws IOException {
         parentheses = br.readLine().toCharArray();
