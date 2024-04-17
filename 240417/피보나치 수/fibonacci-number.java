@@ -8,7 +8,7 @@ public class Main {
 
     private static int n = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         fibo[1] = 1;
         fibo[2] = 1;
 
