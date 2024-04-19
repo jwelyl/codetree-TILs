@@ -20,23 +20,25 @@ public class Main {
         for(int i = 0; i <= 3; i++)
             Arrays.fill(dp[i], NONE);
 
-        dp[0][0] = dp[1][0] = dp[2][0] = dp[3][0] = 0;
+        dp[0][0] = 0;
 
         tokens = new StringTokenizer(br.readLine());
         for(int i = 1; i <= n; i++)
             coins[i] = Integer.parseInt(tokens.nextToken());
 
         for(int i = 1; i <= n; i++) {
-            //  i-1계단에서 1 계단 더 올라오는 경우
-            for(int j = 0; j <= 2; j++) {
-                if(dp[j][i - 1] != NONE)
-                    dp[j + 1][i] = dp[j][i - 1] + coins[i];
+            //  i-1번째 계단에서 1 계단 더 오르는 방법
+            for(int j = 0; j < 3; j++) {    //  i-1번째 계단까지는 1계단 오르기를 총 j번 함
+                if(dp[j][i - 1] != NONE)    //  i-1번째 계단까지는 1계단 오르기 j번으로 오르는 게 가능할 경우
+                    dp[j + 1][i] = Math.max(dp[j + 1][i], dp[j][i - 1] + coins[i]);
             }
 
-            //  i-2계단에서 2 계단 더 올라오는 경우
-            for(int j = 0; j <= 3; j++) {
-                if(i >= 2 && dp[j][i - 2] != NONE)
-                    dp[j][i] = Math.max(dp[j][i], dp[j][i - 2] + coins[i]);
+            //  i-2번째 계단에서 2 계단 더 오르는 방법
+            if(i >= 2) {
+                for(int j = 0; j <= 3; j++) {   //  i-2번째 계단까지는 1계단 오르기를 총 j번 함
+                    if(dp[j][i - 2] != NONE)    //  i-2번째 계단까지는 1계단 오르기를 총 j번으로 오르는 게 가능할 경우
+                        dp[j][i] = Math.max(dp[j][i], dp[j][i - 2] + coins[i]);
+                }
             }
         }
 
