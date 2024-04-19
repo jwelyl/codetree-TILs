@@ -42,9 +42,8 @@ public class Main {
             }
         }
 
-        for(int i = 0; i <= 3; i++) {
+        for(int i = 0; i <= 3; i++)
             max= Math.max(max, dp[i][n]);
-        }
 
         System.out.println(max);
     }   //  main-end
