@@ -20,7 +20,7 @@ public class Main {
         for(int i = 0; i <= 3; i++)
             Arrays.fill(dp[i], NONE);
 
-        dp[0][0] = 0;
+        dp[0][0] = dp[1][0] = dp[2][0] = dp[3][0] = 0;
 
         tokens = new StringTokenizer(br.readLine());
         for(int i = 1; i <= n; i++)
@@ -30,7 +30,7 @@ public class Main {
             //  i-1계단에서 1 계단 더 올라오는 경우
             for(int j = 0; j <= 2; j++) {
                 if(dp[j][i - 1] != NONE)
-                    dp[j + 1][i] = Math.max(dp[j + 1][i], dp[j][i - 1] + coins[i]);
+                    dp[j + 1][i] = dp[j][i - 1] + coins[i];
             }
 
             //  i-2계단에서 2 계단 더 올라오는 경우
