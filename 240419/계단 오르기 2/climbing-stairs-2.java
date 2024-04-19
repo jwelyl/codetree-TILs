@@ -43,8 +43,7 @@ public class Main {
         }
 
         for(int i = 0; i <= 3; i++) {
-            for(int j = 1; j <= n; j++)
-                max= Math.max(max, dp[i][j]);
+            max= Math.max(max, dp[i][n]);
         }
 
         System.out.println(max);
