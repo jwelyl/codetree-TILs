@@ -35,7 +35,7 @@ public class Main {
 
         ans = Math.min(ans, k - kSum);
 
-        for(int i = 2; i <= n - k; i++) {
+        for(int i = 2; i <= n - k + 1; i++) {
             kSum -= nums[i - 1];
             kSum += nums[i + k - 1];
             ans = Math.min(ans, k - kSum);
