@@ -27,7 +27,7 @@ public class Main {
         for(int i = 0; i < n; i++) {
             String input = br.readLine();
 
-            for(int j = 0; j < n; j++) {
+            for(int j = 0; j < m; j++) {
                 char ch = input.charAt(j);
 
                 switch(ch) {
