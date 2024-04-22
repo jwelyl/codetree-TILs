@@ -33,12 +33,7 @@ public class Main {
             int from = i + 1;
             int to = n - 1;
             int target = k - num;
-
-            // System.out.println("target = " + target);
-            // System.out.println("from = " + from);
-            // System.out.println("to = " + to);
-
-
+            
             ans += binarySearch(from, to, target);  //  [from, to] 범위에서 target 이하 정수 개수 찾기
         }
 
@@ -60,8 +55,6 @@ public class Main {
             }
             else end = mid - 1;
         }
-
-        // System.out.println("idx = " + idx);
 
         return idx == -1 ? 0 : idx - from + 1;
     }
