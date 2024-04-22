@@ -10,9 +10,6 @@ public class Main {
 
     private static int[] nums;  //  원소
 
-    private static int start = 0;
-    private static int end = 0;
-
     private static int ans = 0; //  원소들 합이 m이 되는 경우의 수
     
     public static void main(String[] args) throws IOException {
@@ -27,22 +24,45 @@ public class Main {
 
         Arrays.sort(nums);
 
-        start = 0;
-        end = n - 1;
+        for(int i = 0; i < n - 1; i++) {
+            int num = nums[i];
 
-        while(start < end) {
-            if(nums[start] + nums[end] > k)    //  두 수 합이 k를 넘을 경우
-                end--;  //  합을 줄여야 함
-            else {
-                ans++;
-                
-                if(nums[start] + nums[end] == k)  //  두 수 합이 딱 k일 경우
-                    end--;  //  end를 줄여서 합을 줄여야 함
-                else
-                    start++;  //  start를 늘려서 합을 키워봄
-            }
+            if(k - num < num)
+                break;
+
+            int from = i + 1;
+            int to = n - 1;
+            int target = k - num;
+
+            // System.out.println("target = " + target);
+            // System.out.println("from = " + from);
+            // System.out.println("to = " + to);
+
+
+            ans += binarySearch(from, to, target);  //  [from, to] 범위에서 target 이하 정수 개수 찾기
         }
 
         System.out.println(ans);
     }   //  main-end
+
+    private static int binarySearch(int from, int to, int target) {
+        int idx = -1;
+
+        int start = from;
+        int end = to;
+
+        while(start <= end) {
+            int mid = (start + end) / 2;
+
+            if(nums[mid] <= target) {
+                idx = mid;
+                start = mid + 1;
+            }
+            else end = mid - 1;
+        }
+
+        // System.out.println("idx = " + idx);
+
+        return idx == -1 ? 0 : idx - from + 1;
+    }
 }   //  Main-class-end
