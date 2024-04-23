@@ -26,10 +26,9 @@ public class Main {
 
         while(end < n) {
             if(sum < 0) {   //  합이 음수가 될 경우
-                if(start < n - 1 && end < n - 1) {
-                    sum -= nums[start];
+                if(start < n - 1 && end < n - 1) {;
                     start++;
-                    sum += nums[end + 1];
+                    sum = nums[end + 1];
                     end++;
                 }
                 else break; //  더 이상 갈 수 없을 경우
