@@ -22,14 +22,17 @@ public class Main {
             nums[i] = Integer.parseInt(tokens.nextToken());
 
         sum = nums[0];
+        maxSum = Math.max(maxSum, sum);
 
         while(end < n) {
             if(sum < 0) {   //  합이 음수가 될 경우
-                sum -= nums[start];
-                start++;
-                end++;
-                if(end < n)
-                    sum += nums[end];
+                if(start < n - 1 && end < n - 1) {
+                    sum -= nums[start];
+                    start++;
+                    sum += nums[end + 1];
+                    end++;
+                }
+                else break; //  더 이상 갈 수 없을 경우
             }
             else {  //  합이 0 이상일 경우
                 end++;
