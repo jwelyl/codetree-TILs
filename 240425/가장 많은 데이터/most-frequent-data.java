@@ -6,6 +6,7 @@ public class Main {
   private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
   private static int n;   //  문자열 개수
+  private static int maxCnt;
 
   private static final Map<String, Integer> map = new HashMap<>();   //  K : 문자열, V : 수열의 수의 등장 횟수
 
@@ -16,16 +17,7 @@ public class Main {
       String str = br.readLine();
 
       map.put(str, map.getOrDefault(str, 0) + 1);
-    }
-
-    int maxCnt = 0;
-
-    Set<Entry<String, Integer>> entries = map.entrySet();
-    for(Entry<String, Integer> entry : entries) {
-      String key = entry.getKey();
-      int value = map.get(key);
-
-      maxCnt = Math.max(maxCnt, value);
+      maxCnt = Math.max(maxCnt, map.get(str));
     }
 
     System.out.println(maxCnt);
