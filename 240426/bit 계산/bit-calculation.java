@@ -12,8 +12,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         q = Integer.parseInt(br.readLine());
 
-        // System.out.println(Integer.toString(set, 2));
-
         for(int i = 0; i < q; i++) {
             tokens = new StringTokenizer(br.readLine());
             String opt = tokens.nextToken();
@@ -31,17 +29,13 @@ public class Main {
             case "delete":
                 x = Integer.parseInt(tokens.nextToken()) - 1;
 
-                key = (1 << 30) - 1;
-                // System.out.println("key = " + Integer.toString(key, 2));
-                key = key ^ (1 << x);
-                // System.out.println("key = " + Integer.toString(key, 2));
-
+                key = ((1 << 30) - 1) ^ (1 << x);
                 set = set & key;
 
                 break;
             case "print":
                 x = Integer.parseInt(tokens.nextToken()) - 1;
-
+                
                 key = 1 << x;
 
                 sb.append((set & key) == 0 ? 0 : 1).append("\n"); 
@@ -56,8 +50,6 @@ public class Main {
             default:
                 set = 0;
             }
-
-            // System.out.println(Integer.toString(set, 2));
         }
 
         System.out.print(sb);
