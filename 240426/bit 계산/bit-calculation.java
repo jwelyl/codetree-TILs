@@ -31,8 +31,10 @@ public class Main {
             case "delete":
                 x = Integer.parseInt(tokens.nextToken()) - 1;
 
-                key = 1 << 30 - 1;
+                key = (1 << 30) - 1;
+                // System.out.println("key = " + Integer.toString(key, 2));
                 key = key ^ (1 << x);
+                // System.out.println("key = " + Integer.toString(key, 2));
 
                 set = set & key;
 
@@ -55,7 +57,7 @@ public class Main {
                 set = 0;
             }
 
-            System.out.println(Integer.toString(set, 2));
+            // System.out.println(Integer.toString(set, 2));
         }
 
         System.out.print(sb);
