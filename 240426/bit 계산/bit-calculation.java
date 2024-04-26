@@ -12,6 +12,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         q = Integer.parseInt(br.readLine());
 
+        System.out.println(Integer.toString(set, 2));
+
         for(int i = 0; i < q; i++) {
             tokens = new StringTokenizer(br.readLine());
             String opt = tokens.nextToken();
@@ -52,6 +54,8 @@ public class Main {
             default:
                 set = 0;
             }
+
+            System.out.println(Integer.toString(set, 2));
         }
 
         System.out.print(sb);
