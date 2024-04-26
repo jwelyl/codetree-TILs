@@ -55,7 +55,7 @@ public class Main {
                 set = 0;
             }
 
-            // System.out.println(Integer.toString(set, 2));
+            System.out.println(Integer.toString(set, 2));
         }
 
         System.out.print(sb);
