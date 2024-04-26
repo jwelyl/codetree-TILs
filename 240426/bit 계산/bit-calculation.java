@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         q = Integer.parseInt(br.readLine());
 
-        System.out.println(Integer.toString(set, 2));
+        // System.out.println(Integer.toString(set, 2));
 
         for(int i = 0; i < q; i++) {
             tokens = new StringTokenizer(br.readLine());
@@ -55,7 +55,7 @@ public class Main {
                 set = 0;
             }
 
-            System.out.println(Integer.toString(set, 2));
+            // System.out.println(Integer.toString(set, 2));
         }
 
         System.out.print(sb);
