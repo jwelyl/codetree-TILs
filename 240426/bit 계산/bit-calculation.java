@@ -20,30 +20,30 @@ public class Main {
 
             switch(opt) {
             case "add":
-                x = Integer.parseInt(tokens.nextToken());
+                x = Integer.parseInt(tokens.nextToken()) - 1;
                 
                 key = 1 << x;
                 set = set | key;
                 
                 break;
             case "delete":
-                x = Integer.parseInt(tokens.nextToken());
+                x = Integer.parseInt(tokens.nextToken()) - 1;
 
-                key = 1 << 31 - 1;
+                key = 1 << 30 - 1;
                 key = key ^ (1 << x);
 
                 set = set & key;
 
                 break;
             case "print":
-                x = Integer.parseInt(tokens.nextToken());
+                x = Integer.parseInt(tokens.nextToken()) - 1;
 
                 key = 1 << x;
 
                 sb.append((set & key) == 0 ? 0 : 1).append("\n"); 
                 break;
             case "toggle":
-                x = Integer.parseInt(tokens.nextToken());
+                x = Integer.parseInt(tokens.nextToken()) - 1;
 
                 key = 1 << x;
                 set = set ^ key;
