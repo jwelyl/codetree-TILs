@@ -2,6 +2,8 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+    private static final MAX = (1 << 30) - 1;
+    
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static StringTokenizer tokens;
     private static final StringBuilder sb = new StringBuilder();
@@ -29,7 +31,7 @@ public class Main {
             case "delete":
                 x = Integer.parseInt(tokens.nextToken()) - 1;
 
-                key = ((1 << 30) - 1) ^ (1 << x);
+                key = MAX ^ (1 << x);
                 set = set & key;
 
                 break;
