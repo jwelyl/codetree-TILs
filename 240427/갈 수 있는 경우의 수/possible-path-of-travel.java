@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Main {
     private static final int MOD = 1_000_000_007;
-    private static BufferedReader br = new BufferedReader(new InputStreamReader(System.`in`));
+    private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static int n, m;
     private static List<Integer>[] graph;
     private static int[] cnts;
