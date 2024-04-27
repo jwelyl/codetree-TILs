@@ -1,70 +1,50 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
     private static final int MOD = 1_000_000_007;
-
-    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private static StringTokenizer tokens;
-    
-    private static int n;   //  노드 개수
-    private static int m;   //  간선 개수
-
-    private static List<Integer>[] graph;   //  그래프
-    private static int[] indegree;  //  진입 차수
-    private static int[] paths;     //  paths[i] : 1번 정점에서 i번째 정점까지 가는 경로 수
+    private static BufferedReader br = new BufferedReader(new InputStreamReader(System.`in`));
+    private static int n, m;
+    private static List<Integer>[] graph;
+    private static int[] cnts;
+    private static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
-        tokens = new StringTokenizer(br.readLine());
-        
+        StringTokenizer tokens = new StringTokenizer(br.readLine());
         n = Integer.parseInt(tokens.nextToken());
         m = Integer.parseInt(tokens.nextToken());
 
         graph = new ArrayList[n + 1];
-        indegree = new int[n + 1];
-        paths = new int[n + 1];
-        
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i <= n; i++) {
             graph[i] = new ArrayList<>();
         }
+        cnts = new int[n + 1];
+        visited = new boolean[n + 1];
 
         for (int i = 0; i < m; i++) {
             tokens = new StringTokenizer(br.readLine());
-        
-            int x = Integer.parseInt(tokens.nextToken());
-            int y = Integer.parseInt(tokens.nextToken());
-
-            graph[x].add(y);
-            indegree[y]++;
+            int prev = Integer.parseInt(tokens.nextToken());
+            int next = Integer.parseInt(tokens.nextToken());
+            graph[prev].add(next);
         }
 
-        paths[1] = 1; // 시작 노드에서의 경로 수는 1
-    
-        topologicalSort();
-    }   // main-end
+        // 초기화
+        cnts[1] = 1;  // 1번 노드에서 1번 노드로의 경로는 하나뿐임
 
-    private static void topologicalSort() {
-        Queue<Integer> q = new LinkedList<>();
+        // DFS 호출
+        dfs(1);
 
-        // 위상 정렬 시작: indegree가 0인 노드를 큐에 추가
-        for (int i = 1; i <= n; i++) {
-            if (indegree[i] == 0) {
-                q.add(i);
-            }
-        }
-
-        // 위상 정렬 처리
-        while (!q.isEmpty()) {
-            int cur = q.poll();
-
-            for (int next : graph[cur]) {
-                paths[next] = (paths[next] + paths[cur]) % MOD;
-                indegree[next]--;
-                if (indegree[next] == 0)
-                    q.add(next);
-            }
-        }
-
-        System.out.println(paths[n]); // n번 노드로의 경로 수 출력
+        System.out.println(cnts[n]);
     }
-}   //  Main-class-end
+
+    private static void dfs(int cur) {
+        visited[cur] = true;
+        for (int next : graph[cur]) {
+            if (!visited[next]) {
+                dfs(next);
+            }
+            cnts[next] = (cnts[next] + cnts[cur]) % MOD;
+        }
+        visited[cur] = false;  // 노드 방문 완료 후 방문 해제
+    }
+}
