@@ -27,23 +27,45 @@ public class Main {
             int target = k - num;
 
             if(target >= num)
-                ans += binarySearch(target, i + 1, n - 1);
+                ans += countOccurrences(target, i + 1, n - 1);
         }
 
         System.out.println(ans);
     }   //  main-end
 
-    //  [start, end] 범위에서 target의 개수
-    private static int binarySearch(int target, int start, int end) {
-        if(start > end) //  더 이상 없을 경우
+    public static int countOccurrences(int target, int start, int end) {
+        int firstIndex = findFirstIndex(target, start, end);
+        int lastIndex = findLastIndex(target, start, end);
+        
+        if (firstIndex == -1 || lastIndex == -1) 
             return 0;
         
-        int mid = (start + end) / 2;
-        int ret = nums.get(mid) == target ? 1 : 0;
+        return lastIndex - firstIndex + 1;
+    }
 
-        ret += binarySearch(target, start, mid - 1);    //  [start, mid - 1]에 몇 개 있나 찾아보기
-        ret += binarySearch(target, mid + 1, end);      //  [mid + 1, end]에 몇 개 있나 찾아보기
+    private static int findFirstIndex(int target, int start, int end) {
+        int index = -1;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums.get(mid) >= target) {
+                if (nums.get(mid) == target) index = mid;
+                end = mid - 1;
+            } else
+                start = mid + 1;
+        }
+        return index;
+    }
 
-        return ret;
-    }                                                                                                                                                                                                                                                                                                                                                                
+    private static int findLastIndex(int target, int start, int end) {
+        int index = -1;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums.get(mid) <= target) {
+                if (nums.get(mid) == target) index = mid;
+                start = mid + 1;
+            } else
+                end = mid - 1;
+        }
+        return index;
+    }                                                                                                                                                                                                                                                                                                                                                               
 }   //  Main-class-end
