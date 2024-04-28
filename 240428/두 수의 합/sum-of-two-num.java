@@ -26,24 +26,23 @@ public class Main {
             int num = nums.get(i);
             int target = k - num;
 
-            if(target >= num)
-                ans += binarySearch(target, i + 1, n - 1);
+            if(target >= num) {
+                int startIndex = Collections.binarySearch(nums, target);
+                if(startIndex >= 0) { // target을 찾은 경우
+                    // target 값의 첫 위치 찾기
+                    while (startIndex > i + 1 && nums.get(startIndex - 1).equals(nums.get(startIndex))) {
+                        startIndex--;
+                    }
+                    // target 값의 마지막 위치 찾기
+                    int endIndex = startIndex;
+                    while (endIndex < n && nums.get(endIndex).equals(nums.get(startIndex))) {
+                        endIndex++;
+                    }
+                    ans += (endIndex - startIndex);
+                }
+            }
         }
 
         System.out.println(ans);
-    }   //  main-end
-
-    //  [start, end] 범위에서 target의 개수
-    private static int binarySearch(int target, int start, int end) {
-        if(start > end) //  더 이상 없을 경우
-            return 0;
-        
-        int mid = (start + end) / 2;
-        int ret = nums.get(mid) == target ? 1 : 0;
-
-        ret += binarySearch(target, start, mid - 1);    //  [start, mid - 1]에 몇 개 있나 찾아보기
-        ret += binarySearch(target, mid + 1, end);      //  [mid + 1, end]에 몇 개 있나 찾아보기
-
-        return ret;
-    }                                                                                                                                                                                                                                                                                                                                                                
+    }   //  main-end                                                                                                                                                                                                                                                                                                                                                             
 }   //  Main-class-end
