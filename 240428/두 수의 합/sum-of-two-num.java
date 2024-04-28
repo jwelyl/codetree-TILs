@@ -7,7 +7,7 @@ public class Main {
 
     private static int n;   //  수 개수
     private static int k;   //  두 수 합 k
-    public static List<Integer> nums = new ArrayList<Integer>();    //  수 목록
+    public static final List<Integer> nums = new ArrayList<Integer>();    //  수 목록
 
     private static long ans = 0L;
     
