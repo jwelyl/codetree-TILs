@@ -25,7 +25,7 @@ public class Main {
             numMap.put(num, numMap.getOrDefault(num, 0) + 1);    //  num의 등장 횟수 증가
         }
 
-        for(int i = 0; i < n - 1; i++) {
+        for(int i = 0; i < n; i++) {
             int num1 = nums.get(i); //  첫 번째 수
 
             if(numMap.containsKey(num1)) {
@@ -35,7 +35,7 @@ public class Main {
                     numMap.remove(num1);    //  num1을 해시맵에서 제거
             }
         
-            for(int j = i + 1; j < n; j++) {
+            for(int j = 0; j < i; j++) {
                 int num2 = nums.get(j); //  두 번째 수
                 int target = k - num1 - num2;
                 
