@@ -35,19 +35,19 @@ public class Main {
 
     for(int i = 0; i < n; i++) {
       for(int j = 0; j < n; j++) {
-        for(int k = 0; k < n; k++) {
-          int sum = a[i] + b[j] + c[k];
+          int sum = a[i] + b[j];
           int comp = -sum;
 
           map.put(comp, map.getOrDefault(comp, 0) + 1);
-        }
       }
     }
 
     for(int i = 0; i < n; i++) {
-      int num = d[i];
+      for(int j = 0; j < n; j++) {
+        int sum = c[i] + d[j];
 
-      ans += map.getOrDefault(num, 0);
+        ans += map.getOrDefault(sum, 0);
+      }
     }
 
     System.out.println(ans);
