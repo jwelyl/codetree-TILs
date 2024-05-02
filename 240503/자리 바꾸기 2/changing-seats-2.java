@@ -6,13 +6,14 @@ public class Main {
     private static final StringBuilder sb = new StringBuilder();
     private static StringTokenizer tokens;
 
-    private static int n;
-    private static int k;
+    private static int n;   //  사람 수
+    private static int k;   //  자리 바꾸는 횟수 3 * k
+
 
     private static int[] a;
-    private static int[] b;
+    private static int[] b; //  자리 바꿀 위치 a, b
 
-    private static int[] pos;
+    private static int[] pos;   //  i번째 위치에 있는 사람 번호
 
     private static Set<Integer>[] sets;
 
@@ -32,7 +33,7 @@ public class Main {
 
         for(int i = 1; i <= n; i++) {
             pos[i] = i;
-            sets[i].add(pos[i]);
+            sets[pos[i]].add(i);
         }
 
         for(int i = 0; i < k; i++) {
@@ -42,17 +43,17 @@ public class Main {
         }
 
         for(int i = 0; i < 3 * k; i++) {
-            int aIdx = a[i % k];
-            int bIdx = b[i % k];
+            int aIdx = a[i % k];    //  a 위치
+            int bIdx = b[i % k];    //  b 위치
 
-            int aNum = pos[aIdx];
-            int bNum = pos[bIdx];
+            int aNum = pos[aIdx];   //  a 위치에 있는 사람
+            int bNum = pos[bIdx];   //  b 위치에 있는 사람
 
-            sets[aNum].add(bIdx);
-            sets[bNum].add(aIdx);
+            sets[aNum].add(bIdx);   //  a 위치에 있는 사람의 위치에 b 위치 추가
+            sets[bNum].add(aIdx);   //  b 위치에 있는 사람의 위치에 a 위치 추가
 
             pos[bIdx] = aNum;
-            pos[aIdx] = bNum;
+            pos[aIdx] = bNum;   //  두 사람 자리 바꾸기
         }
 
         for(int i = 1; i <= n; i++)
