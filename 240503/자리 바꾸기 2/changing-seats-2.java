@@ -35,9 +35,6 @@ public class Main {
             sets[i].add(pos[i]);
         }
 
-        // for(int i = 1; i <= n; i++)
-        //     System.out.println("sets[" + i  + "] = " + sets[i]);
-
         for(int i = 0; i < k; i++) {
             tokens = new StringTokenizer(br.readLine());
             a[i] = Integer.parseInt(tokens.nextToken());
@@ -57,10 +54,6 @@ public class Main {
             pos[bIdx] = aNum;
             pos[aIdx] = bNum;
         }
-
-
-        // for(int i = 1; i <= n; i++)
-        //     System.out.println("sets[" + i  + "] = " + sets[i]);
 
         for(int i = 1; i <= n; i++)
             sb.append(sets[i].size()).append("\n");
