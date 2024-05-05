@@ -1,69 +1,73 @@
-import java.util.Scanner;
-import java.util.HashSet;
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.LinkedList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
 
 public class Main {
-    public static final int MAX_G = 250000;
-    public static final int MAX_N = 100000;
+  private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  private static StringTokenizer tokens;
+
+  private static int n;   //  n명의 사람
+  private static int g;   //  그룹 개수
+  private static boolean[] invited;     //  invited[i] : i번째 사람이 초대받았으면 true
+  private static Set<Integer>[] groups; //  groups[i] : i번째 그룹에 속한 사람들 집합
+  private static List<Integer>[] peopleGroups;  //  peopleGroups[i] : i번째 사람이 속한 그룹
+
+  private static int ans = 0; //  가장 큰 목장 한 변 길이
+
+  public static void main(String[] args) throws IOException {
+    tokens = new StringTokenizer(br.readLine());
+
+    n = Integer.parseInt(tokens.nextToken());
+    g = Integer.parseInt(tokens.nextToken());
+
+    invited = new boolean[n + 1];
+    groups = new HashSet[g + 1];
+    for(int i = 0; i <= g; i++)
+      groups[i] = new HashSet<>();
+
+    peopleGroups = new ArrayList[n + 1];
+    for(int i = 0; i <= n; i++)
+      peopleGroups[i] = new ArrayList<>();
     
-    // 변수 선언
-    public static int n, g;
-    public static boolean[] invited = new boolean[MAX_N];
-    // 각 그룹마다 초대장을 받지 못한 사람들을 관리해줍니다.
-    public static HashSet<Integer>[] groups = new HashSet[MAX_G];
-    // 각 사람이 어떤 그룹에 속하는지를 관리해줍니다.
-    public static ArrayList<Integer>[] peopleGroups = new ArrayList[MAX_N];
-    public static Queue<Integer> q = new LinkedList<>();
-    public static int ans;
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        // 입력:
-        n = sc.nextInt();
-        g = sc.nextInt();
-
-        for(int i = 0; i < n; i++)
-            peopleGroups[i] = new ArrayList<>();
-
-        for(int i = 0; i < g; i++)
-            groups[i] = new HashSet<>();
-
-        for(int i = 0; i < g; i++) {
-            int s = sc.nextInt();
-            for(int j = 0; j < s; j++) {
-                int x = sc.nextInt(); x--;
-                groups[i].add(x);
-                peopleGroups[x].add(i);
-            }
-        }
-
-        q.add(0);
-        invited[0] = true;
-        while(!q.isEmpty()) {
-            int x = q.poll();
-            ans++;
-
-            // x가 들어있는 그룹에서 x를 지웁니다.
-            // hashset에는 그룹에서 초대받지 않은 인원만을 남깁니다.
-            for(int i = 0; i < peopleGroups[x].size(); i++) {
-                int gNum = peopleGroups[x].get(i);
-
-                // 해당 그룹에서 x를 지웁니다.
-                groups[gNum].remove(x);
-                // 초대받지 않은 인원이 한명밖에 없다면 초대합니다.
-                if(groups[gNum].size() == 1) {
-                    int pNum = new ArrayList<>(groups[gNum]).get(0);
-                    if(!invited[pNum]) {
-                        invited[pNum] = true;
-                        q.add(pNum);
-                    }
-                }
-            }
-        }
-
-        // 초대장을 받는 인원을 출력합니다.
-        System.out.print(ans);
+    for(int i = 1; i <= g; i++) {
+      tokens = new StringTokenizer(br.readLine());
+      int cnt = Integer.parseInt(tokens.nextToken()); //  i 그룹에 속한 사람 수
+      
+      for(int j = 0; j < cnt; j++) {
+        int person = Integer.parseInt(tokens.nextToken());  //  i 그룹에 속한 사람
+        groups[i].add(person);          //  i번째 그룹에 person이 속함
+        peopleGroups[person].add(i);    //  person이 속한 그룹에 i 추가
+      }
     }
-}
+    
+    bfs();
+    
+    System.out.println(ans);
+  } // main-end
+  
+  private static void bfs() {
+    Queue<Integer> q = new LinkedList<>();
+    invited[1] = true;  //  1번 사람은 초대됨
+    q.offer(1);
+    
+    while(!q.isEmpty()) {
+      int cur = q.poll(); //  초대된 사람
+      ans++;
+      
+      for(int i = 0; i < peopleGroups[cur].size(); i++) {
+        int group = peopleGroups[cur].get(i); //  cur이 포함된 그룹 번호
+        groups[group].remove(cur);  //  cur이 포함된 그룹에서 cur 지우기
+        
+        if(groups[group].size() == 1) { //  해당 그룹에 초대받지 않은 사람이 한 명만 남았다면
+          int next = new ArrayList<>(groups[group]).get(0); //  해당 사람을 초대함
+          
+          if(!invited[next]) {  //  아직 초대받지 않은 사람이면
+            invited[next] = true;
+            q.offer(next);
+          }
+        }
+      }
+    }
+  } //  bfs-end
+} // Main-class-end
