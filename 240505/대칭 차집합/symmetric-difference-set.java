@@ -12,7 +12,6 @@ public class Main {
   private static int nAB; //  집합 A, B의 교집합의 원소 개수
 
   private static final Set<Integer> setA = new HashSet<>(); //  집합 A
-  private static final Set<Integer> setB = new HashSet<>(); //  집합 B
 
   public static void main(String[] args) throws IOException {
     tokens = new StringTokenizer(br.readLine());
@@ -25,7 +24,7 @@ public class Main {
       setA.add(Integer.parseInt(tokens.nextToken()));
 
     tokens = new StringTokenizer(br.readLine());
-    for(int i = 0; i < nA; i++) {
+    for(int i = 0; i < nB; i++) {
       if(setA.contains(Integer.parseInt(tokens.nextToken())))
           nAB++;
     }
