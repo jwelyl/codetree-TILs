@@ -12,35 +12,34 @@ public class Main {
   private static final TreeSet<Integer> treeSet = new TreeSet<>();
 
   public static void main(String[] args) throws IOException {
-    treeSet.add(0);
+    treeSet.add(0);  // 0 좌표 추가
 
     n = Integer.parseInt(br.readLine());
-
     tokens = new StringTokenizer(br.readLine());
 
+    // 첫 번째 점 추가
     int point = Integer.parseInt(tokens.nextToken());
     treeSet.add(point);
-    sb.append(point).append("\n");
+    sb.append(point).append("\n");  // 첫 번째 점과 0 사이의 거리 출력
 
-    int low = treeSet.first();
-    int high = treeSet.last();
-
-    for(int i = 0; i < n - 1; i++) {
+    for (int i = 1; i < n; i++) {
       point = Integer.parseInt(tokens.nextToken());
-
       treeSet.add(point);
 
-      if(low < point && point < high) {
-        if(point - low < high - point) {
-          sb.append(point - low).append("\n");
-          high = point;
-        }
-        else {
-          sb.append(high - point).append("\n");
-          low = point;
-        }
+      // 새 점 기준 이전과 이후 점 찾기
+      Integer lower = treeSet.lower(point);
+      Integer higher = treeSet.higher(point);
+
+      // 최소 간격 계산
+      int minDist = Integer.MAX_VALUE;
+      if (lower != null) {
+        minDist = point - lower;
       }
-      else sb.append(high - low).append("\n");
+      if (higher != null && higher - point < minDist) {
+        minDist = higher - point;
+      }
+
+      sb.append(minDist).append("\n");
     }
 
     System.out.print(sb);
