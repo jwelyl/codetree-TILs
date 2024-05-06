@@ -12,31 +12,57 @@ public class Main {
   private static final TreeSet<Integer> treeSet = new TreeSet<>();
 
   public static void main(String[] args) throws IOException {
-    treeSet.add(0);  // 0 좌표 추가
+    treeSet.add(0);
 
     n = Integer.parseInt(br.readLine());
+
     tokens = new StringTokenizer(br.readLine());
 
-    // 첫 번째 점 추가
     int point = Integer.parseInt(tokens.nextToken());
     treeSet.add(point);
-    sb.append(point).append("\n");  // 첫 번째 점과 0 사이의 거리 출력
+    sb.append(point).append("\n");
 
-    for (int i = 1; i < n; i++) {
+    int low = treeSet.first();  //  가장 가까운 두 점의 작은 점
+    int high = treeSet.last();  //  가장 가까운 두 점의 큰 점
+
+    for(int i = 0; i < n - 1; i++) {
       point = Integer.parseInt(tokens.nextToken());
+
       treeSet.add(point);
 
-      // 새 점 기준 이전과 이후 점 찾기
-      Integer lower = treeSet.lower(point);
-      Integer higher = treeSet.higher(point);
+      Integer lowerPoint = treeSet.lower(point);    //  현재 입력받은 점보다 작으면서 가장 큰 점
+      Integer higherPoint = treeSet.higher(point);  //  현재 입력받은 점보다 크면서 가장 작은 점
 
-      // 최소 간격 계산
-      int minDist = Integer.MAX_VALUE;
-      if (lower != null) {
-        minDist = point - lower;
+      int minDist = high - low; //  이전에 알려진 가장 가까운 두 점 사이 거리
+      int leftMinDist;
+      int rightMinDist;
+
+      if(lowerPoint != null && higherPoint != null) {
+        leftMinDist = point - lowerPoint;     //  현재 입력받은 점과 그 점보다 작은 가장 가까운 점
+        rightMinDist = higherPoint - point;   //  현재 입력받은 점과 그 점보다 큰 가장 가까운 점
       }
-      if (higher != null && higher - point < minDist) {
-        minDist = higher - point;
+      else if(lowerPoint == null) { //  현재 입력받은 점보다 작은 점이 없을 경우
+        leftMinDist = Integer.MAX_VALUE;
+        rightMinDist = higherPoint - point;
+      }
+      else {  //  현재 입력받은 점보다 큰 점이 없을 경우
+        leftMinDist = point - lowerPoint;
+        rightMinDist = Integer.MAX_VALUE;
+      }
+
+      if(leftMinDist > rightMinDist) {
+        if(minDist > rightMinDist) {  //  이전에 알려진 가장 가까운 두 점 사이 거리보다 가까울 경우
+          low = point;
+          high = higherPoint;   //  가장 가까운 두 점 갱신
+          minDist = rightMinDist;
+        }
+      }
+      else {
+        if(minDist > leftMinDist) {
+          low = lowerPoint;
+          high = point;
+          minDist = leftMinDist;
+        }
       }
 
       sb.append(minDist).append("\n");
