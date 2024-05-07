@@ -20,8 +20,11 @@ public class Main {
 
     for(int i = 1; i <= n; i++) {
       tokens = new StringTokenizer(br.readLine());
-      for(int j = 1; j <= n; j++)
+      for(int j = 1; j <= n; j++) {
         dp[i][j] = Integer.parseInt(tokens.nextToken());
+        if(i == j)
+          dp[i][j] = 1;
+      }
     }
 
     floydWarshall();
