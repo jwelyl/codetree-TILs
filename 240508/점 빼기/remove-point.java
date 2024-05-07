@@ -26,7 +26,7 @@ public class Main {
       treeSet.add(new Point(Integer.parseInt(tokens.nextToken()), Integer.parseInt(tokens.nextToken())));
     }
 
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < m; i++) {
       int k = Integer.parseInt(br.readLine());
 
       Point p = treeSet.ceiling(new Point(k, 0)); //  x 좌표가 k인 점보다 x 좌표가 크거나 같은 점 찾기
