@@ -17,7 +17,21 @@ class Main {
 
        treeSet.add(Long.MAX_VALUE)
 
-       
+       repeat(n) {
+          tokens = StringTokenizer(br.readLine())
+          val p0 = tokens.nextToken().toLong()
+          val v = tokens.nextToken().toLong()
+          val p = p0 + v * t
+
+          val prev = treeSet.ceiling(p)
+
+          if(prev != null) // 따라잡힐 경우
+            treeSet.remove(prev)
+
+          treeSet.add(p)
+       }
+
+       println(treeSet.size)
     }
 }
 
