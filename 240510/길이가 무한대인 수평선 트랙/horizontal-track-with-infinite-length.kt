@@ -15,8 +15,6 @@ class Main {
        n = tokens.nextToken().toInt()
        t = tokens.nextToken().toInt()
 
-       treeSet.add(Long.MAX_VALUE)
-
        repeat(n) {
           tokens = StringTokenizer(br.readLine())
           val p0 = tokens.nextToken().toLong()
