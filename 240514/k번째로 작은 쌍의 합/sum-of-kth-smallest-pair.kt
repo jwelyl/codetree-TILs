@@ -34,10 +34,10 @@ class Main {
         list2.sort()    //  오름차순 정렬
 
         //  수열 1의 첫번째 수와 수열 2의 모든 수와의 쌍을 넣음
-        for(i in 0 ..< n)
+        for(i in 0 until n)
             pq.offer(Pair(list1[i] + list2[0], i, 0))
 
-        for(i in 1..< k) {
+        for(i in 1 until k) {
             val minPair = pq.poll() //  (i번째로 합이 작은 쌍 빼기)
 
             val idx1 = minPair.idx1 //  i번째로 합이 작은 쌍에 쓰인 수열 1의 수 위치
