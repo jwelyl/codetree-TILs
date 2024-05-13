@@ -24,7 +24,6 @@ class Main {
             tokens = StringTokenizer(br.readLine())
 
             repeat(m) {
-                // println("++++++++++++++++++++++++++++++++")
                 val num = tokens.nextToken().toInt()
 
                 //  최대 힙에 저장된 수의 개수가 최소 힙에 저장된 수의 개수와 같거나 1 많게 함
@@ -32,9 +31,6 @@ class Main {
                     maxHeap.offer(num)
                 else
                     minHeap.offer(num)
-
-                // println("maxHeap = $maxHeap")
-                // println("minHeap = $minHeap")
 
                 //  최대 힙의 최댓값이 최소 힙의 최솟값보다 작아야 함
                 //  최대 힙의 최댓값이 최소 힙의 최솟값보다 클 경우 둘을 swap
@@ -46,10 +42,6 @@ class Main {
                     maxHeap.offer(min)
                     minHeap.offer(max)
                 }
-
-                // println("$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-                // println("maxHeap = $maxHeap")
-                // println("minHeap = $minHeap")
 
                 if(it % 2 == 0) //  전체 데이터 개수가 홀수일 경우
                     sb.append("${maxHeap.peek()} ")
