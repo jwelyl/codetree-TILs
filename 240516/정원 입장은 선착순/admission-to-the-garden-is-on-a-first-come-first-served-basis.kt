@@ -27,7 +27,7 @@ class Main {
 
 //        println("personList = $personList")
 
-        personList.sortBy { it.arrival }   //  도착 시간이 빠른 순으로 정렬
+        personList.sortWith(compareBy( {it.arrival}, {it.num} ))   //  도착 시간이 빠른 순으로 정렬, 도착 시간이 같을 경우 번호표 번호가 빠른 순으로 정렬
 
 //        println("personList = $personList")
 
