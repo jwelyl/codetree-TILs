@@ -41,7 +41,7 @@ class Main {
                 exit += waitPerson.time //  기다리는 사람이 나올 시간 계산
             }
 
-            if(arrival > exit)  //  먼저 기다리는 사람 없고, 들어간 사람이 나올 시간보다 늦게 도착한 경우
+            if(arrival >= exit)  //  먼저 기다리는 사람 없고, 들어간 사람이 나올 시간보다 늦게 도착한 경우
                 exit = arrival + time   //  내가 들어가고 나온 시간 계산
             else    //  먼저 기다리는 사람은 없지만 들어간 사람이 나올 시간보다 일찍 도착한 경우
                 pq.offer(person)    //  기다리는 사람에 넣기
