@@ -124,7 +124,7 @@ public class Main {
 
     Node iStart = heads[i].next;  //  i번째 연결 리스트의 가장 앞의 노드
 
-    if(iStart.num == HEAD)  //  가장 앞의 노드가 head라면 빈 연결 리스트
+    if(iStart.num == TAIL)  //  가장 앞의 노드가 tail이라면 빈 연결 리스트
       return;
 
     Node iEnd = tails[i].prev;      //  i번째 연결 리스트의 가장 뒤의 노드
@@ -148,7 +148,7 @@ public class Main {
 
     Node iStart = heads[i].next;  //  i번째 연결 리스트의 가장 앞의 노드
 
-    if(iStart.num == HEAD)  //  가장 앞의 노드가 head라면 빈 연결 리스트
+    if(iStart.num == TAIL)  //  가장 앞의 노드가 tail이라면 빈 연결 리스트
       return;
 
     Node iEnd = tails[i].prev;      //  i번째 연결 리스트의 가장 뒤의 노드
