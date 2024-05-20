@@ -63,7 +63,7 @@ public class Main {
     right.next = left;
     left.prev = right;
 
-    sb.append(right.num).append(" ").append(left.num).append("\n");
+    sb.append(left.num).append(" ").append(right.num).append("\n");
   }
 
   private static class Node {
