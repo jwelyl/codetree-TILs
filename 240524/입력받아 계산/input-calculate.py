@@ -1,3 +1,3 @@
-a = input()
+a = int(input())
 
 print(a + 2)
