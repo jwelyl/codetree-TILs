@@ -135,14 +135,14 @@ public class Main {
     Node prev;
     Node next;   //  front의 이전 노드와, back의 이후 노드
 
-    if(isBefore(node1, node2)) {    //  node1이 node2보다 더 앞에 있으면
+    // if(isBefore(node1, node2)) {    //  node1이 node2보다 더 앞에 있으면
       front = node1;
       back = node2;
-    }
-    else {  //  node1이 node2보다 더 뒤에 있으면
-      front = node2;
-      back = node1;
-    }
+    // }
+    // else {  //  node1이 node2보다 더 뒤에 있으면
+    //   front = node2;
+    //   back = node1;
+    // }
 
     prev = front.prev;
     next = back.next;
