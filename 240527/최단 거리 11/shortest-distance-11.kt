@@ -61,13 +61,13 @@ class Main {
                 val nv = next.v
                 val nc = cur.c + next.c
 
-                if(nc < dist[nv]) {
+                if(nc < dist[nv]) { //  cv를 거쳐서 nv까지 가는게 더 빠를 경우
                     dist[nv] = nc
                     pq.offer(Node(nv, dist[nv]))
                     prev[nv] = cv
                 }
                 else if(nc == dist[nv]) {
-                    if(cv < prev[cv]) {
+                    if(cv > prev[nv]) {
                         pq.offer(Node(nv, dist[nv]))
                         prev[nv] = cv
                     }
