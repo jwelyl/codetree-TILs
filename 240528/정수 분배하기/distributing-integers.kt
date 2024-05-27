@@ -28,7 +28,7 @@ class Main {
     }
 
     private fun parametricSearch() : Int {
-        var ans = 1
+        var ans = 0
 
         while(start <= end) {
             val mid = (start + end) / 2 //  나누는 정수 크기
