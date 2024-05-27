@@ -6,8 +6,8 @@ class Main {
     private lateinit var tokens : StringTokenizer
 
     private var m = 0L
-    private var a = 0
-    private var b = 0
+    private var a = 0L
+    private var b = 0L
 
     private var min = 0L        //  최소 찾는 횟수
     private var max = 0L     //  최대 찾는 횟수
@@ -18,8 +18,8 @@ class Main {
         min = m + 1
 
         tokens = StringTokenizer(br.readLine())
-        a = tokens.nextToken().toInt()
-        b = tokens.nextToken().toInt()
+        a = tokens.nextToken().toLong()
+        b = tokens.nextToken().toLong()
 
         for(target in a .. b) {
             val cnt = binarySearch(target)
@@ -32,7 +32,7 @@ class Main {
     }
 
     //  정석적인 이진탐색으로 target을 찾기 위한 탐색 횟수
-    private fun binarySearch(target : Int) : Int {
+    private fun binarySearch(target : Long) : Int {
         var start = 1L
         var end = m
         var cnt = 1
