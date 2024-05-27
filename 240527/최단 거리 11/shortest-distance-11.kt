@@ -1,111 +1,65 @@
 import java.util.*
-import java.io.*
-
-class Main {
-    private val br = BufferedReader(InputStreamReader(System.`in`))
-    private val sb = StringBuilder()
-    private lateinit var tokens : StringTokenizer
-
-    private var n = 0
-    private var m = 0
-
-    private lateinit var graph : Array<ArrayList<Node>>
-    private lateinit var dist : LongArray
-    private lateinit var prev : IntArray
-
-    private var a = 0
-    private var b = 0
-
-    fun solve() {
-        tokens = StringTokenizer(br.readLine())
-        n = tokens.nextToken().toInt()
-        m = tokens.nextToken().toInt()
-
-        graph = Array(n + 1) { ArrayList<Node>() }
-        dist = LongArray(n + 1) { Long.MAX_VALUE }
-        prev = IntArray(n + 1)
-
-        repeat(m) {
-            tokens = StringTokenizer(br.readLine())
-            val v1 = tokens.nextToken().toInt()
-            val v2 = tokens.nextToken().toInt()
-            val cost = tokens.nextToken().toLong()
-
-            graph[v1].add(Node(v2, cost))
-            graph[v2].add(Node(v1, cost))
-        }
-
-        tokens = StringTokenizer(br.readLine())
-        a = tokens.nextToken().toInt()
-        b = tokens.nextToken().toInt()
-
-        dijkstra()
-        path()
-    }
-
-    private fun dijkstra() {
-        val pq = PriorityQueue<Node>()
-
-        dist[a] = 0
-        pq.offer(Node(a, dist[a]))
-
-        while(pq.isNotEmpty()) {
-            val cur = pq.poll()
-            val cv = cur.v
-            val cc = cur.c
-
-            if(dist[cv] < cc)
-                continue
-
-            for(next in graph[cv]) {
-                val nv = next.v
-                val nc = cur.c + next.c
-
-                if(nc < dist[nv]) { //  cv를 거쳐서 nv까지 가는게 더 빠를 경우
-                    dist[nv] = nc
-                    pq.offer(Node(nv, dist[nv]))
-                    prev[nv] = cv
-                }
-                else if(nc == dist[nv]) {
-                    if(cv > prev[nv]) {
-                        pq.offer(Node(nv, dist[nv]))
-                        prev[nv] = cv
-                    }
-                }
-            }
-        }
-    }
-
-    private fun path() {
-        val stack = Stack<Int>()
-
-        var cur = b
-
-        while(cur != 0) {
-            stack.add(cur)
-            cur = prev[cur]
-        }
-
-        sb.append("${dist[b]}\n")
-
-        while(stack.isNotEmpty())
-            sb.append("${stack.pop()} ")
-
-        println(sb)
-    }
-
-    private class Node(val v : Int, val c : Long) : Comparable<Node> {
-        override fun compareTo(other : Node) : Int {
-            var ret = this.c.compareTo(other.c)
-
-            if(ret == 0)
-                ret = this.v.compareTo(other.v)
-
-            return ret
-        }
-    }
-}
+import kotlin.math.min
 
 fun main() {
-    Main().solve()
+    val sc = Scanner(System.`in`)
+    val sb = StringBuilder()
+
+    val n = sc.nextInt()
+    val m = sc.nextInt()
+
+    val graph = List(n) { MutableList(n) { 0 } }
+    repeat(m) {
+        val start = sc.nextInt() - 1
+        val end = sc.nextInt() - 1
+        val dist = sc.nextInt()
+
+        graph[start][end] = dist
+        graph[end][start] = dist
+    }
+
+    val a = sc.nextInt() - 1
+    val b = sc.nextInt() - 1
+
+    val dist = MutableList(n) { 1e9.toInt() }
+    val visited = MutableList(n) { false }
+
+    dist[b] = 0
+
+    for(i in 0 until n) {
+        var minIndex = -1
+
+        for(j in 0 until n) {
+            if(visited[j]) continue
+
+            if(minIndex == -1 || dist[minIndex] > dist[j]) {
+                minIndex = j
+            }
+        }
+
+        visited[minIndex] = true
+
+        for(j in 0 until n) {
+            if(graph[minIndex][j] == 0) continue
+
+            dist[j] = min(dist[j], dist[minIndex] + graph[minIndex][j])
+        }
+    }
+
+    sb.append("${dist[a]}\n")
+    var x = a
+    sb.append("${x+1} ")
+    while(x != b) {
+        for (i in 0 until n) {
+            if(graph[i][x] == 0) continue
+
+            if (dist[i] + graph[i][x] == dist[x]) {
+                x = i
+                break
+            }
+        }
+        sb.append("${x+1} ")
+    }
+
+    println(sb.toString())
 }
