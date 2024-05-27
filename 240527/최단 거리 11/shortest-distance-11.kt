@@ -96,7 +96,12 @@ class Main {
 
     private class Node(val v : Int, val c : Long) : Comparable<Node> {
         override fun compareTo(other : Node) : Int {
-            return this.c.compareTo(other.c)
+            var ret = this.c.compareTo(other.c)
+
+            if(ret == 0)
+                ret = this.v.compareTo(other.v)
+
+            return ret
         }
     }
 }
