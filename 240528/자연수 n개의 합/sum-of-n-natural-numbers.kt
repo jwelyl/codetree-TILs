@@ -14,7 +14,7 @@ class Main {
 
     private fun parametricSearch() : Long {
         var start = 1L
-        var end = 10_000_000_000
+        var end = s
 
         var ans = 0L
 
