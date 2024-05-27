@@ -39,12 +39,12 @@ class Main {
 
         dijkstra()  //  b부터 각 지점까지 최단거리 구하기
 
-        for(i in 1 .. n)
-            graph[i].sortBy { it.v }
+//        for(i in 1 .. n)
+//            graph[i].sortBy { it.v }
 
         var curV = a
         var curDist = 0L //  curV까지 누적 거리
-        
+
         sb.append("${dist[a]}\n")
 
         while(curV != b) {
