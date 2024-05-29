@@ -19,7 +19,7 @@ class Main {
         var ret = Int.MAX_VALUE
 
         while(start <= end) {
-            val mid = (start + end) / 2
+            val mid = start + (end - start) / 2
             val cnt = cnt(mid)
 
            if(cnt >= n) {
