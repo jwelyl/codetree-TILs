@@ -12,11 +12,11 @@ class Main {
         println(parametricSearch())
     }
 
-    private fun parametricSearch() : Int {
-        var start = 1
-        var end = Int.MAX_VALUE
+    private fun parametricSearch() : Long {
+        var start = 1L
+        var end = (Int.MAX_VALUE).toLong()
 
-        var ret = Int.MAX_VALUE
+        var ret = Long.MAX_VALUE
 
         while(start <= end) {
             val mid = (start + end) / 2
@@ -32,7 +32,7 @@ class Main {
         return ret
     }
 
-    private fun cnt(num : Int) : Int {
+    private fun cnt(num : Long) : Long {
         return num - num / 3 - num / 5 + num / 15
     }
 }
