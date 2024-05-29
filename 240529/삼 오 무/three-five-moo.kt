@@ -13,8 +13,8 @@ class Main {
     }
 
     private fun parametricSearch() : Long {
-        var start = 1L
-        var end = (Int.MAX_VALUE).toLong()
+        var start = 0L
+        var end = Long.MAX_VALUE
         var ret = 0L
 
         while(start <= end) {
