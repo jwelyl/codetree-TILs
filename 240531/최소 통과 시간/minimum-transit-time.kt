@@ -21,10 +21,8 @@ class Main {
 
         repeat(m) {
             times[it] = br.readLine().toInt()
+            maxTime = maxTime.coerceAtLeast(times[it])
         }
-
-        times.sortDescending()
-        maxTime = times[m - 1]
 
         println(parametricSearch())
     }
