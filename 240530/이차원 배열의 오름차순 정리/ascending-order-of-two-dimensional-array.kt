@@ -42,7 +42,7 @@ class Main {
         for(i in 1 .. n) {
             val q = num / i
             
-            if(q == 0)
+            if(q == 0L)
                 break
             
             ret += minOf(n, q)
