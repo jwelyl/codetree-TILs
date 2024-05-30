@@ -39,8 +39,14 @@ class Main {
     private fun cnts(num : Long) : Long {
         var ret = 0L
 
-        for(i in 1 .. n)
-            ret += minOf(n, num / i)
+        for(i in 1 .. n) {
+            val q = num / i
+            
+            if(q == 0)
+                break
+            
+            ret += minOf(n, q)
+        }
 
         return ret
     }
