@@ -46,7 +46,7 @@ class Main {
             var ok = false
 
             for(lineSegment in lineSegments) {
-                cnt += 1 + (lineSegment.to - lineSegment.from) / mid    //  점 사이 간격 mid로 했을 때 해당 선분에 놓을 수 있는 점 개수
+                cnt += (1 + (lineSegment.to - lineSegment.from) / mid)    //  점 사이 간격 mid로 했을 때 해당 선분에 놓을 수 있는 점 개수
 
                 if(cnt >= n) {
                     ok = true
