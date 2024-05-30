@@ -10,9 +10,6 @@ class Main {
 
     private val lineSegments = ArrayList<LineSegment>() //  선분 리스트
 
-    private var minPos = Long.MAX_VALUE     //  선분 위의 점 중 가장 작은 점
-    private var maxPos = Long.MIN_VALUE     //  선분 위의 점 중 가장 큰 점
-
     fun solve() {
         tokens = StringTokenizer(br.readLine())
 
@@ -26,18 +23,16 @@ class Main {
             val to = tokens.nextToken().toLong()
 
             lineSegments.add(LineSegment(from, to))
-
-            minPos = minPos.coerceAtMost(from)
-            maxPos = maxPos.coerceAtLeast(to)
         }
 
+        lineSegments.sort()
 
         println(parametricSearch())
     }
 
     private fun parametricSearch() : Long {
         var start = 0L
-        var end = maxPos - minPos //  가장 앞의 선분의 시작점, 가장 뒤의 선분의 끝 점 사이 거리
+        var end = lineSegments[m - 1].to - lineSegments[0].from //  가장 앞의 선분의 시작점, 가장 뒤의 선분의 끝 점 사이 거리
         var ret = 0L    //  가장 가까운 두 점 사이의 거리의 최댓값
 
         while(start <= end) {
@@ -45,10 +40,28 @@ class Main {
             var cnt = 0L //  배치 가능한 점의 개수
             var ok = false
 
-            for(lineSegment in lineSegments) {
-                cnt += (1 + (lineSegment.to - lineSegment.from) / mid)    //  점 사이 간격 mid로 했을 때 해당 선분에 놓을 수 있는 점 개수
+            var startPos = lineSegments[0].from //  첫 번째 선분의 가장 왼쪽 점에 점 하나 놓기
+            var add = (lineSegments[0].to - startPos) / mid + 1 //  첫 번째 선분에 놓을 수 있는 점 개수
+            var endPos = startPos + (add - 1) * mid //  첫 번째 선분에 놓인 가장 마지막 점 좌표
 
-                if(cnt >= n) {
+            cnt += add
+
+            for(i in 1 .. m - 1) {  //  두 번째 선분부터 체크
+                val line = lineSegments[i]  //  현재 선분
+
+                startPos = endPos + mid //  다음 점 놓일 수 있는 시작 위치
+                add = 0 //  현재 선분에 놓을 수 있는 점 개수
+
+                if(startPos <= line.to) { //  시작 위치가 현재 선분의 가장 오른쪽 점보다 작거나 같아야 현재 선분에 하나라도 놓을 수 있음
+                    if(startPos < line.from)    //  시작 위치가 현재 선분 왼쪽에 존재할 경우
+                        startPos = line.from    //  현재 선분의 가장 왼쪽 점부터 놓기 시작
+                    add = (line.to - startPos) / mid + 1
+                    endPos = startPos + (add - 1) * mid
+                }
+
+                cnt += add
+
+                if(cnt >= n) {  //  n개 이상의 점을 놓을 수 있을 경우
                     ok = true
                     break
                 }
