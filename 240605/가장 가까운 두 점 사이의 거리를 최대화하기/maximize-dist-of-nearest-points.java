@@ -8,12 +8,21 @@ public class Main {
     private static int n;
     private static final List<Segment> segments = new ArrayList<>();
 
+    private static int left = Integer.MAX_VALUE;
+    private static int right = Integer.MIN_VALUE;
+
     public static void main(String[] args) throws IOException {
         n = Integer.parseInt(br.readLine());
 
         for(int i = 0; i < n; i++) {
             tokens = new StringTokenizer(br.readLine());
-            segments.add(new Segment(Integer.parseInt(tokens.nextToken()), Integer.parseInt(tokens.nextToken())));
+            int start = Integer.parseInt(tokens.nextToken());
+            int end = Integer.parseInt(tokens.nextToken());
+
+            left = Math.min(left, start);
+            right = Math.max(right, end);
+
+            segments.add(new Segment(start, end));
         }
 
         Collections.sort(segments); //  선분 정렬
@@ -22,8 +31,8 @@ public class Main {
     }   //  main-end
 
     private static int parametricSearch() {
-        int start = segments.get(0).start;
-        int end = segments.get(n - 1).end;
+        int start = 0;
+        int end = right - left;
         int ret = 0;
 
         while(start <= end) {
