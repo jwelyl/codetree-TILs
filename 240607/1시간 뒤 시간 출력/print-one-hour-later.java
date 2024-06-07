@@ -11,6 +11,6 @@ public class Main {
     n = Integer.parseInt(tokens.nextToken());
     m = Integer.parseInt(tokens.nextToken());
 
-    System.out.println(n + 1 + " " + m)
+    System.out.println(n + 1 + " " + m);
   } //  main-end
 } //  Main-class-end
