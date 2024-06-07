@@ -7,7 +7,7 @@ public class Main {
   private static int n, m, l;
 
   public static void main(String[] args) throws IOException {
-    tokens = new StringTokenizer(br.readLine(), ":");
+    tokens = new StringTokenizer(br.readLine(), "-");
     n = Integer.parseInt(tokens.nextToken());
     m = Integer.parseInt(tokens.nextToken());
     l = Integer.parseInt(tokens.nextToken());
