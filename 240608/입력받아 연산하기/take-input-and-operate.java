@@ -9,6 +9,6 @@ public class Main {
     a = Integer.parseInt(br.readLine());
     b = Integer.parseInt(br.readLine());
     
-    System.out.printf("%d %d", a + 87, b % 10);
+    System.out.printf("%d\n%d\n", a + 87, b % 10);
   } //  main-end
 } //  Main-class-end
