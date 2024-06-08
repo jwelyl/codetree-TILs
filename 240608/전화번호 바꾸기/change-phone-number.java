@@ -4,13 +4,13 @@ import java.io.*;
 public class Main {
   private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
   private static StringTokenizer tokens;
-  private static int n, m, l;
+  private static String n, m, l;
 
   public static void main(String[] args) throws IOException {
     tokens = new StringTokenizer(br.readLine(), "-");
-    n = Integer.parseInt(tokens.nextToken());
-    m = Integer.parseInt(tokens.nextToken());
-    l = Integer.parseInt(tokens.nextToken());
+    n = tokens.nextToken();
+    m = tokens.nextToken();
+    l = tokens.nextToken();
 
     System.out.println(n + "-" + l + "-" + m);
   } //  main-end
