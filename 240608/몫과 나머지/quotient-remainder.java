@@ -11,6 +11,6 @@ public class Main {
     a = Integer.parseInt(tokens.nextToken());
     b = Integer.parseInt(tokens.nextToken());
     
-    System.out.printf("%d...%d = %d\n", a / b, a % b);
+    System.out.printf("%d...%d", a / b, a % b);
   } //  main-end
 } //  Main-class-end
