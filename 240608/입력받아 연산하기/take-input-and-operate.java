@@ -11,6 +11,6 @@ public class Main {
     a = Integer.parseInt(tokens.nextToken());
     b = Integer.parseInt(tokens.nextToken());
     
-    System.out.printf("%d...%d", a + 87, b % 10);
+    System.out.printf("%d %d", a + 87, b % 10);
   } //  main-end
 } //  Main-class-end
