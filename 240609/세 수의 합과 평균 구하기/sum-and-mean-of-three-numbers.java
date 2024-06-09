@@ -13,6 +13,6 @@ public class Main {
     c = Integer.parseInt(tokens.nextToken());
 
 
-    System.out.printf("%d %d\n", a + b + c, (a + b + c) / 3);
+    System.out.printf("%d\n%d\n", a + b + c, (a + b + c) / 3);
   } //  main-end
 } //  Main-class-end
