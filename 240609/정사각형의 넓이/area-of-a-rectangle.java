@@ -9,7 +9,7 @@ public class Main {
     n = Integer.parseInt(br.readLine());
 
     System.out.printf("%d\n", n * n);
-    if(n * n < 5)
+    if(n < 5)
         System.out.println("tiny");
   } //  main-end
 } //  Main-class-end
