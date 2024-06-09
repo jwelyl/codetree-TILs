@@ -10,7 +10,7 @@ public class Main {
     // tokens = new StringTokenizer(br.readLine());
     // a = Integer.parseInt(tokens.nextToken());
     // b = Integer.parseInt(tokens.nextToken());
-    a = Int.parseInt(br.readLine());
+    a = Integer.parseInt(br.readLine());
 
     if(a >= 3000)
         System.out.println("book");
