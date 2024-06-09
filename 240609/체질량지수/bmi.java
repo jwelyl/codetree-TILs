@@ -16,6 +16,6 @@ public class Main {
 
     System.out.printf("%d\n", (int)b);
     if(b >= 25)
-        System.out.println("Obesty");
+        System.out.println("Obesity");
   } //  main-end
 } //  Main-class-end
