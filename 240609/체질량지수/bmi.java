@@ -14,7 +14,7 @@ public class Main {
 
     b = 10_000.0f * w / h / h;
 
-    System.out.printf("%d\n", b);
+    System.out.printf("%d\n", (int)b);
     if(b >= 25)
         System.out.println("Obesty");
   } //  main-end
