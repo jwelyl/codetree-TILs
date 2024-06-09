@@ -4,7 +4,7 @@ import java.io.*;
 public class Main {
   private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
   private static StringTokenizer tokens;
-  private static double a, b;
+  private static int a, b;
 
   public static void main(String[] args) throws IOException {
     // tokens = new StringTokenizer(br.readLine());
