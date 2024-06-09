@@ -11,6 +11,6 @@ public class Main {
     a = Integer.parseInt(tokens.nextToken());
     b = Integer.parseInt(tokens.nextToken());
 
-    System.out.printf("%d %.2f\n", a + b, (a + b) / 2.0);
+    System.out.printf("%d %.1f\n", a + b, (a + b) / 2.0);
   } //  main-end
 } //  Main-class-end
