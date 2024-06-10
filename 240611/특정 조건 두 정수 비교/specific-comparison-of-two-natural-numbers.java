@@ -12,7 +12,7 @@ public class Main {
     b = Integer.parseInt(tokens.nextToken());
     // a = Integer.parseInt(br.readLine());
 
-    System.out.println(a < b ? 1 : 0);
-    System.out.println(a == b ? 1 : 0);
+    System.out.print(a < b ? 1 : 0);
+    System.out.println(" " +  (a == b ? 1 : 0));
   } //  main-end
 } //  Main-class-end
