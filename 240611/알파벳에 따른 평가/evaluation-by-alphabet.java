@@ -10,7 +10,7 @@ public class Main {
     // tokens = new StringTokenizer(br.readLine());
     // a = Integer.parseInt(tokens.nextToken());
     // b = Integer.parseInt(tokens.nextToken());
-    a = Ibr.readLine().charAt(0);
+    a = br.readLine().charAt(0);
 
     if(a == 'S')
         System.out.println("Superior");
