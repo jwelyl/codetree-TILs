@@ -15,5 +15,5 @@ fun main() {
     b = tokens.nextToken().toInt()
     c = tokens.nextToken().toInt()
 
-    println(if(b in a + 1 ..< c) 1 else 0)
+    println(if(b in a + 1 until c) 1 else 0)
 }
