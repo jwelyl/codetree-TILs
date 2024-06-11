@@ -15,7 +15,7 @@ fun main() {
 
     println(if(a >= b) 1 else 0)
     println(if(a > b) 1 else 0)
-    println(if(a =< b) 1 else 0)
+    println(if(a <= b) 1 else 0)
     println(if(a < b) 1 else 0)
     println(if(a == b) 1 else 0)
     println(if(a != b) 1 else 0)
