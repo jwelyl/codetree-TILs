@@ -11,9 +11,10 @@ var d = 0
 var e = 0
 
 fun main() {
+    a = br.readLine().toInt()
+
     tokens = StringTokenizer(br.readLine())
 
-    a = tokens.nextToken().toInt()
     b = tokens.nextToken().toInt()
     c = tokens.nextToken().toInt()
     d = tokens.nextToken().toInt()
