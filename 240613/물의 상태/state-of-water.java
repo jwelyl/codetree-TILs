@@ -14,7 +14,7 @@ public class Main {
 
     if(a >= 100)
         System.out.println("vapor");
-    else if(a >= 1)
+    else if(a >= 0)
         System.out.println("water");
     else
         System.out.println("ice");
