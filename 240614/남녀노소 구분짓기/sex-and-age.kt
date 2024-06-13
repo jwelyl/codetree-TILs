@@ -14,7 +14,7 @@ fun main() {
 a = br.readLine().toInt()
 b = br.readLine().toInt()
 
-   println(if(a == 1) {
+   println(if(a == 0) {
     if(b >= 19)
         "MAN"
     else
