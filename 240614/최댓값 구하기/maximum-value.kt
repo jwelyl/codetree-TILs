@@ -7,7 +7,7 @@ lateinit var tokens : StringTokenizer
 var a = 0
 var b = 0
 var c = 0
-var max = 0
+var max = -101
 
 fun main() {
    tokens = StringTokenizer(br.readLine())
