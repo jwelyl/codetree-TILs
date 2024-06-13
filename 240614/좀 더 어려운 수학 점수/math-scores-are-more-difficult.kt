@@ -15,8 +15,8 @@ fun main() {
    b = tokens.nextToken().toInt()
    
    tokens = StringTokenizer(br.readLine())
-   c = tokens.nextToken().toInt(
-   d = tokens.nextToken().toInt(
+   c = tokens.nextToken().toInt()
+   d = tokens.nextToken().toInt()
    
    if(a == c)
         println(if(b > d) "A" else "B")
