@@ -24,5 +24,5 @@ fun main() {
     //     println(if(a > b) a else b)
 
     for(i in 1 .. a)
-        print("$a ")
+        print("$i ")
 }
