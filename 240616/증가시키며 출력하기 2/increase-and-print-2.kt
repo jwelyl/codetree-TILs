@@ -27,6 +27,6 @@ fun main() {
     //     print("$i ")
 
     var num = 10
-    while(num++ < 27)
-        print("$num ")
+    while(num < 27)
+        print("${num++} ")
 }
