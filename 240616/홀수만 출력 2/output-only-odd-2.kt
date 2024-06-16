@@ -23,6 +23,6 @@ fun main() {
     // else
     //     println(if(a > b) a else b)
 
-    for(i in b downTo a step 2)
+    for(i in a downTo b step 2)
         print("$i ")
 }
