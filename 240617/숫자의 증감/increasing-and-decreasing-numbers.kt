@@ -38,7 +38,7 @@ fun main() {
             println("$i ")
     }
     else {
-        for(i in n downTo 1)
+        for(i in b downTo 1)
             println("$i ")
     }
 }
