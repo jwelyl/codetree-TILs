@@ -29,7 +29,7 @@ fun main() {
     // var num = 26
     // while(num >= 10)
     //     print("${num--} ")
-    repeat(n) {
+    repeat(a) {
         println("LeebrosCode")
     }
 }
