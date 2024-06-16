@@ -15,7 +15,7 @@ fun main() {
     b = tokens.nextToken().toInt()
 //     c = tokens.nextToken().toInt()
     
-    a = br.readLine().toInt()
+    // a = br.readLine().toInt()
     // if(a > b && a > c)
     //     println(if(b > c) b else c)
     // else if(b > a && b > c)
