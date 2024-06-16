@@ -35,10 +35,10 @@ fun main() {
 
     if(a == 'A') {
         for(i in 1 .. b)
-            println("$i ")
+            print("$i ")
     }
     else {
         for(i in b downTo 1)
-            println("$i ")
+            print("$i ")
     }
 }
