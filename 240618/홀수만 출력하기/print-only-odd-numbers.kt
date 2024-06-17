@@ -38,7 +38,7 @@ fun main() {
     // }
 
     repeat(a) {
-        val num = br.readLine()
+        val num = br.readLine().toInt()
 
         if(num % 2 == 1 && num % 3 == 0)
             sb.append("$num\n")
