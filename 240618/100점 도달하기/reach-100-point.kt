@@ -24,9 +24,9 @@ fun main() {
             output = 'A'
         else if(i >= 80)
             output = 'B'
-        else if(i > = 70)
+        else if(i >= 70)
             output = 'C'
-        else if(i > = 60)
+        else if(i >= 60)
             output = 'D'
         else
             output = 'F'
