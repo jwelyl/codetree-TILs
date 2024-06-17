@@ -17,13 +17,12 @@ fun main() {
     
     // a = br.readLine().toInt()
 
-    for(i in a .. b) {
-        var output = i
-
+    var i = a
+    while(i <= b) {
         if(i % 2 == 0)
-            output *= 2
+            i *= 2
         else
-            output += 3
-        print("$output ")
+            i += 3
+        print("$i ")
     }
 }
