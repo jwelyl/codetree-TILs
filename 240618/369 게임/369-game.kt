@@ -30,7 +30,7 @@ fun main() {
     for(i in 1 .. a) {
         val str = i.toString()
 
-        if(str.indexOf("3") != -1 || str.indexOf("6") != -1 || str.indexOf("9") != -1)
+        if(str.indexOf("3") != -1 || str.indexOf("6") != -1 || str.indexOf("9") != -1 || i % 3 == 0)
             print("0 ")
         else
             print("$i ")
