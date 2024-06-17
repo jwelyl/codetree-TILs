@@ -20,8 +20,8 @@ fun main() {
     var i = a
     while(i <= b) {
         print("$i ")
-        
-        if(i % 2 == 0)
+
+        if(i % 2 == 1)
             i *= 2
         else
             i += 3
