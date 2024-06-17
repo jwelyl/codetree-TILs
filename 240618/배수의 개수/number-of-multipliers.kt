@@ -43,7 +43,11 @@ fun main() {
     repeat(10) {
         val num = br.readLine().toInt()
 
-        if(num % 3 == 0)
+        if(num % 3 == 0 && num % 5 == 0) {
+            ans3++
+            ans5++
+        }
+        else if(num % 3 == 0)
             ans3++
         else if(num % 5 == 0)
             ans5++
