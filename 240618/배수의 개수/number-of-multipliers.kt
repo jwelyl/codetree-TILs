@@ -37,14 +37,16 @@ fun main() {
     //         print("$i ")
     // }
 
-    var ans = 0
+    var ans3 = 0
 
     repeat(10) {
         val num = br.readLine().toInt()
 
-        if(num % 3 == 0 || num % 5 == 0)
-            ans++
+        if(num % 3 == 0)
+            ans3++
+        else if(num % 5 == 0)
+            ans5++
     }
 
-    print(ans)
+    print("$ans3 $ans5")
 }
