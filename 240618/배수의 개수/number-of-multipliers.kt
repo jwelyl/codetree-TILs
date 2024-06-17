@@ -38,6 +38,7 @@ fun main() {
     // }
 
     var ans3 = 0
+    var ans5 = 0
 
     repeat(10) {
         val num = br.readLine().toInt()
