@@ -52,7 +52,7 @@ fun main() {
         
         if(num in 0 .. 200) {
             sum += num
-            cnt+=
+            cnt++
         }
     } 
 
