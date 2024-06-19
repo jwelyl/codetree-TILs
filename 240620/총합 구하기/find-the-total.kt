@@ -16,7 +16,7 @@ fun main() {
     var sum = 0
 
     for(i in a .. b) {
-        if(i % 6 == 0 || i % 8 != 0)
+        if(i % 6 == 0 && i % 8 != 0)
             sum += i
     }
 
