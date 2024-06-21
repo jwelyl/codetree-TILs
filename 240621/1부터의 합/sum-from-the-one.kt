@@ -13,9 +13,9 @@ fun main() {
 
     var sum = 0
 
-    for(i in 1 .. Int.MAX_VALUE) {
+    for(i in 1 .. 100) {
         sum += i
-        if(sum == a) {
+        if(sum >= a) {
             println(i)
             break
         }
