@@ -14,7 +14,7 @@ fun main() {
         tokens = StringTokenizer(br.readLine())
         a = tokens.nextToken().toInt()
         b = tokens.nextToken().toInt()
-        c = tokens,nextToken()[0]
+        c = tokens.nextToken()[0]
 
         sb.append(a * b).append("\n")
         if(c == 'C')
