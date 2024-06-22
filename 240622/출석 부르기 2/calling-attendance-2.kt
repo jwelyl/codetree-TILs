@@ -20,8 +20,10 @@ fun main() {
             sb.append("Paul\n")
         else if(a == 4)
             sb.append("Sam\n")
-        else
+        else {
+            sb.append("Vacancy\n")
             break
+        }
     }
 
     print(sb)
