@@ -18,7 +18,7 @@ fun main() {
 
        if(a in 20 .. 29) {
             sum += 20
-            cnt+=
+            cnt++
        }
        else
             break
