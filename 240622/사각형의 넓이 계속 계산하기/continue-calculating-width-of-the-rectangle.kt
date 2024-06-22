@@ -10,7 +10,7 @@ var b = 0
 var c = '0'
 
 fun main() {
-    while(cnt < 3) {
+    while(true) {
         tokens = StringTokenizer(br.readLine())
         a = tokens.nextToken().toInt()
         b = tokens.nextToken().toInt()
