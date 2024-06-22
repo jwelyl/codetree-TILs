@@ -17,14 +17,14 @@ fun main() {
        a = br.readLine().toInt()
 
        if(a in 20 .. 29) {
-            sum += 20
+            sum += a
             cnt++
        }
        else
             break
-        
-        println("${String.format("%.2f", sum / cnt)}")
     }
+
+    println("${String.format("%.2f", sum / cnt)}")
 
     print(sb)
 }
