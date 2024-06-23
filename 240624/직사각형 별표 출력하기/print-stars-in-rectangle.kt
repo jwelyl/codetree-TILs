@@ -15,7 +15,7 @@ fun main() {
     b = tokens.nextToken().toInt()
     // c = tokens.nextToken().toInt()
 
-    a = br.readLine().toInt()
+    // a = br.readLine().toInt()
     
     for(i in 1 .. a) {
         for(j in 1 .. b)
