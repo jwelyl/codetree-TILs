@@ -21,6 +21,7 @@ fun main() {
         repeat(i) {
             sb.append("* ")
         }
+        sb.append("\n")
     }
     
     sb.append("\n")
