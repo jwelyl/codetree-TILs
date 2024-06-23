@@ -23,8 +23,6 @@ fun main() {
         }
         sb.append("\n")
     }
-    
-    sb.append("\n")
 
     print(sb)
 }
