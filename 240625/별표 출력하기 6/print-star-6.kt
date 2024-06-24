@@ -28,6 +28,18 @@ fun main() {
 
        sb.append("\n")
     }
+
+    for(i in 2 downTo a) {
+       repeat(a - i) {
+            sb.append("  ")
+       }
+
+       repeat(2 * i - 1) {
+        sb.append("* ")
+       }
+
+       sb.append("\n")
+    }
    
 
     print(sb)
