@@ -25,7 +25,7 @@ fun main() {
     for(i in a - 1 downTo 1) {
         for(j in 1 .. i)
             sb.append("*")
-        sb.append("\n")
+        sb.append("\n\n")
     }
 
     print(sb)
