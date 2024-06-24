@@ -29,7 +29,7 @@ fun main() {
        sb.append("\n")
     }
 
-    for(i in 2 downTo a) {
+    for(i in 2 .. a) {
        repeat(a - i) {
             sb.append("  ")
        }
