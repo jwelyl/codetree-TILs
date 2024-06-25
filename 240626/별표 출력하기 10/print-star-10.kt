@@ -18,16 +18,13 @@ fun main() {
     a = br.readLine().toInt()
 
     for(i in 1 .. a) {
-        if(a % 2 == 1) {
+        if(i % 2 == 1) {
             repeat((i + 1) / 2) {
                 sb.append("* ")
             }
             sb.append("\n")
         }
         else {
-            val k = i / 2 - 1
-            println("k = $k")
-
             repeat(a - (i / 2) + 1) {
                 sb.append("* ")
             }
