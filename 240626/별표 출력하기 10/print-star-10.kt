@@ -32,5 +32,20 @@ fun main() {
         }
     }
 
+    for(i in a downTo 1) {
+        if(i % 2 == 1) {
+            repeat((i + 1) / 2) {
+                sb.append("* ")
+            }
+            sb.append("\n")
+        }
+        else {
+            repeat(a - (i / 2) + 1) {
+                sb.append("* ")
+            }
+            sb.append("\n")
+        }
+    }
+
     print(sb)
 }
