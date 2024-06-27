@@ -22,6 +22,7 @@ class Main {
             repeat(a) {
                 sb.append("${start + it} ")
             }
+            sb.append("\n")
         }
 
         print(sb)
