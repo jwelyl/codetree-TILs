@@ -21,7 +21,7 @@ class Main {
                     sb.append("* ")
                 }
                 repeat(n - cnt - 1) {
-                    sb.append(" ")
+                    sb.append("  ")
                 }
                 sb.append("* ")
             }
