@@ -31,7 +31,7 @@ class Main {
     }
 
     private fun next() : Int {
-        return if(cur * 2 == 10) 2 else cur * 2
+        return if(cur + 2 == 10) 2 else cur + 2
     }
 }
 
