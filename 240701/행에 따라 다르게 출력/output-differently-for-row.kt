@@ -8,7 +8,7 @@ class Main {
 
     private var a = 0
     private var b = 0
-    private var cur = 9
+    private var cur = 0
 
     fun solve() {
         // tokens = StringTokenizer(br.readLine())
