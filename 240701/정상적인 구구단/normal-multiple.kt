@@ -6,7 +6,7 @@ class Main {
     private val sb = StringBuilder()
     private lateinit var tokens : StringTokenizer
 
-    private var a = 0
+    private var n = 0
     private var b = 0
 
     fun solve() {
@@ -14,7 +14,7 @@ class Main {
         // a = tokens.nextToken().toInt()
         // b = tokens.nextToken().toInt()
 
-        a = br.readLine().toInt()
+        n = br.readLine().toInt()
 
         for(left in 1 .. n) {
             for(right in 1 .. n) {
