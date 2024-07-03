@@ -9,7 +9,7 @@ class Main {
     private var a = 0
     private var b = 0
 
-    private var num = 1
+    private var num = 0
 
     fun solve() {
         // tokens = StringTokenizer(br.readLine())
@@ -22,8 +22,14 @@ class Main {
                 sb.append("  ")
             }
 
-            for(col in row downTo 1)
-                sb.append("${num++} ")
+            for(col in row downTo 1) {
+                if(num + 1 == 10)
+                    num = 1
+                else
+                    num++
+
+                sb.append("$num ")
+            }
 
             sb.append("\n")
         }
