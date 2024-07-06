@@ -20,7 +20,7 @@ class Main {
         for(i in 1 .. a) {
             for(j in 1 .. a) {
                 sb.append(ch)
-                ch = (ch.code + 1).toChar()
+                ch = (ch.toInt() + 1).toChar()
             }
 
             sb.append("\n")
