@@ -18,10 +18,10 @@ class Main {
         for(num in a .. b) {
             var sum = 0
 
-            for(d in 1 .. num) [
+            for(d in 1 .. num) {
                 if(num % d == 0)
                     sum += d
-            ]
+            }
 
             if(sum == 2 * num)
                 cnt++
