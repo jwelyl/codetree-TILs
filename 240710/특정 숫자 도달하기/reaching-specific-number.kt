@@ -13,21 +13,17 @@ class Main {
     
     fun solve() {
         tokens = StringTokenizer(br.readLine())
-        repeat(10) {
+        
+        for(i in 0 ..< 10) {
             val num = tokens.nextToken().toInt()
 
-            sum += num
-            
-            if(num >= 250)
-                ok = true
-
-            if(it == 9 && ok) {
-                cnt = 9
-                sum -= num
-            } else cnt = 10
+            if(num < 250) {
+                sum += num
+                cnt++
+            } else break
         }
 
-        println(String.format("%d %.1f\n", sum.toInt(), sum / cnt))
+        println(String.format("%d %.1f", sum.toInt(), sum / cnt))
     }
 }
 
