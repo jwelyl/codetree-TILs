@@ -21,7 +21,7 @@ class Main {
 
         println(String.format("%.1f", sum / n))
 
-        if(sum >= 4.0)
+        if((sum / n) >= 4.0)
             println("Perfect")
         else if(sum >= 3.0)
             println("Good")
