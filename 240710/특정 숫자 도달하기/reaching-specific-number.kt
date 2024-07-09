@@ -14,7 +14,7 @@ class Main {
             sum += tokens.nextToken().toInt()
         }
 
-        println(String.format("%d %.1f\n", sum, sum / 10.0)
+        println(String.format("%d %.1f\n", sum, sum / 10.0))
     }
 }
 
