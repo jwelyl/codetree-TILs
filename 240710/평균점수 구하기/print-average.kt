@@ -7,21 +7,12 @@ class Main {
     private lateinit var tokens : StringTokenizer
 
     private var sum = 0.0
-    private var cnt = 0
-
-    private var ok = false
     
     fun solve() {
         tokens = StringTokenizer(br.readLine())
         
-        for(i in 0 until 8) {
-            val num = tokens.nextToken().toInt()
-
-            if(num < 250) {
-                sum += num
-                cnt++
-            } else break
-        }
+        for(i in 0 until 8)
+            sum += tokens.nextToken().toDouble()
 
         println(String.format("%.1f", sum / cnt))
     }
