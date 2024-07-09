@@ -14,7 +14,7 @@ class Main {
     fun solve() {
         tokens = StringTokenizer(br.readLine())
         
-        for(i in 0 ..< 10) {
+        for(i in 0 until 10) {
             val num = tokens.nextToken().toInt()
 
             if(num < 250) {
