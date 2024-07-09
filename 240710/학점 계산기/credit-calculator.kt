@@ -23,7 +23,7 @@ class Main {
 
         if((sum / n) >= 4.0)
             println("Perfect")
-        else if(sum >= 3.0)
+        else if((sum / n) >= 3.0)
             println("Good")
         else
             println("Poor")
