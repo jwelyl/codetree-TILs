@@ -14,7 +14,7 @@ class Main {
         for(i in 0 until 8)
             sum += tokens.nextToken().toDouble()
 
-        println(String.format("%.1f", sum / cnt))
+        println(String.format("%.1f", sum / 8))
     }
 }
 
