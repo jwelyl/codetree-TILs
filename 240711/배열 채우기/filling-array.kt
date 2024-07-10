@@ -11,7 +11,7 @@ class Main {
     fun solve() {
         tokens = StringTokenizer(br.readLine())
         
-        for(i in 0 ..< tokens.countTokens()) {
+        for(i in 0 until tokens.countTokens()) {
             val num = tokens.nextToken().toInt()
 
             if(num != 0)
