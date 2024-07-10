@@ -11,11 +11,13 @@ class Main {
     fun solve() {
         tokens = StringTokenizer(br.readLine())
         
-        while(true) {
+        for(i in 0 ..< tokens.countTokens()) {
             val num = tokens.nextToken().toInt()
 
             if(num != 0)
                 stack.add(num);
+            else
+                break;
         }
 
         while(stack.isNotEmpty())
