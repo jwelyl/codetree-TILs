@@ -17,12 +17,12 @@ class Main {
         sb.append("$f0 $f1 ")
 
         repeat(8) {
-            val tmp = f0 + f1
+            val tmp = (f0 + f1) % 10
             f0 = f1
             f1 = tmp
             sb.append("$f1 ")
         }
-        
+
         println(sb)
     }
 }
