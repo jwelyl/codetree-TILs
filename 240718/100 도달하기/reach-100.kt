@@ -19,7 +19,7 @@ class Main {
         while(true) {
             f = f1 + f2
             f1 = f2
-            f2 = f1
+            f2 = f
 
             sb.append("$f ")
 
