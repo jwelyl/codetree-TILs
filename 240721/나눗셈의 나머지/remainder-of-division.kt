@@ -19,7 +19,7 @@ class Main {
         while(a > 1) {
             cnts[a % b]++
 
-            a %= b
+            a /= b
         }
 
         for(i in 0 until 10)
