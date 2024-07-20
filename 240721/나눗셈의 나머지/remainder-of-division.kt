@@ -22,7 +22,7 @@ class Main {
             a %= b
         }
 
-        for(i in 0 ..< 10)
+        for(i in 0 until 10)
             sum += cnts[i] * cnts[i]
 
         println(sum)
