@@ -173,21 +173,21 @@ public class Main {
 		if(isEmpty(bNum) || isBroken(bNum))
 			return NONE;
 		
-		int nextBelt = NONE;	//	현재 bNum 벨트에 있는 상자들을 옮길 벨트 찾기
+		int toBelt = NONE;	//	현재 bNum 벨트에 있는 상자들을 옮길 벨트 찾기
 		for(int num = bNum + 1; num <= M; num++) {
 			if(isBroken(num))
 				continue;
 			
-			nextBelt = num;
+			toBelt = num;
 			break;
 		}
 		
-		if(nextBelt == NONE) {
+		if(toBelt == NONE) {
 			for(int num = 1; num < bNum; num++) {
 				if(isBroken(num))
 					continue;
 				
-				nextBelt = num;
+				toBelt = num;
 				break;
 			}
 		}
@@ -197,16 +197,16 @@ public class Main {
 		
 		Box cur = fromFirst;
 		while(cur != tails[bNum]) {
-			beltMap.put(cur.id, nextBelt);
+			beltMap.put(cur.id, toBelt);
 			cur = cur.next;
 		}
 		
-		Box toLast = tails[nextBelt].prev;
+		Box toLast = tails[toBelt].prev;
 		
 		toLast.next = fromFirst;
 		fromFirst.prev = toLast;
-		fromLast.next = tails[nextBelt];
-		tails[nextBelt].prev = fromLast;
+		fromLast.next = tails[toBelt];
+		tails[toBelt].prev = fromLast;
 		
 		heads[bNum].next = tails[bNum];
 		tails[bNum].prev = heads[bNum];
