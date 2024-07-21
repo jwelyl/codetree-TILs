@@ -68,12 +68,12 @@ public class Main {
 		tails = new Box[M + 1];
 		brokens = new boolean[M + 1];
 		
-		for(int i = 1; i <= M; i++) {
-			heads[i] = new Box(NONE, NONE);
-			tails[i] = new Box(NONE, NONE);
+		for(int bNum = 1; bNum <= M; bNum++) {
+			heads[bNum] = new Box(NONE, NONE);
+			tails[bNum] = new Box(NONE, NONE);	//	각 벨트의 head, tail dummy node 추가
 			
-			heads[i].next = tails[i];
-			tails[i].prev = heads[i];
+			heads[bNum].next = tails[bNum];
+			tails[bNum].prev = heads[bNum];	//	head와 tail을 연결하여 빈 벨트 생성
 		}
 		
 		int[] ids = new int[N + 1];
@@ -128,15 +128,15 @@ public class Main {
 			return NONE;
 		
 		Box rBox = boxMap.get(rId);	//	제거할 상자
-		Box before = rBox.prev;
-		Box after = rBox.next;
+		Box before = rBox.prev;		//	제거할 상자 이전 상자
+		Box after = rBox.next;		//	제거할 상자 다음 상자
 		
 		before.next = after;
-		after.prev = before;
+		after.prev = before;	//	before와 after 연결
 		
 		rBox.prev = null;
-		rBox.next = null;
-		beltMap.put(rId, NONE);
+		rBox.next = null;			//	rBox 연결 제거
+		beltMap.put(rId, NONE);		//	rBox는 어떤 벨트에도 없음
 		
 		return rId;
 	}
@@ -151,33 +151,38 @@ public class Main {
 		if(bNum == NONE)	//	fId 상자가 이미 어떤 벨트에도 존재하지 않는 경우
 			return NONE;
 		
-		Box first = boxMap.get(fId);	//	이동시킬 가장 앞의 상자
+		Box first = boxMap.get(fId);	//	이동시킬 가장 앞의 상자 (가장 앞의 상자가 되어야 함)
 		Box last = tails[bNum].prev;	//	이동시킬 가장 마지막 상자
 		
-		if(first == heads[bNum].next)
+		if(first == heads[bNum].next)	//	first가 해당 벨트의 첫 번째 상자일 경우 옮길 필요 없음
 			return bNum;
 		
-		Box pos1 = heads[bNum].next;
-		Box pos2 = first.prev;
+		Box pos1 = heads[bNum].next;	//	기존 가장 앞의 상자 (last 뒤의 상자가 되어야 함)
+		Box pos2 = first.prev;			//	기존 first 앞의 상자 (가장 마지막 상자가 되어야 함)
 		
 		pos2.next = tails[bNum];
-		tails[bNum].prev = pos2;
+		tails[bNum].prev = pos2;	//	pos2와 tail 연결
 		
 		heads[bNum].next = first;
-		first.prev = heads[bNum];
+		first.prev = heads[bNum];	//	head와 first 연결
 		last.next = pos1;
-		pos1.prev = last;
+		pos1.prev = last;			//	last와 pos1 연결
 		
 		return bNum;
 	}
 	
 	//	500. 벨트 고장
 	private static int breakBelt(int bNum) {
-		if(isEmpty(bNum) || isBroken(bNum))
+		if(isBroken(bNum))	//	이미 고장난 벨트인 경우
 			return NONE;
 		
-		int toBelt = NONE;	//	현재 bNum 벨트에 있는 상자들을 옮길 벨트 찾기
-		for(int num = bNum + 1; num <= M; num++) {
+		brokens[bNum] = true;	//	고장 처리
+		
+		if(isEmpty(bNum))	//	고장난 벨트가 빈 벨트일 경우
+			return bNum;	//	별도 처리 필요 없음
+		
+		int toBelt = NONE;	//	현재 bNum 벨트에 있는 상자들을 옮길 정상 벨트 번호
+		for(int num = bNum + 1; num <= M; num++) {	//	오른쪽 벨트 중 정상 벨트 찾기
 			if(isBroken(num))
 				continue;
 			
@@ -185,8 +190,8 @@ public class Main {
 			break;
 		}
 		
-		if(toBelt == NONE) {
-			for(int num = 1; num < bNum; num++) {
+		if(toBelt == NONE) {	//	오른쪽 벨트는 전부 고장난 경우
+			for(int num = 1; num < bNum; num++) {	//	왼쪽 벨트 중 정상 벨트 찾기
 				if(isBroken(num))
 					continue;
 				
@@ -195,26 +200,25 @@ public class Main {
 			}
 		}
 		
-		Box fromFirst = heads[bNum].next;
-		Box fromLast = tails[bNum].prev;
+		Box fromFirst = heads[bNum].next;	//	고장난 벨트의 첫 번째 상자
+		Box fromLast = tails[bNum].prev;	//	고장난 벨트의 마지막 상자
 		
 		Box cur = fromFirst;
 		while(cur != tails[bNum]) {
-			beltMap.put(cur.id, toBelt);
+			beltMap.put(cur.id, toBelt);	//	고장난 벨트 위의 상자가 존재하는 벨트 번호 갱신
 			cur = cur.next;
 		}
 		
-		Box toLast = tails[toBelt].prev;
+		Box toLast = tails[toBelt].prev;	//	옮겨갈 벨트의 마지막 상자
 		
 		toLast.next = fromFirst;
-		fromFirst.prev = toLast;
+		fromFirst.prev = toLast;	//	기존 벨트의 첫 번째 상자를 옮겨갈 벨트의 마지막 상자 뒤에 연결
 		fromLast.next = tails[toBelt];
-		tails[toBelt].prev = fromLast;
+		tails[toBelt].prev = fromLast;	//	기존 벨트의 마지막 상자를 옮겨갈 벨트의 tail과 연결
 		
 		heads[bNum].next = tails[bNum];
-		tails[bNum].prev = heads[bNum];
+		tails[bNum].prev = heads[bNum];	//	고장난 벨트 빈 벨트로 만들기
 		
-		brokens[bNum] = true;
 		return bNum;
 	}
 
@@ -229,15 +233,16 @@ public class Main {
 	}
 	
 	//	bNum 벨트의 가장 처음 상자를 제거하고 반환함
+	//	bNum 벨트가 빈 벨트거나 고장나지 않은 벨트일때만 호출됨
 	private static Box popFront(int bNum) {
 		Box first = heads[bNum].next;	//	제거할 처음 상자
-		Box nFirst = first.next;		//	새로 처음 상자가 될 상자
+		Box nFirst = first.next;		//	bNum 벨트에서 처음 상자가 될 상자 (기존의 두 번째 상자)
 		
 		heads[bNum].next = nFirst;
-		nFirst.prev = heads[bNum];
+		nFirst.prev = heads[bNum];	//	head와 nFirst 연결
 		
 		first.prev = null;
-		first.next = null;
+		first.next = null;	//	first의 연결 끊기
 		
 		beltMap.put(first.id, NONE);	//	first 상자를 bNum 벨트에서 제거
 		
@@ -246,13 +251,13 @@ public class Main {
 	
 	//	bNum 벨트의 가장 마지막에 box를 삽입
 	private static void pushBack(int bNum, Box box) {
-		Box before = tails[bNum].prev;	//	bNum 벨트의 가장 마지막 상자
+		Box before = tails[bNum].prev;	//	기존 bNum 벨트의 가장 마지막 상자
 		
 		before.next = box;
-		box.prev = before;
+		box.prev = before;	//	before과 box 연결
 	
 		tails[bNum].prev = box;
-		box.next = tails[bNum];
+		box.next = tails[bNum];	//	box와 tail 연결
 		
 		beltMap.put(box.id, bNum);	//	box는 bNum 벨트에 존재함
 	}
