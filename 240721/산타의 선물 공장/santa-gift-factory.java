@@ -154,6 +154,9 @@ public class Main {
 		Box first = boxMap.get(fId);	//	이동시킬 가장 앞의 상자
 		Box last = tails[bNum].prev;	//	이동시킬 가장 마지막 상자
 		
+		if(first == heads[bNum].next)
+			return bNum;
+		
 		Box pos1 = heads[bNum].next;
 		Box pos2 = first.prev;
 		
