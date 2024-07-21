@@ -44,8 +44,7 @@ public class Main {
 					gunMap[r][c].offer(gunPower);
 			}
 		}
-		
-//		System.out.println("initial players");
+
 		for(int pNum = 1; pNum <= M; pNum++) {
 			tokens = new StringTokenizer(br.readLine());
 			int x = Integer.parseInt(tokens.nextToken()) - 1;
@@ -55,38 +54,19 @@ public class Main {
 			
 			players[pNum] = new Player(pNum, x, y, d, s);
 			playerMap[x][y] = pNum;	//	pNum번 플레이어를 (x, y) 칸에 배치
-		
-//			System.out.println(players[pNum]);
 		}
-		
-//		System.out.println("gunMap");
-//		for(int r = 0; r < N; r++) {
-//			for(int c = 0; c < N; c++)
-//				System.out.print(gunMap[r][c].peek() + " ");
-//			System.out.println();
-//		}
-//		
-//		System.out.println("initial playerMap");
-//		for(int r = 0; r < N; r++) {
-//			for(int c = 0; c < N; c++)
-//				System.out.print(playerMap[r][c] + " ");
-//			System.out.println();
-//		}
 		
 		for(int k = 0; k < K; k++)
 			simulation(k + 1);
 		
 		for(int pNum = 1; pNum <= M; pNum++)
 			sb.append(players[pNum].point).append(" ");
-		
-//		System.out.println("Res");
+
 		System.out.print(sb);
 	}	//	main-end
 	
 	//	한 라운드를 진행함
 	private static void simulation(int round) {
-//		System.out.println("round " + round);
-		
 		for(int pNum = 1; pNum <= M; pNum++) {
 			Player cPlayer = players[pNum];
 			
@@ -94,13 +74,10 @@ public class Main {
 			
 			//	1. 현재 플레이어가 한 칸 이동
 			move(cPlayer);
-			
-//			System.out.println("cPlayer");
-//			System.out.println(cPlayer);
+
 			
 			int cx = cPlayer.x;
 			int cy = cPlayer.y;	//	현재 플레이어가 이동한 칸
-			
 			
 			//	2-1. 현재 플레이어가 이동한 칸에 다른 플레이어가 없을 경우
 			if(playerMap[cx][cy] == EMPTY) {
@@ -122,29 +99,11 @@ public class Main {
 				int otherNum = playerMap[cx][cy];			//	다른 플레이어 번호
 				Player otherPlayer = players[otherNum];		//	다른 플레이어
 				
-//				System.out.println("otherPlayer");
-//				System.out.println(otherPlayer);
-				
 				if(cPlayer.fight(otherPlayer))	//	현재 플레이어가 이긴 경우
 					result(cPlayer, otherPlayer, pNum, otherNum);
 				else	//	다른 플레이어가 이긴 경우
 					result(otherPlayer, cPlayer, otherNum, pNum);
 			}
-			
-//			System.out.println("player " + pNum + "이 이동한 이후");
-//			System.out.println("gunMap");
-//			for(int r = 0; r < N; r++) {
-//				for(int c = 0; c < N; c++)
-//					System.out.print(gunMap[r][c].peek() + " ");
-//				System.out.println();
-//			}
-//			
-//			System.out.println("playerMap");
-//			for(int r = 0; r < N; r++) {
-//				for(int c = 0; c < N; c++)
-//					System.out.print(playerMap[r][c] + " ");
-//				System.out.println();
-//			}
 		}
 	}
 	
@@ -249,19 +208,6 @@ public class Main {
 				else					//	other의 초기 능력치가 높을 경우
 					return false;
 			}
-		}
-		
-		@Override
-		public String toString() {
-			StringBuilder ret = new StringBuilder();
-			ret.append("Player ").append(this.num).append("\n");
-			ret.append("x : ").append(this.x).append("\n");
-			ret.append("y : ").append(this.y).append("\n");
-			ret.append("d : ").append(this.d).append("\n");
-			ret.append("x : ").append(this.s).append("\n");
-			ret.append("g : ").append(this.gun).append("\n");
-		
-			return ret.toString();
 		}
 	}
 }	//	Main-class-end
