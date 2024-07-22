@@ -38,8 +38,6 @@ public class Main {
 		
 		sum = calcArtScore();
 		
-//		System.out.println("sum = " + sum);
-		
 		for(int r = 1; r <= 3; r++) {
 			rotate();	//	r번째 회전
 			sum += calcArtScore();	//	r번째 회전 후 예술성 점수
@@ -78,36 +76,9 @@ public class Main {
 				}
 			}
 		}
-		
-//		System.out.println("gNum = " + gNum);
-//		
-//		System.out.print("groupNum : ");
-//		for(int i = 1; i <= gNum; i++)
-//			System.out.print(groupNum[i] + " ");
-//		System.out.println();
-//		
-//		System.out.print("groupCnt : ");
-//		for(int i = 1; i <= gNum; i++)
-//			System.out.print(groupCnt[i] + " ");
-//		System.out.println();
-		
-//		System.out.println("group");
-//		for(int i = 0; i < N; i++) {
-//			for(int j = 0; j < N; j++)
-//				System.out.print(group[i][j] + " ");
-//			System.out.println();
-//		}
-		
-		
+
 		for(int g = 1; g <= gNum; g++)	//	각 그룹 별로 타 그룹과 맞닿은 변 개수 계산
 			bfs2(g);
-		
-//		System.out.println("neighbors");
-//		for(int i = 1; i <= gNum; i++) {
-//			for(int j = 1; j <= gNum; j++)
-//				System.out.print(neighbors[i][j] + " ");
-//			System.out.println();
-//		}
 		
 		for(int g1 = 1; g1 <= gNum - 1; g1++) {
 			for(int g2 = g1 + 1; g2 <= gNum; g2++) {
@@ -120,44 +91,7 @@ public class Main {
 		return score;
 	}
 	
-	private static void bfs2(int gNum) {
-		int sy = groupY[gNum];
-		int sx = groupX[gNum];
-//		System.out.println("bfs2(" + gNum + ", " + sy + ", " + sx + ")");
-		
-		boolean[][] visited = new boolean[N][N];
-		
-		Queue<int[]> q = new LinkedList<>();
-		
-		visited[sy][sx] = true;
-		q.offer(new int[] {sy, sx});
-		
-		while(!q.isEmpty()) {
-			int[] out = q.poll();
-			int cy = out[0];
-			int cx = out[1];
-			
-			for(int d = 0; d < 4; d++) {
-				int ny = cy + dy[d];
-				int nx = cx + dx[d];
-				
-				if(!isIn(ny, nx))
-					continue;
-				
-				if(group[ny][nx] > gNum)
-					neighbors[gNum][group[ny][nx]]++;	//	gNum 그룹과 group[ny][nx]가 맞닿은 변 개수 1 증가
-				else if(group[ny][nx] == gNum && !visited[ny][nx]) {
-					visited[ny][nx] = true;
-					q.offer(new int[] {ny, nx});
-				}
-			}
-		}
-	}
-	
 	private static void bfs1(int num, int gNum) {
-//		System.out.println("bfs1(" + num + ", " + gNum + ")");
-//		System.out.println("y = " + groupY[gNum] + ", x = " + groupX[gNum]);
-		
 		Queue<int[]> q = new LinkedList<>();
 		groupCnt[gNum]++;	//	gNum번째 그룹에 속한 칸 수 1 증가
 
@@ -182,7 +116,41 @@ public class Main {
 				q.offer(new int[] {ny, nx});
 			}
 		}	//	while-end
-	}	//	bfs-end
+	}	//	bfs1-end
+	
+	
+	private static void bfs2(int gNum) {
+		int sy = groupY[gNum];
+		int sx = groupX[gNum];	//	gNum번째 그룹 시작점
+		
+		boolean[][] visited = new boolean[N][N];	//	방문 배열
+		
+		Queue<int[]> q = new LinkedList<>();
+		
+		visited[sy][sx] = true;
+		q.offer(new int[] {sy, sx});
+		
+		while(!q.isEmpty()) {
+			int[] out = q.poll();
+			int cy = out[0];
+			int cx = out[1];
+			
+			for(int d = 0; d < 4; d++) {
+				int ny = cy + dy[d];
+				int nx = cx + dx[d];
+				
+				if(!isIn(ny, nx))
+					continue;
+				
+				if(group[ny][nx] > gNum)
+					neighbors[gNum][group[ny][nx]]++;	//	gNum 그룹과 group[ny][nx]가 맞닿은 변 개수 1 증가
+				else if(group[ny][nx] == gNum && !visited[ny][nx]) {	//	같은 그룹이고 방문하지 않았을 경우
+					visited[ny][nx] = true;
+					q.offer(new int[] {ny, nx});
+				}
+			}
+		}	//	while-end
+	}	//	bfs2-end
 	
 	//	배열 회전
 	private static void rotate() {
