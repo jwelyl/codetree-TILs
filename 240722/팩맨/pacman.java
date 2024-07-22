@@ -70,14 +70,19 @@ public class Main {
 	private static void simulation() {
 		//	1. 몬스터 복제 시도, 알 낳기
 		layEggs();
+//		printStatus(time + " layEggs");
 		//	2. 활성 상태 몬스터 이동하기
 		moveAlives();
+//		printStatus(time + " moveAlives");
 		//	3. 팩맨 이동
 		packmanMoves();
+//		printStatus(time + " packmanMoves");
 		//	4. 시체 처리
 		clearDead();
+//		printStatus(time + " clearDead");
 		//	5. 몬스터 복제 완성, 알 낳기
 		hatchEggs();
+//		printStatus(time + " hatchEggs");
 	}
 	
 	//	1. 몬스터 알 생성
@@ -133,6 +138,8 @@ public class Main {
 					else {
 						int ny = cy + dyM[mdir];
 						int nx = cx + dxM[mdir];	//	(ny, nx)칸으로 이동하면 됨
+						m.y = ny;
+						m.x = nx;
 						m.dir = mdir;				//	몬스터가 바라보는 방향 변경
 						
 						tmp[ny][nx].add(m);	//	(ny, nx)칸으로 이동
@@ -154,6 +161,7 @@ public class Main {
 		
 		int[] py = new int[3];
 		int[] px = new int[3];	//	팩맨이 이동할 세 칸 좌표
+		boolean[][] visited = new boolean[MAX][MAX];
 		
 		int maxEat = 0;	//	팩맨이 최대로 먹을 수 있는 활성 상태 몬스터 수
 		
@@ -164,12 +172,26 @@ public class Main {
 			if(!isIn(ny1, nx1))	//	범위 벗어날 경우
 				continue;
 			
+			int eat1 = 0;
+			
+			if(!visited[ny1][nx1]) {
+				eat1 += aliveMap[ny1][nx1].size();
+				visited[ny1][nx1] = true;
+			}
+			
 			for(int d1 = 0; d1 < 4; d1++) {	//	두 번째 이동 방향
 				int ny2 = ny1 + dyP[d1];
 				int nx2 = nx1 + dxP[d1];	//	두 번째 이동 방향으로 이동한 칸
 				
 				if(!isIn(ny2, nx2))	//	범위 벗어날 경우
 					continue;
+				
+				int eat2 = eat1;
+				
+				if(!visited[ny2][nx2]) {
+					eat2 += aliveMap[ny2][nx2].size();
+					visited[ny2][nx2] = true;
+				}
 				
 				for(int d2 = 0; d2 < 4; d2++) {
 					int ny3 = ny2 + dyP[d2];
@@ -178,11 +200,21 @@ public class Main {
 					if(!isIn(ny3, nx3))	//	범위 벗어날 경우
 						continue;
 					
-					//	세 번 이동해서 먹을 수 있는 활성 상태 몬스터 수
-					int eat = aliveMap[ny1][nx1].size() + aliveMap[ny2][nx2].size() + aliveMap[ny3][nx3].size();
+					int eat3 = eat2;	//	세 번 이동해서 먹을 수 있는 활성 상태 몬스터 수
 					
-					if(eat > maxEat) {	//	최대로 먹는 방법 갱신한 경우
-						maxEat = eat;
+					if(!visited[ny3][nx3]) {
+						eat3 += aliveMap[ny3][nx3].size();
+						visited[ny3][nx3] = true;
+					}
+					
+					if(eat3 > maxEat) {	//	최대로 먹는 방법 갱신한 경우
+//						System.out.println("maxEat = " + maxEat);
+//						System.out.println("d0 = " + d0);
+//						System.out.println("d1 = " + d1);
+//						System.out.println("d2 = " + d2);
+//						System.out.println("eat = " + eat3);
+						
+						maxEat = eat3;
 						py[0] = ny1;
 						px[0] = nx1;
 						py[1] = ny2;
@@ -190,8 +222,14 @@ public class Main {
 						py[2] = ny3;
 						px[2] = nx3;
 					}
+					
+					visited[ny3][nx3] = false;
 				}
+				
+				visited[ny2][nx2] = false;
 			}
+			
+			visited[ny1][nx1] = false;
 		}
 		
 		//	팩맨이 이동한 경로에 있는 활성 상태 몬스터 먹기 
@@ -215,12 +253,14 @@ public class Main {
 	
 	//	4. 시체 상태 몬스터 제거
 	private static void clearDead() {
+//		System.out.println("current time = " + time);
+		
 		for(int r = 0; r < MAX; r++) {
 			for(int c = 0; c < MAX; c++) {
 				List<Monster> tmp = new ArrayList<>();
 				
 				for(Monster m : deadMap[r][c]) {	//	(r, c) 칸에 존재하는 시체들 중에서
-					if(m.expired < time)	//	아직 사라질 시간이 되지 않은 경우
+					if(m.expired > time)	//	아직 사라질 시간이 되지 않은 경우
 						tmp.add(m);	//	보존하기
 				}
 				
@@ -258,6 +298,29 @@ public class Main {
 		
 		return sum;
 	}
+	
+//	private static void printStatus(String after) {
+//		System.out.println("After " + after);
+//		System.out.println("packman = (" + packman.y + ", " + packman.x + ")");
+//		System.out.println("-----------aliveMap-----------");
+//		for(int r = 0; r < MAX; r++) {
+//			for(int c = 0; c < MAX; c++)
+//				System.out.print(aliveMap[r][c].size() + " ");
+//			System.out.println();
+//		}
+//		System.out.println("-----------eggMap-----------");
+//		for(int r = 0; r < MAX; r++) {
+//			for(int c = 0; c < MAX; c++)
+//				System.out.print(eggMap[r][c].size() + " ");
+//			System.out.println();
+//		}
+//		System.out.println("-----------deadMap-----------");
+//		for(int r = 0; r < MAX; r++) {
+//			for(int c = 0; c < MAX; c++)
+//				System.out.print(deadMap[r][c].size() + " ");
+//			System.out.println();
+//		}
+//	}
 	
 	private static final int[] dyM = {0, -1, -1, 0, 1, 1, 1, 0, -1};
 	private static final int[] dxM = {0, 0, -1, -1, -1, 0, 1, 1, 1};	//	몬스터 이동 방향
