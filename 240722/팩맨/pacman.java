@@ -163,7 +163,7 @@ public class Main {
 		int[] px = new int[3];	//	팩맨이 이동할 세 칸 좌표
 		boolean[][] visited = new boolean[MAX][MAX];
 		
-		int maxEat = 0;	//	팩맨이 최대로 먹을 수 있는 활성 상태 몬스터 수
+		int maxEat = -1;	//	팩맨이 최대로 먹을 수 있는 활성 상태 몬스터 수
 		
 		for(int d0 = 0; d0 < 4; d0++) {	//	첫 번째 이동 방향
 			int ny1 = cy + dyP[d0];
