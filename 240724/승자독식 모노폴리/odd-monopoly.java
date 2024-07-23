@@ -7,6 +7,9 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
+//	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
+	
 	private static final int NONE = 0;	//	독점한 사람 없는 경우
 	
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,7 +23,7 @@ public class Main {
 	
 	private static int time = 0;	//	전역 타이머
 	
-	private static Player[] playerList;
+	private static Player[] playerList;					//	playerList[num] : num번째 플레이어
 	
 	private static PriorityQueue<Player>[][] playerMap;	//	playerMap[y][x] : (y, x) 칸에 존재하는 플레이어 모음, 번호 큰 플레이어부터 먼저 제거되도록 함
 	private static int[][][] monopolyMap;				//	monopolyMap[y][x] : {(y, x) 칸을 독점한 플레이어 번호, 독점 남은 시간, 0일 경우 독점 무효} 
@@ -35,6 +38,7 @@ public class Main {
 		N = Integer.parseInt(tokens.nextToken());
 		M = Integer.parseInt(tokens.nextToken());
 		K = Integer.parseInt(tokens.nextToken());
+		remain = M;
 		
 		playerList = new Player[M + 1];
 		
@@ -59,6 +63,8 @@ public class Main {
 			}
 		}
 		
+		printStatus("after init");
+		
 		tokens = new StringTokenizer(br.readLine());
 		for(int pNum = 1; pNum <= M; pNum++) {
 			int dir = Integer.parseInt(tokens.nextToken()) - 1;
@@ -80,12 +86,16 @@ public class Main {
 		while(remain > 1 && time < 1000) {
 			//	살아있는 모든 플레이어 한 칸씩 이동
 			moveAll();
+			printStatus(time + ". after moveAll");
 			//	각 칸 조사해서 한 칸에 여러 플레이어 있을 경우 가장 번호 작은 한 명만 남기기
 			remove();
+			printStatus(time + ". after remove");
 			//	새로 이동한 곳 독점하기
 			monopoly();
+			printStatus(time + ". after monopoly");
 			//	독점 갱신
 			renewMonopoly();
+			printStatus(time + ". after renew");
 			time++;
 		}
 		
@@ -242,6 +252,26 @@ public class Main {
 		@Override
 		public int compareTo(Player other) {	//	번호 큰 플레이어부터 먼저 제거되도록
 			return Integer.compare(other.num, this.num);
+		}
+	}
+	
+	private static void printStatus(String message) {
+		if(!DEBUG)
+			return;
+		
+		System.out.println(message);
+		
+		System.out.println("+++++++++++playerMap+++++++++++");
+		for(int r = 0; r < N; r++) {
+			for(int c = 0; c < N; c++)
+				System.out.print(playerMap[r][c].size() + " ");
+			System.out.println();
+		}
+		System.out.println("+++++++++++monopolyMap+++++++++++");
+		for(int r = 0; r < N; r++) {
+			for(int c = 0; c < N; c++)
+				System.out.print("(" + monopolyMap[r][c][0] + ", " + monopolyMap[r][c][1] + ") ");
+			System.out.println();
 		}
 	}
 	
