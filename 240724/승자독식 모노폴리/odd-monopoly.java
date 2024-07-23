@@ -7,9 +7,6 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
-//	private static final boolean DEBUG = true;
-	private static final boolean DEBUG = false;
-	
 	private static final int NONE = 0;	//	독점한 사람 없는 경우
 	
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -86,16 +83,12 @@ public class Main {
 		while(remain > 1 && time < 1000) {
 			//	살아있는 모든 플레이어 한 칸씩 이동
 			moveAll();
-			printStatus(time + ". after moveAll");
 			//	각 칸 조사해서 한 칸에 여러 플레이어 있을 경우 가장 번호 작은 한 명만 남기기
 			remove();
-			printStatus(time + ". after remove");
 			//	독점 갱신
 			renewMonopoly();
-			printStatus(time + ". after renew");
 			//	새로 이동한 곳 독점하기
 			monopoly();
-			printStatus(time + ". after monopoly");
 			time++;
 		}
 		
@@ -194,7 +187,6 @@ public class Main {
 		}
 		
 		if(res == -1) {	//	주변 4칸이 격자 밖이거나, 독점한 플레이어가 있을 경우
-//			System.out.println("here!!");
 			for(int i = 0; i < 4; i++) {
 				int d = cPriority[i];
 				int ny = cy + dy[d];
@@ -205,7 +197,6 @@ public class Main {
 					continue;
 				
 				if(monopolyMap[ny][nx][0] == pNum)	{	//	이동하려는 플레이어가 독점한 칸일 경우
-//					System.out.println("there!!");
 					res = d;
 					break;
 				}
@@ -254,26 +245,6 @@ public class Main {
 		@Override
 		public int compareTo(Player other) {	//	번호 큰 플레이어부터 먼저 제거되도록
 			return Integer.compare(other.num, this.num);
-		}
-	}
-	
-	private static void printStatus(String message) {
-		if(!DEBUG)
-			return;
-		
-		System.out.println(message);
-		
-		System.out.println("+++++++++++playerMap+++++++++++");
-		for(int r = 0; r < N; r++) {
-			for(int c = 0; c < N; c++)
-				System.out.print(playerMap[r][c].size() + " ");
-			System.out.println();
-		}
-		System.out.println("+++++++++++monopolyMap+++++++++++");
-		for(int r = 0; r < N; r++) {
-			for(int c = 0; c < N; c++)
-				System.out.print("(" + monopolyMap[r][c][0] + ", " + monopolyMap[r][c][1] + ") ");
-			System.out.println();
 		}
 	}
 	
