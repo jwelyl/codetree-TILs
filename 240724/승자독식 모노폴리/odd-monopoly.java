@@ -90,12 +90,12 @@ public class Main {
 			//	각 칸 조사해서 한 칸에 여러 플레이어 있을 경우 가장 번호 작은 한 명만 남기기
 			remove();
 			printStatus(time + ". after remove");
-			//	새로 이동한 곳 독점하기
-			monopoly();
-			printStatus(time + ". after monopoly");
 			//	독점 갱신
 			renewMonopoly();
 			printStatus(time + ". after renew");
+			//	새로 이동한 곳 독점하기
+			monopoly();
+			printStatus(time + ". after monopoly");
 			time++;
 		}
 		
@@ -194,6 +194,7 @@ public class Main {
 		}
 		
 		if(res == -1) {	//	주변 4칸이 격자 밖이거나, 독점한 플레이어가 있을 경우
+//			System.out.println("here!!");
 			for(int i = 0; i < 4; i++) {
 				int d = cPriority[i];
 				int ny = cy + dy[d];
@@ -204,6 +205,7 @@ public class Main {
 					continue;
 				
 				if(monopolyMap[ny][nx][0] == pNum)	{	//	이동하려는 플레이어가 독점한 칸일 경우
+//					System.out.println("there!!");
 					res = d;
 					break;
 				}
