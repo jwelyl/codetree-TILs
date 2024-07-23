@@ -14,7 +14,7 @@ class Main {
         n = br.readLine().toInt()
 
         tokens = StringTokenizer(br.readLine())
-        for(i in 0 ..< n) {
+        for(i in 0 until n) {
             val num = tokens.nextToken().toInt()
 
             if(num == 2) {
