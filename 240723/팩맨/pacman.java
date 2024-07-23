@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
-//	private static final boolean DEBUG = true;
-	private static final boolean DEBUG = false;
-	
 	private static final int MAX = 4;
 	
 	private static final int ALIVE = 0;		//	몬스터 활성 상태
@@ -73,19 +70,14 @@ public class Main {
 	private static void simulation() {
 		//	1. 몬스터 복제 시도, 알 낳기
 		layEggs();
-		printStatus(time + " layEggs");
 		//	2. 활성 상태 몬스터 이동하기
 		moveAlives();
-		printStatus(time + " moveAlives");
 		//	3. 팩맨 이동
 		packmanMoves();
-		printStatus(time + " packmanMoves");
 		//	4. 시체 처리
 		clearDead();
-		printStatus(time + " clearDead");
 		//	5. 몬스터 복제 완성, 알 낳기
 		hatchEggs();
-		printStatus(time + " hatchEggs");
 	}
 	
 	//	1. 몬스터 알 생성
@@ -236,8 +228,6 @@ public class Main {
 	
 	//	4. 시체 상태 몬스터 제거
 	private static void clearDead() {
-//		System.out.println("current time = " + time);
-		
 		for(int r = 0; r < MAX; r++) {
 			for(int c = 0; c < MAX; c++) {
 				List<Monster> tmp = new ArrayList<>();
@@ -280,32 +270,6 @@ public class Main {
 		}
 		
 		return sum;
-	}
-	
-	private static void printStatus(String after) {
-		if(!DEBUG)
-			return;
-		
-		System.out.println("After " + after);
-		System.out.println("packman = (" + packman.y + ", " + packman.x + ")");
-		System.out.println("-----------aliveMap-----------");
-		for(int r = 0; r < MAX; r++) {
-			for(int c = 0; c < MAX; c++)
-				System.out.print(aliveMap[r][c].size() + " ");
-			System.out.println();
-		}
-		System.out.println("-----------eggMap-----------");
-		for(int r = 0; r < MAX; r++) {
-			for(int c = 0; c < MAX; c++)
-				System.out.print(eggMap[r][c].size() + " ");
-			System.out.println();
-		}
-		System.out.println("-----------deadMap-----------");
-		for(int r = 0; r < MAX; r++) {
-			for(int c = 0; c < MAX; c++)
-				System.out.print(deadMap[r][c].size() + " ");
-			System.out.println();
-		}
 	}
 	
 	private static final int[] dyM = {0, -1, -1, 0, 1, 1, 1, 0, -1};
