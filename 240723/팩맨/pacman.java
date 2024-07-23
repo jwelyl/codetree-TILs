@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
+//	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
+	
 	private static final int MAX = 4;
 	
 	private static final int ALIVE = 0;		//	몬스터 활성 상태
@@ -44,7 +47,7 @@ public class Main {
 			int x = Integer.parseInt(tokens.nextToken()) - 1;	//	몬스터 초기 위치
 			int dir = Integer.parseInt(tokens.nextToken());		//	몬스터 초기 방향
 			
-			Monster m = new Monster(y, x, dir);	//	초기 몬스터는 활성 상태
+			Monster m = new Monster(dir);	//	초기 몬스터는 활성 상태
 			aliveMap[y][x].add(m);	//	활성 상태 몬스터를 활성 상태 (y, x) 칸에 넣기 
 		}
 		
@@ -70,19 +73,19 @@ public class Main {
 	private static void simulation() {
 		//	1. 몬스터 복제 시도, 알 낳기
 		layEggs();
-//		printStatus(time + " layEggs");
+		printStatus(time + " layEggs");
 		//	2. 활성 상태 몬스터 이동하기
 		moveAlives();
-//		printStatus(time + " moveAlives");
+		printStatus(time + " moveAlives");
 		//	3. 팩맨 이동
 		packmanMoves();
-//		printStatus(time + " packmanMoves");
+		printStatus(time + " packmanMoves");
 		//	4. 시체 처리
 		clearDead();
-//		printStatus(time + " clearDead");
+		printStatus(time + " clearDead");
 		//	5. 몬스터 복제 완성, 알 낳기
 		hatchEggs();
-//		printStatus(time + " hatchEggs");
+		printStatus(time + " hatchEggs");
 	}
 	
 	//	1. 몬스터 알 생성
@@ -113,8 +116,8 @@ public class Main {
 					continue;
 				
 				for(Monster m : mList) {
-					int cy = m.y;
-					int cx = m.x;		//	현재 몬스터 위치
+					int cy = r;
+					int cx = c;		//	현재 몬스터 위치
 					int cdir = m.dir;	//	현재 몬스터 방향
 					
 					int mdir = -1;	//	이동할 방향
@@ -138,8 +141,6 @@ public class Main {
 					else {
 						int ny = cy + dyM[mdir];
 						int nx = cx + dxM[mdir];	//	(ny, nx)칸으로 이동하면 됨
-						m.y = ny;
-						m.x = nx;
 						m.dir = mdir;				//	몬스터가 바라보는 방향 변경
 						
 						tmp[ny][nx].add(m);	//	(ny, nx)칸으로 이동
@@ -299,28 +300,31 @@ public class Main {
 		return sum;
 	}
 	
-//	private static void printStatus(String after) {
-//		System.out.println("After " + after);
-//		System.out.println("packman = (" + packman.y + ", " + packman.x + ")");
-//		System.out.println("-----------aliveMap-----------");
-//		for(int r = 0; r < MAX; r++) {
-//			for(int c = 0; c < MAX; c++)
-//				System.out.print(aliveMap[r][c].size() + " ");
-//			System.out.println();
-//		}
-//		System.out.println("-----------eggMap-----------");
-//		for(int r = 0; r < MAX; r++) {
-//			for(int c = 0; c < MAX; c++)
-//				System.out.print(eggMap[r][c].size() + " ");
-//			System.out.println();
-//		}
-//		System.out.println("-----------deadMap-----------");
-//		for(int r = 0; r < MAX; r++) {
-//			for(int c = 0; c < MAX; c++)
-//				System.out.print(deadMap[r][c].size() + " ");
-//			System.out.println();
-//		}
-//	}
+	private static void printStatus(String after) {
+		if(!DEBUG)
+			return;
+		
+		System.out.println("After " + after);
+		System.out.println("packman = (" + packman.y + ", " + packman.x + ")");
+		System.out.println("-----------aliveMap-----------");
+		for(int r = 0; r < MAX; r++) {
+			for(int c = 0; c < MAX; c++)
+				System.out.print(aliveMap[r][c].size() + " ");
+			System.out.println();
+		}
+		System.out.println("-----------eggMap-----------");
+		for(int r = 0; r < MAX; r++) {
+			for(int c = 0; c < MAX; c++)
+				System.out.print(eggMap[r][c].size() + " ");
+			System.out.println();
+		}
+		System.out.println("-----------deadMap-----------");
+		for(int r = 0; r < MAX; r++) {
+			for(int c = 0; c < MAX; c++)
+				System.out.print(deadMap[r][c].size() + " ");
+			System.out.println();
+		}
+	}
 	
 	private static final int[] dyM = {0, -1, -1, 0, 1, 1, 1, 0, -1};
 	private static final int[] dxM = {0, 0, -1, -1, -1, 0, 1, 1, 1};	//	몬스터 이동 방향
@@ -343,21 +347,17 @@ public class Main {
 	}
 	
 	private static class Monster {
-		public int y;
-		public int x;			//	몬스터 위치
 		public int dir;			//	몬스터가 바라보는 방향
 		public int status;		//	몬스터 상태
 		public int expired;		//	몬스터 상태가 시체일 경우 사라지는 시간
 		
-		public Monster(int y, int x, int dir) {	//	게임 시작 시 주어지는 몬스터
-			this.y = y;
-			this.x = x;
+		public Monster(int dir) {	//	게임 시작 시 주어지는 몬스터
 			this.dir = dir;
 			this.status = ALIVE;
 		}
 		
 		public Monster(Monster m) {	//	몬스터 m을 복제함
-			this(m.y, m.x, m.dir);	//	m의 위치와 초기 방향을 그대로 가짐
+			this(m.dir);	//	m의 위치와 초기 방향을 그대로 가짐
 			this.status = EGG;		//	상태는 알인 상태
 		}
 	}
