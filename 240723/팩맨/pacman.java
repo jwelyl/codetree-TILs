@@ -190,10 +190,8 @@ public class Main {
 					int eat = aliveMap[ny0][nx0].size();
 					visited[ny0][nx0] = true;
 					
-					if(!visited[ny1][nx1]) {
 						eat += aliveMap[ny1][nx1].size();
-						visited[ny1][nx1] = true;
-					}
+
 					
 					if(!visited[ny2][nx2]) {
 						eat += aliveMap[ny2][nx2].size();
