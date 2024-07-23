@@ -173,13 +173,6 @@ public class Main {
 			if(!isIn(ny0, nx0))	//	범위 벗어날 경우
 				continue;
 			
-			int eat0 = 0;
-			
-			if(!visited[ny0][nx0]) {
-				eat0 += aliveMap[ny0][nx0].size();
-				visited[ny0][nx0] = true;
-			}
-			
 			for(int d1 = 0; d1 < 4; d1++) {	//	두 번째 이동 방향
 				int ny1 = ny0 + dyP[d1];
 				int nx1 = nx0 + dxP[d1];	//	두 번째 이동 방향으로 이동한 칸
@@ -187,35 +180,28 @@ public class Main {
 				if(!isIn(ny1, nx1))	//	범위 벗어날 경우
 					continue;
 				
-				int eat1 = eat0;
-				
-				if(!visited[ny1][nx1]) {
-					eat1 += aliveMap[ny1][nx1].size();
-					visited[ny1][nx1] = true;
-				}
-				
 				for(int d2 = 0; d2 < 4; d2++) {
 					int ny2 = ny1 + dyP[d2];
 					int nx2 = nx1 + dxP[d2];	//	세 번째 이동 방향으로 이동한 칸
-					
-					if(!isIn(ny2, nx2))	//	범위 벗어날 경우
+		
+					if(!isIn(ny2, nx2))
 						continue;
 					
-					int eat2 = eat1;	//	세 번 이동해서 먹을 수 있는 활성 상태 몬스터 수
+					int eat = aliveMap[ny0][nx0].size();
+					visited[ny0][nx0] = true;
+					
+					if(!visited[ny1][nx1]) {
+						eat += aliveMap[ny1][nx1].size();
+						visited[ny1][nx1] = true;
+					}
 					
 					if(!visited[ny2][nx2]) {
-						eat2 += aliveMap[ny2][nx2].size();
+						eat += aliveMap[ny2][nx2].size();
 						visited[ny2][nx2] = true;
 					}
 					
-					if(eat2 > maxEat) {	//	최대로 먹는 방법 갱신한 경우
-//						System.out.println("maxEat = " + maxEat);
-//						System.out.println("d0 = " + d0);
-//						System.out.println("d1 = " + d1);
-//						System.out.println("d2 = " + d2);
-//						System.out.println("eat = " + eat3);
-						
-						maxEat = eat2;
+					if(eat > maxEat) {
+						maxEat = eat;
 						py[0] = ny0;
 						px[0] = nx0;
 						py[1] = ny1;
@@ -225,12 +211,10 @@ public class Main {
 					}
 					
 					visited[ny2][nx2] = false;
+					visited[ny1][nx1] = false;
+					visited[ny0][nx0] = false;
 				}
-				
-				visited[ny1][nx1] = false;
 			}
-			
-			visited[ny0][nx0] = false;
 		}
 		
 		//	팩맨이 이동한 경로에 있는 활성 상태 몬스터 먹기 
