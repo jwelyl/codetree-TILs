@@ -260,7 +260,7 @@ public class Main {
 				List<Monster> tmp = new ArrayList<>();
 				
 				for(Monster m : deadMap[r][c]) {	//	(r, c) 칸에 존재하는 시체들 중에서
-					if(m.expired > time)	//	아직 사라질 시간이 되지 않은 경우
+					if(m.expired >= time)	//	아직 사라질 시간이 되지 않은 경우
 						tmp.add(m);	//	보존하기
 				}
 				
