@@ -60,8 +60,6 @@ public class Main {
 			}
 		}
 		
-		printStatus("after init");
-		
 		tokens = new StringTokenizer(br.readLine());
 		for(int pNum = 1; pNum <= M; pNum++) {
 			int dir = Integer.parseInt(tokens.nextToken()) - 1;
