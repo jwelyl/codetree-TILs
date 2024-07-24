@@ -25,7 +25,7 @@ public class Main {
 			tokens = new StringTokenizer(br.readLine());
 			for(int c = 0; c < MAX; c++) {
 				int pNum = Integer.parseInt(tokens.nextToken());
-				int dir = Integer.parseInt(tokens.nextToken());
+				int dir = Integer.parseInt(tokens.nextToken()) - 1;
 				
 				thieves[pNum] = new Piece(pNum, r, c, dir);
 				map[r][c] = pNum;
