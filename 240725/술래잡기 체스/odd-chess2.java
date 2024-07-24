@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
-//	private static final boolean DEBUG = true;
-	private static final boolean DEBUG = false;
-	
 	private static final int MAX = 4;
 	private static final int PMAX = MAX * MAX + 1;
 	private static final int EMPTY = 0;		//	도둑말이 없을 경우
@@ -43,9 +40,6 @@ public class Main {
 	}	//	main-end
 	
 	private static void simulation(Piece police, Piece[] thieves, int[][] map, int score) {
-		printPolice(police);
-		printMap("simulation start", map, thieves);
-		
 		Piece[] cThieves = copyThieves(thieves);	//	기존 도둑말 복사
 		int[][] cMap = copyMap(map);				//	기존 맵 복사
 		
@@ -56,10 +50,6 @@ public class Main {
 			maxScore = Math.max(maxScore, score);	//	최대 점수 갱신
 			return;	//	종료
 		}
-		
-		printPolice(police);
-		
-		printPosList(posList);
 		
 		for(int[] pos : posList) {	//	이동할 수 있는 칸에 대해서
 			int ny = pos[0];
@@ -170,8 +160,6 @@ public class Main {
 				thief.x = nx;
 			}
 		}
-		
-		printMap("after move all", map, thieves);
 	}
 	
 	//	현재 police 위치에서 이동 가능한지 확인
@@ -199,52 +187,7 @@ public class Main {
 		
 		return posList;
 	}
-	
-	private static void printPolice(Piece police) {
-		if(!DEBUG)
-			return;
-		
-		System.out.println("police = (" + police.y + ", " + police.x + ", " + police.dir + ")");
-	}
-	
-	private static void printPosList(List<int[]> posList) {
-		if(!DEBUG)
-			return;
-		
-		System.out.println("이동할 수 있는 점");
-		for(int[] pos : posList)
-			System.out.print("[" + pos[0] + ", " + pos[1] + "] ");
-		System.out.println();
-	}
-	
-	private static void printMap(String message, int[][] map, Piece[] thieves) {
-		if(!DEBUG)
-			return;
-		
-		System.out.println(message);
-		System.out.println("+++++++++++++++++++++++++++++++++++++");
-		for(int r = 0; r < MAX; r++) {
-			for(int c = 0; c < MAX; c++)
-				System.out.print(map[r][c] + " ");
-			System.out.println();
-		}
-		System.out.println("+++++++++++++++++++++++++++++++++++++");
-		System.out.println("+++++++++++++++++++++++++++++++++++++");
-		for(int r = 0; r < MAX; r++) {
-			for(int c = 0; c < MAX; c++) {
-				int pNum = map[r][c];
-				
-				if(pNum != EMPTY)
-					System.out.print(thieves[pNum].dir + " ");
-				else 
-					System.out.print("X ");
-			}
-			System.out.println();
-		}
-		System.out.println("+++++++++++++++++++++++++++++++++++++");
-	}
-	
-	
+
 	private static final int[] dy = {-1, -1, 0, 1, 1, 1, 0, -1};
 	private static final int[] dx = {0, -1, -1, -1, 0, 1, 1, 1};
 	
