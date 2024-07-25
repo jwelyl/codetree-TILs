@@ -74,25 +74,18 @@ public class Main {
 				
 				nscore += board[nextPos];	//	pNum번째 말이 이동하여 점수 추가
 				npos[pNum] = nextPos;		//	말들 위치 갱신
-//				visited[curPos] = false;	//	현재 칸에서 이동
-//				visited[nextPos] = true;	//	다음 칸 방문 처리
-				setVisited(curPos, false);	//	현재 칸에서 이동
+				
+                setVisited(curPos, false);	//	현재 칸에서 이동
 				setVisited(nextPos, true);	//	다음 칸 방문 처리
-				
 				simulation(nth + 1, npos, nscore);	//	다음 윳 던지기
-				
-//				visited[nextPos] = false;	//	방문처리 취소
-//				visited[curPos] = true;		//	원상복귀
 				setVisited(nextPos,false);	//	방문처리 취소
 				setVisited(curPos, true);	//	원상복귀
 			}
 			else {	//	다음 칸이 도착점일 경우
 				npos[pNum] = END;	//	다음 던지기에서는 pNum번째 말 못 움직이게 처리
 				
-//				visited[curPos] = false;	//	현재 칸에서 이동
 				setVisited(curPos, false);	//	현재 칸에서 이동
 				simulation(nth + 1, npos, nscore);
-//				visited[curPos] = true;	//	원상복귀
 				setVisited(curPos, true);	//	원상복귀
 			}
 		}
