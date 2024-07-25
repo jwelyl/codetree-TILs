@@ -32,7 +32,7 @@ class Main {
         for(i in idxList.size - 1 downTo 0)
             sb.append("${idxList[i]} ")
 
-        print(sb)
+        println(sb)
     }
 }
 
