@@ -52,11 +52,6 @@ public class Main {
 			return;
 		}
 		
-		if(isEnd(pos)) {
-			maxScore = Math.max(maxScore, score);
-			return;
-		}
-		
 		for(int pNum = 0; pNum < 4; pNum++) {	//	pNum번째 말을 이동한다고 가정
 			int curPos = pos[pNum];	//	pNum번째 말의 현재 위치
 			
@@ -118,15 +113,6 @@ public class Main {
 			visited[46] = status;
 		}
 		else visited[pos] = status;	//	그 외 칸 방문 상태 변경 
-	}
-	
-	private static boolean isEnd(int[] pos) {
-		int cnt = 0;
-		for(int pNum = 0; pNum < 4; pNum++)
-			if(pos[pNum] == END)
-				cnt++;
-		
-		return cnt == 4;
 	}
 	
 	//	현재 위치가 curPos이고 eyes의 칸이 나왔을 때 다음 위치, 도착점에 도달한 경우 END  반환
