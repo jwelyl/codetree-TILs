@@ -66,27 +66,29 @@ public class Main {
 				
 			int nextPos = nextPos(curPos, yut[nth]);	//	현재 말이 이동할 다음 칸
 			int nscore = score;			//	이동 후 점수
-			int[] npos = copyPos(pos);	//	이동 후 말들의 위치
 			
 			if(nextPos != END) {	//	다음 칸이 도착점이 아닐 경우 
 				if(visited[nextPos])	//	다음 칸에 이미 다른 말이 있을 경우, pNum번째 말을 던질 수 없음
 					continue;
 				
 				nscore += board[nextPos];	//	pNum번째 말이 이동하여 점수 추가
-				npos[pNum] = nextPos;		//	말들 위치 갱신
-				
-                setVisited(curPos, false);	//	현재 칸에서 이동
+				pos[pNum] = nextPos;		//	말들 위치 갱신
+				setVisited(curPos, false);	//	현재 칸에서 이동
 				setVisited(nextPos, true);	//	다음 칸 방문 처리
-				simulation(nth + 1, npos, nscore);	//	다음 윳 던지기
+				
+				simulation(nth + 1, pos, nscore);	//	다음 윳 던지기
 				setVisited(nextPos,false);	//	방문처리 취소
 				setVisited(curPos, true);	//	원상복귀
+				pos[pNum] = curPos;
 			}
 			else {	//	다음 칸이 도착점일 경우
-				npos[pNum] = END;	//	다음 던지기에서는 pNum번째 말 못 움직이게 처리
+				pos[pNum] = END;	//	다음 던지기에서는 pNum번째 말 못 움직이게 처리
 				
 				setVisited(curPos, false);	//	현재 칸에서 이동
-				simulation(nth + 1, npos, nscore);
+				simulation(nth + 1, pos, nscore);
 				setVisited(curPos, true);	//	원상복귀
+				
+				pos[pNum] = curPos;
 			}
 		}
 	}
@@ -125,14 +127,6 @@ public class Main {
 				cnt++;
 		
 		return cnt == 4;
-	}
-	
-	private static int[] copyPos(int[] pos) {
-		int[] ret = new int[4];
-		for(int i = 0; i < 4; i++)
-			ret[i] = pos[i];
-		
-		return ret;
 	}
 	
 	//	현재 위치가 curPos이고 eyes의 칸이 나왔을 때 다음 위치, 도착점에 도달한 경우 END  반환
