@@ -29,6 +29,7 @@ public class Main {
 		30, 28, 27, 26, 25, 30, 35, 40, 0 
 	};	
 	
+	private static final int[] pos = new int[4];
 	private static final boolean[] visited = new boolean[48];
 	
 	private static int maxScore = 0;	//	최대로 얻을 수 있는 점수
@@ -40,14 +41,12 @@ public class Main {
 		for(int i = 0; i < 10; i++)
 			yut[i] = Integer.parseInt(tokens.nextToken());
 		
-		int[] pos = new int[4];	//	4개 말의 현재 위치
-		
-		simulation(0, pos, 0);
+		simulation(0, 0);
 		
 		System.out.println(maxScore);
 	}	//	main-end
 	
-	private static void simulation(int nth, int[] pos, int score) {
+	private static void simulation(int nth, int score) {
 		if(nth == 10) {	//	10번 모두 던졌을 경우
 			maxScore = Math.max(maxScore, score);
 			return;
@@ -76,7 +75,8 @@ public class Main {
 				setVisited(curPos, false);	//	현재 칸에서 이동
 				setVisited(nextPos, true);	//	다음 칸 방문 처리
 				
-				simulation(nth + 1, pos, nscore);	//	다음 윳 던지기
+				simulation(nth + 1, nscore);	//	다음 윳 던지기
+				
 				setVisited(nextPos,false);	//	방문처리 취소
 				setVisited(curPos, true);	//	원상복귀
 				pos[pNum] = curPos;
@@ -85,7 +85,7 @@ public class Main {
 				pos[pNum] = END;	//	다음 던지기에서는 pNum번째 말 못 움직이게 처리
 				
 				setVisited(curPos, false);	//	현재 칸에서 이동
-				simulation(nth + 1, pos, nscore);
+				simulation(nth + 1, nscore);
 				setVisited(curPos, true);	//	원상복귀
 				
 				pos[pNum] = curPos;
