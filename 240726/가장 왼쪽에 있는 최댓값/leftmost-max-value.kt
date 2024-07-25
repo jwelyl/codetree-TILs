@@ -9,15 +9,11 @@ class Main {
     private var n = 0
     private lateinit var nums : IntArray
 
-    private var beforeMax = 1_001   //  이전 최댓값
-    private var beforeMaxIdx = 0    //  이전 최댓값 위치
-    private var max = 0             //  현재 최댓값
-    private var maxIdx = 0          //  현재 최댓값 위치
+    private var max = -1             //  현재 최댓값
+    private val idxList = ArrayList<Int>()
 
     fun solve() {
         n = br.readLine().toInt()
-
-        beforeMaxIdx = n
         nums = IntArray(n)
 
         tokens = StringTokenizer(br.readLine())
@@ -26,20 +22,15 @@ class Main {
             nums[it] = tokens.nextToken().toInt()
         }
 
-        while(beforeMaxIdx > 0) {
-            max = -1
-
-            for(i in 0 until beforeMaxIdx) {
-                if(nums[i] < beforeMax && nums[i] > max) {
-                    max = nums[i]
-                    maxIdx = i
-                }
+        for(i in 0 until n) {
+            if(nums[i] > max) {
+                idxList.add(i + 1)
+                max = nums[i]
             }
-
-            sb.append("${maxIdx + 1} ")
-            beforeMax = max
-            beforeMaxIdx = maxIdx
         }
+
+        for(i in idxList.size - 1 downTo 0)
+            sb.append("${idxList[i]} ")
 
         print(sb)
     }
