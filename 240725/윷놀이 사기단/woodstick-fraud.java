@@ -105,6 +105,16 @@ public class Main {
 			visited[34] = status;
 			visited[43] = status;
 		}
+		else if(pos == 27 || pos == 35 || pos == 44) {
+			visited[27] = status;
+			visited[35] = status;
+			visited[44] = status;
+		}
+		else if(pos == 28 || pos == 36 || pos == 45) {
+			visited[28] = status;
+			visited[36] = status;
+			visited[45] = status;
+		}
 		//	경로 1, 2, 3, 4 모두 지나는 칸 방문 상태 변경
 		else if(pos == 20 || pos == 29 || pos == 37 || pos == 46) {
 			visited[20] = status;
