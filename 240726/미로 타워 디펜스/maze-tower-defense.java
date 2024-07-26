@@ -166,7 +166,6 @@ public class Main {
 	}
 	
 	private static void step4(int lastIdx) {
-		int curIdx = lastIdx + 1;
 		List<Integer> addMonsters = new ArrayList<>();	//	추가될 몬스터
 		
 		int start = 0;
