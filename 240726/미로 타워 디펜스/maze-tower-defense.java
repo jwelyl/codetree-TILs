@@ -8,8 +8,6 @@ import java.util.StringTokenizer;
 
 public class Main {
 	private static final int EMPTY = 0;
-//	private static final boolean DEBUG = true;
-	private static final boolean DEBUG = false;
 	
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static StringTokenizer st;
@@ -81,15 +79,6 @@ public class Main {
 			cur--;
 		}
 		
-//		if(DEBUG) {
-//			System.out.println("snail");
-//			for(int r = 0; r < N; r++) {
-//				for(int c = 0; c < N; c++)
-//					System.out.printf("%3d ", coordToIdx[r][c]);
-//				System.out.println();
-//			}
-//		}
-		
 		for(int r = 0; r < N; r++) {
 			st = new StringTokenizer(br.readLine());
 			for(int c = 0; c < N; c++) {
@@ -102,13 +91,6 @@ public class Main {
 				}
 			}
 		}
-		
-//		if(DEBUG) {
-//			System.out.println("monsters");
-//			for(int idx = 0; idx < MCNT; idx++)
-//				System.out.print(monsters[idx] + " ");
-//			System.out.println();
-//		}
 	}
 	
 	private static void simulation() throws IOException {	
@@ -139,8 +121,6 @@ public class Main {
 		int lastIdx = 0;	//	step 2, 3을 거쳤을 때 마지막 몬스터의 index
 		
 		while(true) {
-			printMonsters(monsters, "before step 2");
-			
 			//	step 2. 몬스터를 앞으로 당김
 			int idx = 0;
 			int[] tmp = new int[MCNT];
@@ -149,8 +129,6 @@ public class Main {
 				if(monsters[i] != 0)
 					tmp[idx++] = monsters[i];
 			}
-			
-			printMonsters(tmp, "after step 2");
 			
 			//	step 3. 4개 이상 연속한 같은 몬스터를 제거함
 			int limit = idx;	//	당겼을 때 마지막 몬스터의 다음 위치
@@ -177,8 +155,6 @@ public class Main {
 			}
 			
 			monsters = tmp;	//	monsters 갱신
-			
-			printMonsters(monsters, "after step 3");
 			
 			if(!changed) {	//	연속한 몬스터들이 제거된 적이 없을 경우, 다시 당길 필요 없음
 				lastIdx = limit - 1;	//	마지막 몬스터의 index를 반환
@@ -209,22 +185,11 @@ public class Main {
 			start = end + 1;
 			end = start;
 		}
-		
-//		System.out.println("addMonsters = " + addMonsters);
-		
-//		for(int monster : addMonsters) {
-//			if(curIdx < MCNT)	//	아직 더 들어갈 수 있을 경우
-//				monsters[curIdx++] = monster;
-//			else	//	더 이상 들어갈 수 없을 경우
-////				break;
-//		}
 			
 		Arrays.fill(monsters, EMPTY);
 		
 		for(int i = 0; i < Math.min(MCNT, addMonsters.size()); i++)
 			monsters[i] = addMonsters.get(i);
-		
-		printMonsters(monsters, "after step 4");
 		
 		redraw();
 	}
@@ -238,33 +203,6 @@ public class Main {
 			
 			map[y][x] = monster;
 		}
-		
-		printMap("after redraw");
-		printMap("1-turn-end");
-	}
-	
-	private static void printMap(String message) {
-		if(!DEBUG)
-			return;
-		
-		System.out.println(message);
-		
-		for(int r = 0; r < N; r++) {
-			for(int c = 0; c < N; c++)
-				System.out.print(map[r][c] + " ");
-			System.out.println();
-		}
-	}
-	
-	private static void printMonsters(int[] monsters, String message) {
-		if(!DEBUG)
-			return;
-		
-		System.out.println(message);
-		System.out.print("monsters : ");
-		for(int i = 0; i < MCNT; i++)
-			System.out.print(monsters[i] + " ");
-		System.out.println();
 	}
 	
 	private static final int[] dy = {0, 1, 0, -1};
