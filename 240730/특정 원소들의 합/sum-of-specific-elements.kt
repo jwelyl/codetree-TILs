@@ -12,7 +12,7 @@ class Main {
         for(i in 0 until 4) {
             st = StringTokenizer(br.readLine())
             
-            for(j in 0 util 4) {
+            for(j in 0 until 4) {
                 val num = st.nextToken().toInt()
 
                 if(j <= i)
