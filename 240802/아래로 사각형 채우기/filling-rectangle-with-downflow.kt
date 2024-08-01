@@ -17,7 +17,7 @@ class Main {
             var num = it + 1
 
             repeat(n) {
-                sb.append("num ")
+                sb.append("$num ")
                 num += n
             }
             sb.append("\n")
