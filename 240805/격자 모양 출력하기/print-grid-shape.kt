@@ -20,7 +20,7 @@ class Main {
             val y = st.nextToken().toInt()
             val x = st.nextToken().toInt()
 
-            visited[y + 1][x + 1] = y * x
+            visited[y - 1][x - 1] = y * x
         }
 
         for(r in 0 until n) {
