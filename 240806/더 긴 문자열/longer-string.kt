@@ -1,11 +1,15 @@
+import java.util.*
 import java.io.*
 
 class Main {
     private val br = BufferedReader(InputStreamReader(System.`in`))
-    
+    private lateinit var st : StringTokenizer
+
     fun solve() {
-        val input1 = br.readLine()
-        val input2 = br.readLine()
+        st = StringTokenizer(br.readLine())
+
+        val input1 = st.nextToken()
+        val input2 = st.nextToken()
 
         if(input1.length > input2.length)
             println("$input1 ${input1.length}")
