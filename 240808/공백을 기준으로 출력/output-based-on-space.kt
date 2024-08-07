@@ -9,10 +9,11 @@ class Main {
     fun solve() {
         repeat(2) {
             st = StringTokenizer(br.readLine())
-            sb.append(st.nextToken()).append(st.nextToken()).append("\n")
+            while(st.hasMoreTokens())
+                sb.append(st.nextToken())
         }
 
-        print(sb)
+        println(sb)
     }
 }
 
