@@ -8,7 +8,7 @@ class Main {
 
     fun solve() {
         repeat(4) {
-            stack.append(br.readLine())
+            stack.push(br.readLine())
         }
 
         while(stack.isNotEmpty())
