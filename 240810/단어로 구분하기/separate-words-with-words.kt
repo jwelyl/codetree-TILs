@@ -7,6 +7,8 @@ class Main {
     private lateinit var st : StringTokenizer
 
     fun solve() {
+        st = StringTokenizer(br.readLine())
+
         while(st.hasMoreTokens())
             sb.append(st.nextToken()).append("\n")
         
