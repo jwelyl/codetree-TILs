@@ -16,12 +16,18 @@ class Main {
 
         key = br.readLine()[0]
 
+        var ok = false
         for(str in list) {
-            if(str[str.length - 1] == key)
+            if(str[str.length - 1] == key) {
                 sb.append(str).append("\n")
+                ok = true
+            }
         }
         
-        print(sb)
+        if(ok)
+            print(sb)
+        else
+            println("None")
     }
 }
 
