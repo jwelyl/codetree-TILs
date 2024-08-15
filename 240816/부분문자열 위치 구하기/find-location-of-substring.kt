@@ -7,10 +7,7 @@ class Main {
     private lateinit var st: StringTokenizer
 
     fun solve() {
-        val input = br.readLine()
-        var target = br.readLine()
-
-        println(input.indexOf(target))
+        println(br.readLine().indexOf(br.readLine()))
     }
 }
 
