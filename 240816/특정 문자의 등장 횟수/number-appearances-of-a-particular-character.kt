@@ -14,6 +14,8 @@ class Main {
 
         var idx = 0
         while(true) {
+            println("while1")
+            println("idx = $idx")
             val partial = input.substring(idx)
             println("partial = $partial")
 
@@ -28,6 +30,7 @@ class Main {
 
         idx = 0
         while(true) {
+            println("while2")
             val partial = input.substring(idx)
             println("partial = $partial")
 
