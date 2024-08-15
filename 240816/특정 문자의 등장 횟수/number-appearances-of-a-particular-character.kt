@@ -11,13 +11,14 @@ class Main {
 
     fun solve() {
         val input = br.readLine()
+        var partial = input
 
         var idx = 0
         while(true) {
-            println("while1")
-            println("idx = $idx")
-            val partial = input.substring(idx)
-            println("partial = $partial")
+            // println("while1")
+            // println("idx = $idx")
+            partial = partial.substring(idx)
+            // println("partial = $partial")
 
             val pos = partial.indexOf("ee")
             
@@ -28,11 +29,13 @@ class Main {
             idx = pos + 1
         }
 
+        partial = input
         idx = 0
+
         while(true) {
-            println("while2")
-            val partial = input.substring(idx)
-            println("partial = $partial")
+            // println("while2")
+            partial = partial.substring(idx)
+            // println("partial = $partial")
 
             val pos = partial.indexOf("eb")
             
