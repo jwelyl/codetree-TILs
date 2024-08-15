@@ -15,7 +15,7 @@ class Main {
         var idx = 0
         while(true) {
             val partial = input.substring(idx)
-            // println("partial = $partial")
+            println("partial = $partial")
 
             val pos = partial.indexOf("ee")
             
@@ -29,7 +29,7 @@ class Main {
         idx = 0
         while(true) {
             val partial = input.substring(idx)
-            // println("partial = $partial")
+            println("partial = $partial")
 
             val pos = partial.indexOf("eb")
             
