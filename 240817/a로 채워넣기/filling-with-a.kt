@@ -12,7 +12,7 @@ class Main {
         str = br.readLine().toCharArray()
 
         str[1] = 'a'
-        str[str.length - 2] = 'a'
+        str[str.size - 2] = 'a'
 
         println(String(str))
     }
