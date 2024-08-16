@@ -13,7 +13,7 @@ class Main {
         val first = str[0]
         val second = str[1]
 
-        for(i in 0 ..< str.size) {
+        for(i in 0 until str.size) {
             if(str[i] == first)
                 str[i] = second
             else if(str[i] == second)
