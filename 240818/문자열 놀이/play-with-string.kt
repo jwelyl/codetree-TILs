@@ -30,13 +30,13 @@ class Main {
                 val from = st.nextToken()[0]
                 val to = st.nextToken()[0]
 
-                for(i in 0 until str.length) {
+                for(i in 0 until str.size) {
                     if(str[i] == from)
                         str[i] = to
                 }
             }
 
-            sb.append(String(str))
+            sb.append(String(str)).append("\n")
         }
 
         print(sb)
