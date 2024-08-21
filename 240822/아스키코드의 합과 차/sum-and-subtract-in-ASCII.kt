@@ -15,7 +15,7 @@ class Main {
         ch1 = st.nextToken()[0]
         ch2 = st.nextToken()[0]
 
-        println("${ch1.code + ch2.code} ${abs(ch1.code - ch2.code)}")
+        println("${ch1.toInt() + ch2.toInt()} ${abs(ch1.toInt() - ch2.toInt())}")
     }
 }
 
