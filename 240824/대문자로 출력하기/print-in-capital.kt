@@ -17,7 +17,7 @@ class Main {
         for(ch in str) {
             if(ch in 'a' .. 'z')
                 sb.append("${(ch.toInt() - diff).toChar()}")
-            else
+            else if(ch in 'A' .. 'Z')
                 sb.append(ch)
         }
 
