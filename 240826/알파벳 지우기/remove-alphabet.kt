@@ -17,7 +17,7 @@ class Main {
 
         for(ch in str1) {
             if(ch !in '0' .. '9')
-                break
+                continue
             num1.append(ch)
         }
 
