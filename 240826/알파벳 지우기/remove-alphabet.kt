@@ -23,7 +23,7 @@ class Main {
 
         for(ch in str2) {
             if(ch !in '0' .. '9')
-                break
+                continue
             num2.append(ch)
         }
 
