@@ -6,10 +6,11 @@ class Main {
     private val br = BufferedReader(InputStreamReader(System.`in`))
     private lateinit var st: StringTokenizer
 
-    private val num1 = 0
-    private val num2 = 0
+    private var num1 = 0
+    private var num2 = 0
 
     private var ans = 0
+
     fun solve() {
         st = StringTokenizer(br.readLine())
 
