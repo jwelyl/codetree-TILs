@@ -10,7 +10,7 @@ class Main {
     private var sum = 0
 
     fun solve() {
-        n = br.readLine()
+        n = br.readLine().toInt()
 
         repeat(n) {
             sum += br.readLine().toInt()
