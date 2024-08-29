@@ -21,3 +21,7 @@ class Main {
         }
     }
 }
+
+fun main() {
+    Main().solve()
+}
