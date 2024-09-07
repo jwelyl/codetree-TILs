@@ -8,10 +8,6 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-//	private static final boolean DEBUG = true;
-	
-	private static final boolean DEBUG = false;
-	
 	private static final int NONE = 0;
 	
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -45,14 +41,9 @@ public class Main {
 		
 		for(int k = 1; k <= K; k++) {
 			ans = 0;		//	매 턴마다 얻는 점수 초기화
-//			wallIdx = 0;	//	벽면에 적힌 유물 중 사용할 유물 index 초기화
 			
-//			System.out.println(k + "번째 턴");
-			if(!simulation(k)) {
-				if(DEBUG)
-					System.out.println(k + "번째 턴에서 중간 종료");
+			if(!simulation(k))
 				break;
-			}
 			
 			sb.append(ans).append(" ");
 		}
@@ -61,13 +52,7 @@ public class Main {
 	}	//	main-end
 	
 	private static boolean simulation(int k) {	//	k번째 턴에 유물을 얻지 못하면 시뮬레이션 종료
-		if(DEBUG)
-			System.out.println(k + "번 턴!!!!");
-		
 		int maxValue = 0;		//	가장 많이 획득할 수 있는 유물 가치
-		int minRotCnt = 4;		//	그때 가장 적게 회전한 횟수
-		int minCol = 5;
-		int minRow = 5;	//	그 때 가장 작은 회전 중심 좌표
 		int[][] maxRelics = null;	//	그 때의 배열 상태
 		
 		int[][] copiedRelics = null;
@@ -76,16 +61,6 @@ public class Main {
 		for(int rotCnt = 1; rotCnt <= 3; rotCnt++) {
 			for(int c = 1; c <= 3; c++) {
 				for(int r = 1; r <= 3; r++) {
-					
-					if(DEBUG) {
-						System.out.println("rotCnt, r, c 정해진 후 원본");
-						for(int i = 0; i < 5; i++) {
-							for(int j = 0; j < 5; j++) 
-								System.out.print(relics[i][j] + " ");
-							System.out.println();
-						}
-					}
-					
 					copiedRelics = copy(relics, 5);	//	기존 5 * 5 배열 복제
 					
 					int[][] partialRelics = copy(copiedRelics, r, c);	//	회전시킬 부분 배열 복제
@@ -96,55 +71,14 @@ public class Main {
 							copiedRelics[rr][cc] = rotated[rr - r + 1][cc - c + 1];
 					}
 					
-					if(DEBUG) {
-						System.out.println("rotCnt, r, c 정해진 후 복제본");
-						
-						System.out.println("rotCnt = " + rotCnt);
-						System.out.println("r = " + r);
-						System.out.println("c = " + c);
-					
-					}
-					
-					if(DEBUG) {
-						for(int i = 0; i < 5; i++) {
-							for(int j = 0; j < 5; j++)
-								System.out.print(copiedRelics[i][j] + " ");
-							System.out.println();
-						}
-					}
-					
-					
 					int value = bfs(copiedRelics);
-					
-					if(DEBUG)
-					System.out.println("그 때의 value = " + value);
 					
 					if(maxValue < value) {
 						maxValue = value;
-						minRotCnt = rotCnt;
-						minCol = c;
-						minRow = r;
 						maxRelics = copiedRelics;
 					}
-//					else if(maxValue == value) {
-//						if(rotCnt < minRotCnt) {
-//							minRotCnt = rotCnt;
-//							minCol = c;
-//							minRow = r;
-//						}
-//						else if(rotCnt == minRotCnt && col < minCol)
-//					}
 				}
 			}
-		}
-		
-		if(DEBUG) {
-		System.out.println("1차 탐사 ");
-		for(int r = 0; r < 5; r++) {
-			for(int c = 0; c < 5; c++)
-				System.out.print(maxRelics[r][c] + " ");
-			System.out.println();
-		}
 		}
 		
 		if(maxValue == 0)	//	어떤 탐사 방법으로도 얻을 수 있는 유물이 없을 경우
@@ -163,25 +97,7 @@ public class Main {
 				}
 			}
 			
-			if(DEBUG) {
-			System.out.println("빈 칸 채운 후 ");
-			for(int r = 0; r < 5; r++) {
-				for(int c = 0; c < 5; c++)
-					System.out.print(maxRelics[r][c] + " ");
-				System.out.println();
-			}
-			}
-			
 			add = bfs(maxRelics);
-			
-			if(DEBUG) {
-			System.out.println("빈 칸 채운 후 연쇄 획득 후");
-			for(int r = 0; r < 5; r++) {
-				for(int c = 0; c < 5; c++)
-					System.out.print(maxRelics[r][c] + " ");
-				System.out.println();
-			}
-			}
 			
 			if(add == 0)	//	더 이상 연쇄 획득으로 얻을 유물이 없을 경우 종료
 				break;
