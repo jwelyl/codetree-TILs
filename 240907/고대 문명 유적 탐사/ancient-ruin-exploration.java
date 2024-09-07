@@ -45,7 +45,7 @@ public class Main {
 		
 		for(int k = 1; k <= K; k++) {
 			ans = 0;		//	매 턴마다 얻는 점수 초기화
-			wallIdx = 0;	//	벽면에 적힌 유물 중 사용할 유물 index 초기화
+//			wallIdx = 0;	//	벽면에 적힌 유물 중 사용할 유물 index 초기화
 			
 //			System.out.println(k + "번째 턴");
 			if(!simulation(k)) {
