@@ -1,8 +1,4 @@
-public class Main {
-    public static void main(String[] args) {
-        // 여기에 코드를 작성해주세요.
-    }
-}import java.io.BufferedReader;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
