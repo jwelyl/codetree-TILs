@@ -13,31 +13,28 @@ public class Main {
     public static void main(String[] args) throws IOException {
         N = Integer.parseInt(br.readLine());
  
-        recursion1(1, N);
-        recursion2(N, N);
+        recursion1(N);
+        sb.append("\n");
+        recursion2(N);
         
         System.out.print(sb);
     }    //    main-end
   
-    private static void recursion1(int cur, int nth) {
-    	sb.append(cur).append(" ");
-    	
-    	if(cur == nth) {
-    		sb.append("\n");
+    private static void recursion1(int nth) {
+    	if(nth == 0)
     		return;
-    	}
     	
-    	recursion1(cur + 1, nth);
+    	recursion1(nth - 1);
+    	sb.append(nth).append(" ");
     }
     
-    private static void recursion2(int cur, int nth) {
-    	sb.append(cur).append(" ");
-    	
-    	if(cur == 1) {
+    private static void recursion2(int nth) {
+    	if(nth == 0) {
     		sb.append("\n");
     		return;
     	}
     	
-    	recursion2(cur - 1, nth);
+    	sb.append(nth).append(" ");
+    	recursion2(nth - 1);
     }
 }    //    Main-class-end
