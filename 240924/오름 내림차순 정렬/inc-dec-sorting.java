@@ -23,11 +23,11 @@ public class Main {
 		
 		Collections.sort(list);
 		for(int num : list)
-			sb.append(num).append("\n");
+			sb.append(num).append(" ");
 		sb.append("\n");
 		Collections.sort(list, Collections.reverseOrder());
 		for(int num : list)
-			sb.append(num).append("\n");
+			sb.append(num).append(" ");
 		sb.append("\n");
 		
 		System.out.print(sb);
