@@ -137,6 +137,9 @@ public class Main {
 			turrets[cy][cx] -= (cy == targetY && cx == targetX) ? damage : (cy == attackY && cx == attackX ? 0 : damage / 2);
 			turrets[cy][cx] = Math.max(turrets[cy][cx], BROKEN);
 			
+			if(turrets[cy][cx] == BROKEN)
+				alive--;
+			
 			int ny = prev[cy][cx][0];
 			int nx = prev[cy][cx][1];
 			
