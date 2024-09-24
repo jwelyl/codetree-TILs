@@ -7,9 +7,6 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-//	private static final boolean DEBUG = true;
-	private static final boolean DEBUG = false;
-	
 	private static final int INF = Integer.MAX_VALUE;
 	private static final int BROKEN = 0;
 	
@@ -44,39 +41,20 @@ public class Main {
 		}
 		
 		for(int k = 1; k <= K; k++) {
-			if(DEBUG)
-				System.out.println("k = " + k);
-			
-			print(k, "start");
-			
 			int[] step1 = getAttackerAndTarget();
 			int attackY = step1[0];
 			int attackX = step1[1];	//	공격할 포탑 좌표	
 			int targetY = step1[2];
 			int targetX = step1[3];	//	공격받을 포탑 좌표
-			
-			print(k, "after step1");
-			
-			if(DEBUG) {
-				System.out.println("after step1");
-				System.out.println("attackY = " + attackY);
-				System.out.println("attackX = " + attackX);
-				System.out.println("targetY = " + targetY);
-				System.out.println("targetX = " + targetX);
-			}
-			
+
 			boolean[][] engaged = new boolean[N][M];	//	engaged[r][c] : (r, c)칸의 포탑이공격에 연루된 경우 true
 			
 			step23(attackY, attackX, targetY, targetX, engaged, k);
-			
-			print(k, "after step23");
 			
 			if(alive == 1)	//	부서지지 않은 포탑이 1개만 남은 경우
 				break;
 			
 			step4(engaged);	//	공격에 연루되지 않은 포탑들 정비하기
-			
-			print(k, "after step4");
 		}
 		
 		System.out.println(maxTurret());
@@ -194,9 +172,6 @@ public class Main {
 	}
 	
 	private static void step23(int attackY, int attackX, int targetY, int targetX, boolean[][] engaged, int time) {
-		if(DEBUG)
-			System.out.println("before step23");
-		
 		turrets[attackY][attackX] += (N + M);	//	공격할 포탑 공격력 상승
 		attackTime[attackY][attackX] = time;	//	공격한 시간 설정
 		
@@ -209,17 +184,10 @@ public class Main {
 			laserAttack(attackY, attackX, targetY, targetX, prev, engaged);
 		else	//	레이저 공격이 불가능할 경우
 			bombAttack(attackY, attackX, targetY, targetX, engaged);
-		
-		if(DEBUG)
-			System.out.println("after step23");
 	}
 	
 
 	private static boolean findLaserAttackRoute(int attackY, int attackX, int targetY, int targetX, int[][] dist, int[][][] prev) {
-		if(DEBUG) {
-			System.out.println("findLaserAttackRoute start");
-		}
-		
 		Queue<int[]> q = new LinkedList<>();
 		
 		for(int r = 0; r < N; r++)
@@ -253,43 +221,23 @@ public class Main {
 					prev[ny][nx][0] = cy;
 					prev[ny][nx][1] = cx;	//	(ny, nx) 이전 칸은 (cy, cx)
 					
-					if(ny == targetY && nx == targetX) {	//	공격받을 포탑을 찾은 경우
-						if(DEBUG) {
-							System.out.println("findLaserAttackRoute end (true)");
-						}
+					if(ny == targetY && nx == targetX)	//	공격받을 포탑을 찾은 경우
 						return true;
-					}
 					
 					q.offer(new int[] {ny, nx, dist[ny][nx]});
 				}
 			}
 		}	//	while-end
 		
-		if(DEBUG) {
-			System.out.println("findLaserAttackRoute end (false)");
-		}
-		
 		return false;
 	}	//	bfs-end
 	
 	private static void laserAttack(int attackY, int attackX, int targetY, int targetX, int[][][] prev, boolean[][] engaged) {
-		if(DEBUG) {
-			System.out.println("laserAttack start");
-			for(int r = 0; r < N; r++) {
-				for(int c = 0; c < N; c++) {
-					System.out.print("(" + prev[r][c][0] + ", " + prev[r][c][1] + ") ");
-				}
-				System.out.println();
-			}
-		}
-		
 		int damage = turrets[attackY][attackX];
 		int cy = targetY;
 		int cx = targetX;
 		
 		while(cy != -1 && cx != - 1) {
-//			System.out.println("cy = " + cy);
-//			System.out.println("cx = " + cx);
 			engaged[cy][cx] = true;
 			
 			if(cy == targetY && cx == targetX)
@@ -305,10 +253,6 @@ public class Main {
 			
 			cy = ny;
 			cx = nx;
-		}
-		
-		if(DEBUG) {
-			System.out.println("laserAttack end");
 		}
 	}
 	
@@ -361,47 +305,4 @@ public class Main {
 	
 	private static final int[] dy8 = {0, 1, 1, 1, 0, -1, -1, -1};
 	private static final int[] dx8 = {1, 1, 0, -1, -1, -1, 0, 1};
-	
-	private static void print(int time, String msg) {
-		if(!DEBUG)
-			return;
-		
-		System.out.println("In time " + time + ", " + msg);
-		
-		System.out.println("turrets");
-		for(int r = 0; r < N; r++) {
-			for(int c = 0; c < M; c++)
-				System.out.print(turrets[r][c] + " ");
-			System.out.println();
-		}
-		
-		System.out.println("\nattackTime");
-		for(int r = 0; r < N; r++) {
-			for(int c = 0; c < M; c++)
-				System.out.print(attackTime[r][c] + " ");
-			System.out.println();
-		}
-		
-		System.out.println();
-	}
 }	//	Main-class-end
-
-/*
-4 4 1
-6 8 0 1
-0 0 0 0
-0 0 0 0
-0 0 8 0
-
-4 4 2
-6 8 0 1
-0 0 0 0
-0 0 0 0
-0 0 8 0
-
-4 4 3
-6 8 0 1
-0 0 0 0
-0 0 0 0
-0 0 8 0
- */
