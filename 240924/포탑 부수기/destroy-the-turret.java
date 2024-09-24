@@ -190,88 +190,6 @@ public class Main {
 			}
 		}
 		
-		
-		
-//		for(int r = 0; r < N; r++) {
-//			for(int c = 0; c < M; c++) {
-//				if(turrets[r][c] == BROKEN)	//	이미 부서진 포탑은 skip
-//					continue;
-//				
-//				int damage = turrets[r][c];
-//				int time = attackTime[r][c];
-//				int rowColSum = r + c;
-//				int col = c;
-//				
-//				//	공격할 포탑 정하기
-//				if(damage < minDamage) {	//	1. 공격력이 가장 약한 포탑을 찾은 경우
-//					minDamage = damage;
-//					newestTime = time;
-//					maxRowColSum = rowColSum;
-//					maxCol = c;
-//					attackRow = r;
-//					attackCol = c;
-//				}
-//				else if(damage == minDamage) {	//	1을 만족하는 포탑이 여럿일 경우
-//					if(newestTime < time) {	//	2. 가장 최근에 공격한 포탑일 경우
-//						newestTime = time;
-//						maxRowColSum = rowColSum;
-//						maxCol = c;
-//						attackRow = r;
-//						attackCol = c;
-//					}
-//					else if(newestTime == time) {	//	1, 2를 만족하는 포탑이 여럿일 경우
-//						if(maxRowColSum < rowColSum) {	//	3. 행 + 열 값이 가장 큰 경우
-//							maxRowColSum = rowColSum;
-//							maxCol = c;
-//							attackRow = r;
-//							attackCol = c;
-//						}
-//						else if(maxRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
-//							if(maxCol < col) {	//	4. 열 값이 가장 큰 경우
-//								maxCol = c;
-//								attackRow = r;
-//								attackCol = c;
-//							}
-//						}
-//					}
-//				}
-//				
-//				//	공격받을 포탑 정하기
-//				if(maxDamage < damage) {	//	1. 공격력이 가장 강한 포탑을 찾은 경우
-//					maxDamage = damage;
-//					oldestTime = time;
-//				    minRowColSum = rowColSum;
-//					minCol = c;
-//					targetRow = r;
-//					targetCol = c;
-//				}
-//				else if(damage == maxDamage) {	//	1을 만족하는 포탑이 여럿일 경우
-//					if(time < oldestTime) {	//	2. 가장 예전에 공격한 포탑일 경우
-//						oldestTime = time;
-//						minRowColSum = rowColSum;
-//						minCol = c;
-//						targetRow = r;
-//						targetCol = c;
-//					}
-//					else if(oldestTime == time) {	//	1, 2를 만족하는 포탑이 여럿일 경우
-//						if(rowColSum < minRowColSum) {	//	3. 행 + 열 값이 가장 작은 경우
-//							minRowColSum = rowColSum;
-//							minCol = c;
-//							targetRow = r;
-//							targetCol = c;
-//						}
-//						else if(minRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
-//							if(col < minCol) {	//	4. 열 값이 가장 작은 경우
-//								minCol = c;
-//								targetRow = r;
-//								targetCol = c;
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-		
 		return new int[] {attackRow, attackCol, targetRow, targetCol};
 	}
 	
@@ -296,45 +214,7 @@ public class Main {
 			System.out.println("after step23");
 	}
 	
-	private static void laserAttack(int attackY, int attackX, int targetY, int targetX, int[][][] prev, boolean[][] engaged) {
-		if(DEBUG) {
-			System.out.println("laserAttack start");
-			for(int r = 0; r < N; r++) {
-				for(int c = 0; c < N; c++) {
-					System.out.print("(" + prev[r][c][0] + ", " + prev[r][c][1] + ") ");
-				}
-				System.out.println();
-			}
-		}
 
-		
-		int damage = turrets[attackY][attackX];
-		int cy = targetY;
-		int cx = targetX;
-		
-		while(cy != -1 && cx != - 1) {
-//			System.out.println("cy = " + cy);
-//			System.out.println("cx = " + cx);
-			engaged[cy][cx] = true;
-			
-			turrets[cy][cx] -= (cy == targetY && cx == targetX) ? damage : (cy == attackY && cx == attackX ? 0 : damage / 2);
-			turrets[cy][cx] = Math.max(turrets[cy][cx], BROKEN);
-			
-			if(turrets[cy][cx] == BROKEN)
-				alive--;
-			
-			int ny = prev[cy][cx][0];
-			int nx = prev[cy][cx][1];
-			
-			cy = ny;
-			cx = nx;
-		}
-		
-		if(DEBUG) {
-			System.out.println("laserAttack end");
-		}
-	}
-	
 	private static boolean findLaserAttackRoute(int attackY, int attackX, int targetY, int targetX, int[][] dist, int[][][] prev) {
 		if(DEBUG) {
 			System.out.println("findLaserAttackRoute start");
@@ -392,6 +272,46 @@ public class Main {
 		return false;
 	}	//	bfs-end
 	
+	private static void laserAttack(int attackY, int attackX, int targetY, int targetX, int[][][] prev, boolean[][] engaged) {
+		if(DEBUG) {
+			System.out.println("laserAttack start");
+			for(int r = 0; r < N; r++) {
+				for(int c = 0; c < N; c++) {
+					System.out.print("(" + prev[r][c][0] + ", " + prev[r][c][1] + ") ");
+				}
+				System.out.println();
+			}
+		}
+		
+		int damage = turrets[attackY][attackX];
+		int cy = targetY;
+		int cx = targetX;
+		
+		while(cy != -1 && cx != - 1) {
+//			System.out.println("cy = " + cy);
+//			System.out.println("cx = " + cx);
+			engaged[cy][cx] = true;
+			
+			if(cy == targetY && cx == targetX)
+				turrets[cy][cx] = Math.max(turrets[cy][cx] - damage, BROKEN);
+			else if(cy != attackY || cx != attackX)
+				turrets[cy][cx] = Math.max(turrets[cy][cx] - (damage / 2), BROKEN);
+			
+			if(turrets[cy][cx] == BROKEN)
+				alive--;
+			
+			int ny = prev[cy][cx][0];
+			int nx = prev[cy][cx][1];
+			
+			cy = ny;
+			cx = nx;
+		}
+		
+		if(DEBUG) {
+			System.out.println("laserAttack end");
+		}
+	}
+	
 	private static void bombAttack(int attackY, int attackX, int targetY, int targetX, boolean[][] engaged) {
 		int damage = turrets[attackY][attackX];
 		engaged[attackY][attackX] = true;
@@ -429,7 +349,7 @@ public class Main {
 	
 	private static void step4(boolean[][] engaged) {
 		for(int r = 0; r < N; r++) {
-			for(int c = 0; c < N; c++) {
+			for(int c = 0; c < M; c++) {
 				if(turrets[r][c] != BROKEN && !engaged[r][c])	//	부서지지 않은 포탑에서 공격에 연루되지 않은 포탑
 					turrets[r][c]++;
 			}
