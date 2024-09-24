@@ -112,7 +112,7 @@ public class Main {
 		
 		for(int r = 0; r < N; r++) {
 			for(int c = 0; c < M; c++) {
-				if(turrets[r][c] == BROKEN)	//	이미 부서진 포탑은 skip
+				if(turrets[r][c] == BROKEN)	//	이미 부서진 포탑은 제외
 					continue;
 				
 				int damage = turrets[r][c];
@@ -120,33 +120,33 @@ public class Main {
 				int rowColSum = r + c;
 				int col = c;
 				
-				//	공격할 포탑 정하기
-				if(damage < minDamage) {	//	1. 공격력이 가장 약한 포탑을 찾은 경우
+				//	공격할 포탑 찾기
+				if(damage < minDamage) {	//	1. 공격력이 가장 낮은 포탑을 찾은 경우 
 					minDamage = damage;
 					newestTime = time;
 					maxRowColSum = rowColSum;
-					maxCol = c;
+					maxCol = col;
 					attackRow = r;
 					attackCol = c;
 				}
-				else if(damage == minDamage) {	//	1을 만족하는 포탑이 여럿일 경우
-					if(newestTime < time) {	//	2. 가장 최근에 공격한 포탑일 경우
+				else if(damage == minDamage) {	//	1을 만족하는 포탑이 여러 개인 경우
+					if(newestTime < time) {	//	2. 가장 최근에 공격한 포탑을 찾은 경우
 						newestTime = time;
 						maxRowColSum = rowColSum;
-						maxCol = c;
+						maxCol = col;
 						attackRow = r;
 						attackCol = c;
 					}
-					else if(newestTime == time) {	//	1, 2를 만족하는 포탑이 여럿일 경우
-						if(maxRowColSum < rowColSum) {	//	3. 행 + 열 값이 가장 큰 경우
+					else if(newestTime == time) {	//	1, 2를 만족하는 포탑이 여러 개인 경우
+						if(maxRowColSum < rowColSum) {	//	3. 행, 열 값 합이 최대인 포탑을 찾은 경우
 							maxRowColSum = rowColSum;
-							maxCol = c;
+							maxCol = col;
 							attackRow = r;
 							attackCol = c;
 						}
-						else if(maxRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
-							if(maxCol < col) {	//	4. 열 값이 가장 큰 경우
-								maxCol = c;
+						else if(maxRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여러 개인 경우
+							if(maxCol < col) {	//	4. 열 값이 최대인 포탑을 찾은 경우
+								maxCol = col;
 								attackRow = r;
 								attackCol = c;
 							}
@@ -154,41 +154,123 @@ public class Main {
 					}
 				}
 				
-				//	공격받을 포탑 정하기
-				if(maxDamage < damage) {	//	1. 공격력이 가장 강한 포탑을 찾은 경우
+				//	공격받을 포탑 찾기
+				if(maxDamage < damage) {	//	1. 공격력이 가장 높은 포탑을 찾은 경우
 					maxDamage = damage;
 					oldestTime = time;
-				    minRowColSum = rowColSum;
-					minCol = c;
+					minRowColSum = rowColSum;
+					minCol = col;
 					targetRow = r;
-					targetCol = c;
+					targetCol = c;	
 				}
-				else if(damage == maxDamage) {	//	1을 만족하는 포탑이 여럿일 경우
-					if(time < oldestTime) {	//	2. 가장 예전에 공격한 포탑일 경우
+				else if(maxDamage == damage) {	//	1을 만족하는 포탑이 여러 개인 경우
+					if(time < oldestTime) {	//	2. 가장 예전에 공격한 포탑을 찾은 경우
 						oldestTime = time;
 						minRowColSum = rowColSum;
-						minCol = c;
+						minCol = col;
 						targetRow = r;
-						targetCol = c;
+						targetCol = c;	
 					}
-					else if(oldestTime == time) {	//	1, 2를 만족하는 포탑이 여럿일 경우
-						if(rowColSum < minRowColSum) {	//	3. 행 + 열 값이 가장 작은 경우
+					else if(time == oldestTime) {	//	1, 2를 만족하는 포탑이 여러 개인 경우
+						if(rowColSum < minRowColSum) {	//	3. 행, 열 값 합이 최소인 포탑을 찾은 경우
 							minRowColSum = rowColSum;
-							minCol = c;
+							minCol = col;
 							targetRow = r;
-							targetCol = c;
+							targetCol = c;	
 						}
-						else if(minRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
-							if(col < minCol) {	//	4. 열 값이 가장 작은 경우
-								minCol = c;
+						else if(rowColSum == minRowColSum) {	//	1, 2, 3을 만족하는 포탑이 여러 개인 경우
+							if(col < minCol) {	//	4. 열 값이 최소인 포탑을 찾은 경우
+								minCol = col;
 								targetRow = r;
-								targetCol = c;
+								targetCol = c;	
 							}
 						}
 					}
 				}
 			}
 		}
+		
+		
+		
+//		for(int r = 0; r < N; r++) {
+//			for(int c = 0; c < M; c++) {
+//				if(turrets[r][c] == BROKEN)	//	이미 부서진 포탑은 skip
+//					continue;
+//				
+//				int damage = turrets[r][c];
+//				int time = attackTime[r][c];
+//				int rowColSum = r + c;
+//				int col = c;
+//				
+//				//	공격할 포탑 정하기
+//				if(damage < minDamage) {	//	1. 공격력이 가장 약한 포탑을 찾은 경우
+//					minDamage = damage;
+//					newestTime = time;
+//					maxRowColSum = rowColSum;
+//					maxCol = c;
+//					attackRow = r;
+//					attackCol = c;
+//				}
+//				else if(damage == minDamage) {	//	1을 만족하는 포탑이 여럿일 경우
+//					if(newestTime < time) {	//	2. 가장 최근에 공격한 포탑일 경우
+//						newestTime = time;
+//						maxRowColSum = rowColSum;
+//						maxCol = c;
+//						attackRow = r;
+//						attackCol = c;
+//					}
+//					else if(newestTime == time) {	//	1, 2를 만족하는 포탑이 여럿일 경우
+//						if(maxRowColSum < rowColSum) {	//	3. 행 + 열 값이 가장 큰 경우
+//							maxRowColSum = rowColSum;
+//							maxCol = c;
+//							attackRow = r;
+//							attackCol = c;
+//						}
+//						else if(maxRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
+//							if(maxCol < col) {	//	4. 열 값이 가장 큰 경우
+//								maxCol = c;
+//								attackRow = r;
+//								attackCol = c;
+//							}
+//						}
+//					}
+//				}
+//				
+//				//	공격받을 포탑 정하기
+//				if(maxDamage < damage) {	//	1. 공격력이 가장 강한 포탑을 찾은 경우
+//					maxDamage = damage;
+//					oldestTime = time;
+//				    minRowColSum = rowColSum;
+//					minCol = c;
+//					targetRow = r;
+//					targetCol = c;
+//				}
+//				else if(damage == maxDamage) {	//	1을 만족하는 포탑이 여럿일 경우
+//					if(time < oldestTime) {	//	2. 가장 예전에 공격한 포탑일 경우
+//						oldestTime = time;
+//						minRowColSum = rowColSum;
+//						minCol = c;
+//						targetRow = r;
+//						targetCol = c;
+//					}
+//					else if(oldestTime == time) {	//	1, 2를 만족하는 포탑이 여럿일 경우
+//						if(rowColSum < minRowColSum) {	//	3. 행 + 열 값이 가장 작은 경우
+//							minRowColSum = rowColSum;
+//							minCol = c;
+//							targetRow = r;
+//							targetCol = c;
+//						}
+//						else if(minRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
+//							if(col < minCol) {	//	4. 열 값이 가장 작은 경우
+//								minCol = c;
+//								targetRow = r;
+//								targetCol = c;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
 		
 		return new int[] {attackRow, attackCol, targetRow, targetCol};
 	}
