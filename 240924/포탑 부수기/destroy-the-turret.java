@@ -47,11 +47,15 @@ public class Main {
 			if(DEBUG)
 				System.out.println("k = " + k);
 			
+			print(k, "start");
+			
 			int[] step1 = getAttackerAndTarget();
 			int attackY = step1[0];
 			int attackX = step1[1];	//	공격할 포탑 좌표	
 			int targetY = step1[2];
 			int targetX = step1[3];	//	공격받을 포탑 좌표
+			
+			print(k, "after step1");
 			
 			if(DEBUG) {
 				System.out.println("after step1");
@@ -63,12 +67,16 @@ public class Main {
 			
 			boolean[][] engaged = new boolean[N][M];	//	engaged[r][c] : (r, c)칸의 포탑이공격에 연루된 경우 true
 			
-			step23(attackY, attackX, targetY, targetX, engaged);
+			step23(attackY, attackX, targetY, targetX, engaged, k);
+			
+			print(k, "after step23");
 			
 			if(alive == 1)	//	부서지지 않은 포탑이 1개만 남은 경우
 				break;
 			
 			step4(engaged);	//	공격에 연루되지 않은 포탑들 정비하기
+			
+			print(k, "after step4");
 		}
 		
 		System.out.println(maxTurret());
@@ -84,11 +92,12 @@ public class Main {
 		return maxDamage;
 	}
 	
-	private static void step23(int attackY, int attackX, int targetY, int targetX, boolean[][] engaged) {
+	private static void step23(int attackY, int attackX, int targetY, int targetX, boolean[][] engaged, int time) {
 		if(DEBUG)
 			System.out.println("before step23");
 		
 		turrets[attackY][attackX] += (N + M);
+		attackTime[attackY][attackX] = time;
 		
 		int[][] dist = new int[N][M];			//	dist[r][c] : (attackY, attackX)부터 (r, c)까지의 최단거리
 		int[][][] prev = new int[N][M][2];		//	prev[r][c] : 최단 경로 상에서 (r, c)의 이전 좌표
@@ -126,6 +135,7 @@ public class Main {
 			engaged[cy][cx] = true;
 			
 			turrets[cy][cx] -= (cy == targetY && cx == targetX) ? damage : (cy == attackY && cx == attackX ? 0 : damage / 2);
+			turrets[cy][cx] = Math.max(turrets[cy][cx], BROKEN);
 			
 			int ny = prev[cy][cx][0];
 			int nx = prev[cy][cx][1];
@@ -236,7 +246,7 @@ public class Main {
 		//	공격할 포탑 정보
 		int minDamage = INF;					//	1. 0을 제외하고 공격력이 가장 낮은 포탑이 공격력
 		int newestTime = -1;					//	2. 공격력이 가장 낮은 포탑들 중 가장 최근에 공격한 시간
-		int minRowColSum = INF;					//	3. 1, 2를 만족하는 포탑이 여러개일 경우, 행 + 열 합 가장 작은 값
+		int maxRowColSum = INF;					//	3. 1, 2를 만족하는 포탑이 여러개일 경우, 행 + 열 합 가장 큰 값
 		int maxCol = -1;						//	4. 1, 2, 3을 만족하는 포탑이 여러개일 경우, 열이 가장 큰 값
 		int attackRow = -1;
 		int attackCol = -1;						//	공격을 할 포탑 좌표
@@ -244,7 +254,7 @@ public class Main {
 		//	공격받을 포탑 정보
 		int maxDamage = -1;						//	1. 공격력이 가장 높은 포탑이 공격력
 		int oldestTime = INF;					//	2. 공격력이 가장 높은 포탑들 중 가장 예전에 공격한 시간
-		int maxRowColSum = -1;					//	3. 1, 2를 만족하는 포탑이 여러개일 경우, 행 + 열 합 가장 큰 값
+		int minRowColSum = -1;					//	3. 1, 2를 만족하는 포탑이 여러개일 경우, 행 + 열 합 가장 작은 값
 		int minCol = INF;						//	4. 1, 2, 3을 만족하는 포탑이 여러개일 경우, 열이 가장 작은 값
 		int targetRow = -1;
 		int targetCol = -1;						//	공격을 받을 포탑 좌표
@@ -277,13 +287,13 @@ public class Main {
 						attackCol = c;
 					}
 					else if(newestTime == time) {	//	1, 2를 만족하는 포탑이 여럿일 경우
-						if(rowColSum < minRowColSum) {	//	3. 행 + 열 값이 가장 작은 경우
-							minRowColSum = rowColSum;
+						if(maxRowColSum < rowColSum) {	//	3. 행 + 열 값이 가장 큰 경우
+							maxRowColSum = rowColSum;
 							maxCol = c;
 							attackRow = r;
 							attackCol = c;
 						}
-						else if(minRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
+						else if(maxRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
 							if(maxCol < col) {	//	4. 열 값이 가장 큰 경우
 								maxCol = c;
 								attackRow = r;
@@ -311,13 +321,13 @@ public class Main {
 						targetCol = c;
 					}
 					else if(oldestTime == time) {	//	1, 2를 만족하는 포탑이 여럿일 경우
-						if(maxRowColSum < rowColSum) {	//	3. 행 + 열 값이 가장 큰 경우
-							maxRowColSum = rowColSum;
+						if(rowColSum < minRowColSum) {	//	3. 행 + 열 값이 가장 작은 경우
+							minRowColSum = rowColSum;
 							minCol = c;
 							targetRow = r;
 							targetCol = c;
 						}
-						else if(maxRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
+						else if(minRowColSum == rowColSum) {	//	1, 2, 3을 만족하는 포탑이 여럿일 경우
 							if(col < minCol) {	//	4. 열 값이 가장 작은 경우
 								minCol = c;
 								targetRow = r;
@@ -346,4 +356,47 @@ public class Main {
 	
 	private static final int[] dy8 = {0, 1, 1, 1, 0, -1, -1, -1};
 	private static final int[] dx8 = {1, 1, 0, -1, -1, -1, 0, 1};
+	
+	private static void print(int time, String msg) {
+		if(!DEBUG)
+			return;
+		
+		System.out.println("In time " + time + ", " + msg);
+		
+		System.out.println("turrets");
+		for(int r = 0; r < N; r++) {
+			for(int c = 0; c < M; c++)
+				System.out.print(turrets[r][c] + " ");
+			System.out.println();
+		}
+		
+		System.out.println("\nattackTime");
+		for(int r = 0; r < N; r++) {
+			for(int c = 0; c < M; c++)
+				System.out.print(attackTime[r][c] + " ");
+			System.out.println();
+		}
+		
+		System.out.println();
+	}
 }	//	Main-class-end
+
+/*
+4 4 1
+6 8 0 1
+0 0 0 0
+0 0 0 0
+0 0 8 0
+
+4 4 2
+6 8 0 1
+0 0 0 0
+0 0 0 0
+0 0 8 0
+
+4 4 3
+6 8 0 1
+0 0 0 0
+0 0 0 0
+0 0 8 0
+ */
