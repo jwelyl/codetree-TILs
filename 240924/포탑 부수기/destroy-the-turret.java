@@ -96,7 +96,7 @@ public class Main {
 	private static int[] getAttackerAndTarget() {
 		//	공격할 포탑 정보
 		int minDamage = INF;					//	1. 0을 제외하고 공격력이 가장 낮은 포탑이 공격력
-		int newestTime = -1;					//	2. 공격력이 가장 낮은 포탑들 중 가장 최근에 공격한 시간
+		int newestTime = -1;					//	2. 공격력이 가장 낮은 포탑들 중 가장 최근에 공격한 시간 (큰 값)
 		int maxRowColSum = -1;					//	3. 1, 2를 만족하는 포탑이 여러개일 경우, 행 + 열 합 가장 큰 값
 		int maxCol = -1;						//	4. 1, 2, 3을 만족하는 포탑이 여러개일 경우, 열이 가장 큰 값
 		int attackRow = -1;
@@ -104,7 +104,7 @@ public class Main {
 		
 		//	공격받을 포탑 정보
 		int maxDamage = -1;						//	1. 공격력이 가장 높은 포탑이 공격력
-		int oldestTime = INF;					//	2. 공격력이 가장 높은 포탑들 중 가장 예전에 공격한 시간
+		int oldestTime = INF;					//	2. 공격력이 가장 높은 포탑들 중 가장 예전에 공격한 시간 (작은 값)
 		int minRowColSum = INF;					//	3. 1, 2를 만족하는 포탑이 여러개일 경우, 행 + 열 합 가장 작은 값
 		int minCol = INF;						//	4. 1, 2, 3을 만족하는 포탑이 여러개일 경우, 열이 가장 작은 값
 		int targetRow = -1;
@@ -158,7 +158,7 @@ public class Main {
 				if(maxDamage < damage) {	//	1. 공격력이 가장 강한 포탑을 찾은 경우
 					maxDamage = damage;
 					oldestTime = time;
-					maxRowColSum = rowColSum;
+				    minRowColSum = rowColSum;
 					minCol = c;
 					targetRow = r;
 					targetCol = c;
@@ -166,7 +166,7 @@ public class Main {
 				else if(damage == maxDamage) {	//	1을 만족하는 포탑이 여럿일 경우
 					if(time < oldestTime) {	//	2. 가장 예전에 공격한 포탑일 경우
 						oldestTime = time;
-						maxRowColSum = rowColSum;
+						minRowColSum = rowColSum;
 						minCol = c;
 						targetRow = r;
 						targetCol = c;
