@@ -25,7 +25,7 @@ public class Main {
 		
 		@Override
 		public String toString() {
-			return String.format("secret code : %s\nmeeting pont : %s\ntime : %d", this.code, this.point, this.time);
+			return String.format("secret code : %s\nmeeting point : %s\ntime : %d", this.code, this.point, this.time);
 		}
 	}
 }	//	Main-class-end
