@@ -282,7 +282,7 @@ public class Main {
 	}
 	
 	private static void result() {
-		int maxScore = 0;
+		long maxScore = 0;
 		
 		for(int idx = 1; idx <= P; idx++) {
 			Rabbit rabbit = rabbitArr[idx];
@@ -302,7 +302,7 @@ public class Main {
 		public int c;		//	토끼의 현재 위치
 		
 		public int jumpCnt;	//	토끼가 현재까지 점프한 횟수
-		public int score;	//	해당 토끼의 점수
+		public long score;	//	해당 토끼의 점수
 		
 		public Rabbit(int pid, int d, int idx) {
 			this.pid = pid;
