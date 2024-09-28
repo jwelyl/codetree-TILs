@@ -9,9 +9,6 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
-	private static final boolean DEBUG = false;
-//	private static final boolean DEBUG = true;
-	
 	private static final int INIT = 100;		//	경주 시작 준비
 	private static final int RACE = 200;		//	경주 진행
 	private static final int MODIFY = 300;		//	이동거리 변경
@@ -56,15 +53,12 @@ public class Main {
 		switch(cmd) {
 		case INIT:
 			init();
-			print("after init");
 			break;
 		case RACE:
 			race();
-			print("after race");
 			break;
 		case MODIFY:
 			modify();
-			print("after modify");
 			break;
 		case RESULT:
 			result();
@@ -106,10 +100,6 @@ public class Main {
 			int curRow = rabbit.r;
 			int curCol = rabbit.c;	//	이번 턴에 뛸 토끼의 초기 위치
 			
-			if(DEBUG) {
-				System.out.println("selected rabbit = " + rabbit);
-			}
-			
 			int lastRow = 0;
 			int lastCol = 0;	//	이번 턴에 뛸 토끼가 최종적으로 위치할 행, 열
 			
@@ -139,8 +129,6 @@ public class Main {
 			exceptions[k][1] = lastRow + lastCol;	//	이번 턴에서 점수 추가에 제외되는 rabbit의 제외 점수
 			
 			selectedIdxSet.add(curIdx);
-			
-			print("after " + k + "th jump");
 		}
 		
 		//	일단 모든 토끼에게 각 턴에서 발생한 모든 점수를 더함
@@ -336,24 +324,6 @@ public class Main {
 			}
 			
 			return ret;
-		}
-
-		@Override
-		public String toString() {
-			return "Rabbit [pid=" + pid + ", d=" + d + ", idx=" + idx + ", r=" + r + ", c=" + c + ", jumpCnt=" + jumpCnt
-					+ ", score=" + score + "]";
-		}
-	}
-	
-	private static void print(String msg) {
-		if(DEBUG) {
-			System.out.println(msg);
-			
-			System.out.print("rabbitArr : ");
-			for(int idx = 1; idx <= P; idx++)
-				System.out.print(rabbitArr[idx] + " ");
-			
-			System.out.println("\npq : " + pq);
 		}
 	}
 }	//	Main-class-end
