@@ -4,9 +4,6 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-//	private static final boolean DEBUG = true;
-	private static final boolean DEBUG = false;
-	
 	private static final int OUT = 0;	//	참가자가 미로에서 나갔을 경우, 좌표 (0, 0)으로 변경
 	
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -51,18 +48,12 @@ public class Main {
 		st = new StringTokenizer(br.readLine());
 		exitY = Integer.parseInt(st.nextToken());
 		exitX = Integer.parseInt(st.nextToken());
-		
-		print("init state");
-		
+
 		for(int k = 1; k <= K; k++) {
 			step1();
-			print("\n\nin time = " + k + ", after step1");
-			
 			if(remains == 0)
 				break;
-			
 			step2();
-			print("\n\nin time = " + k + ", after step2");
 		}
 		
 		System.out.println(movedDist);
@@ -108,7 +99,7 @@ public class Main {
 	}
 	
 	//	출구와 한 명 이상의 참가자를 포함하는 최소 정사각형 고르기
-	//	{size, luy, lux, rdy, rdx} 반환
+	//	{luy, lux, rdy, rdx} 반환
 	private static int[] selectPartialSquare() {
 		int minSize = Integer.MAX_VALUE;	//	최소 정사각형 크기
 		int minLuy = Integer.MAX_VALUE;
@@ -123,77 +114,27 @@ public class Main {
 			if(py == OUT && px == OUT)	//	이미 탈출한 참가자일 경우
 				continue;
 			
-//			if(DEBUG) {
-//				System.out.println("m = " + m);
-//				System.out.println("py = " + py);
-//				System.out.println("px = " + px);
-//			}
-			
 			int size = Math.max(Math.abs(py - exitY), Math.abs(px - exitX)) + 1;	//	해당 플레이어를 포함시키기 위한 최소 정사각형 크기
 			
-//			if(DEBUG) {
-//				System.out.println("size = " + size);
-//				System.out.println("minSize = " + minSize);
-//			}
-			
-			if(size > minSize) {	//	이미 더 작은 정사각형 찾은 경우
-				if(DEBUG) {
-				System.out.println("minSize = " + minSize);
-				System.out.println("size = " + size);
-				}
+			if(size > minSize)	//	이미 더 작은 정사각형 찾은 경우
 				continue;
-			}
 			
 			int luy = 1;
 			int lux = 1;
 			int rdy = 0;
 			int rdx = 0;
 			
-//			if(DEBUG) {
-//				System.out.println("luy = " + luy);
-//				System.out.println("lux = " + lux);
-//				System.out.println("rdy = " + rdy);
-//				System.out.println("rdx = " + rdx);
-//				
-//				System.out.println("N - size + 1 = " + (N - size + 1));
-//			}
-			
 			OUTER:
 			for(luy = 1; luy <= N - size + 1; luy++) {
-//				if(DEBUG) {
-//					System.out.println("luy = " + luy);
-//				}
-				
 				for(lux = 1; lux <= N - size + 1; lux++) {	//	정사각형 좌상단 좌표
 					rdy = luy + size - 1;
 					rdx = lux + size - 1;	//	정사각형 우하단 좌표
 					
-//					System.out.println("(luy, lux, rdy, rdx) = (" + luy + ", " + lux + ", " + rdy + ", " + rdx + ")");
-					
 					//	해당 정사각형 범위 안에 참가자와 출구가 모두 포함될 경우, 해당 정사각형이 후보임
-					if(isIn(py, px, luy, rdy, lux, rdx) && isIn(exitY, exitX, luy, rdy, lux, rdx)) {
-//						if(DEBUG) {
-//							System.out.println("중간으로");
-//							System.out.println("size = " + size);
-//							System.out.println("luy = " + luy);
-//							System.out.println("lux = " + lux);
-//							System.out.println("rdy = " + rdy);
-//							System.out.println("rdx = " + rdx);
-//						}
-						
+					if(isIn(py, px, luy, rdy, lux, rdx) && isIn(exitY, exitX, luy, rdy, lux, rdx))
 						break OUTER;
-					}
 				}
 			}
-			
-//			if(DEBUG) {
-//				System.out.println("최종적으로");
-//				System.out.println("size = " + size);
-//				System.out.println("luy = " + luy);
-//				System.out.println("lux = " + lux);
-//				System.out.println("rdy = " + rdy);
-//				System.out.println("rdx = " + rdx);
-//			}
 			
 			if(size < minSize) {	//	정사각형 크기가 더 작을 경우
 				minSize = size;
@@ -211,40 +152,17 @@ public class Main {
 					minRdx = rdx;
 				}
 			}
-			
-//			if(DEBUG)
-//			System.out.println("m = " + m + ", minSize!!! = " + minSize);
 		}
 		
-		if(DEBUG) {
-			System.out.println("\npartial square");
-			System.out.println("minSize = " + minSize);
-			System.out.println("minLuy = " + minLuy);
-			System.out.println("minLux = " + minLux);
-			System.out.println("minRdy = " + minRdy);
-			System.out.println("minRdx = " + minRdx);
-			System.out.println();
-		}
-		return new int[] {minSize, minLuy, minLux, minRdy, minRdx};
+		return new int[] {minLuy, minLux, minRdy, minRdx};
 	}
 	
-	//	크기가 size, 좌상단 좌표가 (luy, lux), 우하단 좌표가 (rdy, rdx)인 부분 정사각형을 시계방향으로 90도 회전함
+	//	좌상단 좌표가 (luy, lux), 우하단 좌표가 (rdy, rdx)인 부분 정사각형을 시계방향으로 90도 회전함
 	private static void rotate(int[] partialSquare) {
-		int size = partialSquare[0];
-		int luy = partialSquare[1];
-		int lux = partialSquare[2];
-		int rdy = partialSquare[3];
-		int rdx = partialSquare[4];
-		
-		if(DEBUG) {
-			System.out.println("in rotate");
-			System.out.println("size = " + size);
-			System.out.println("luy = " + luy);
-			System.out.println("lux = " + lux);
-			System.out.println("rdy = " + rdy);
-			System.out.println("rdx = " + rdx);
-		}
-		
+		int luy = partialSquare[0];
+		int lux = partialSquare[1];
+		int rdy = partialSquare[2];
+		int rdx = partialSquare[3];
 		
 		int[][][] mapping = new int[N + 1][N + 1][2];	//	mapping[y][x] : 원래 (y, x)칸이 회전 후 위치할 좌표 {y', x'}
 		
@@ -260,32 +178,7 @@ public class Main {
 			xx--;
 		}
 		
-		if(DEBUG) {
-			System.out.println("mapping");
-			for(int y = luy; y <= rdy; y++) {
-				for(int x = lux; x <= rdx; x++)
-					System.out.print("(" + mapping[y][x][0] + ", " + mapping[y][x][1] + ") ");
-				System.out.println();
-			}
-		}
-		
 		int[][] nMaze = copyMaze();	//	기존 미로 복사
-		
-		if(DEBUG) {
-			System.out.println("nMaze");
-			for(int r = 1; r <= N; r++) {
-				for(int c = 1; c <= N; c++)
-					System.out.print(nMaze[r][c] + " ");
-				System.out.println();
-			}
-			System.out.println();
-		
-			System.out.println("\nparticipants");
-			for(int m = 1; m <= M; m++)
-				System.out.println("participant " + m + " : (" + participants[m][0] + ", " +  participants[m][1] + ")");
-			System.out.println("remains = " + remains);
-		
-		}
 		
 		boolean[] rotated = new boolean[M + 1];	//	참가자가 회전됐는지 확인
 		boolean exitRotated = false;	//	출구가 회전됐는지 확인
@@ -308,15 +201,6 @@ public class Main {
 				
 				for(int m = 1; m <= M; m++) {	//	(cy, cx)에 있던 참가자 좌표 갱신시키기
 					if(participants[m][0] == cy && participants[m][1] == cx && !rotated[m]) {
-						if(DEBUG) {
-							System.out.println("m = " + m);
-							System.out.println("cy = " + cy);
-							System.out.println("cx = " + cx);
-							
-							System.out.println("ny = " + ny);
-							System.out.println("nx = " + nx);
-						}
-						
 						rotated[m] = true;
 						participants[m][0] = ny;
 						participants[m][1] = nx;
@@ -352,28 +236,5 @@ public class Main {
 	
 	private static int dist(int y1, int x1, int y2, int x2) {
 		return Math.abs(y1 - y2) + Math.abs(x1 - x2);
-	}
-	
-	private static void print(String msg) {
-		if(DEBUG) {
-			System.out.println(msg);
-			
-			System.out.println("\nmaze");
-			
-			for(int r = 1; r <= N; r++) {
-				for(int c = 1; c <= N; c++)
-					System.out.print(maze[r][c] + " ");
-				System.out.println();
-			}
-			
-			System.out.println("(exitY, exitX) = (" + exitY + ", " + exitX + ")");
-		
-			System.out.println("\nparticipants");
-			for(int m = 1; m <= M; m++)
-				System.out.println("participant " + m + " : (" + participants[m][0] + ", " +  participants[m][1] + ")");
-			System.out.println("remains = " + remains);
-		
-			System.out.println("movedDist = " + movedDist);
-		}
 	}
 }	//	Main-class-end
