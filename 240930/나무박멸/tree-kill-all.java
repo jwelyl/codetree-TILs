@@ -6,9 +6,6 @@ import java.util.StringTokenizer;
 public class Main {
 	private static final int WALL = -1;
 	
-//	private static final boolean DEBUG = true;
-	private static final boolean DEBUG = false;
-	
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static StringTokenizer st;
 	
@@ -39,16 +36,9 @@ public class Main {
 		}
 		
 		for(int year = 1; year <= M; year++) {
-			if(DEBUG)
-				System.out.println("year = " + year + "\n");
-			
-			print("init");
 			step1();
-			print("after step1");
 			step2(year);
-			print("after step2");
 			step3(year);
-			print("after step3");
 		}
 		
 		System.out.println(ans);
@@ -147,12 +137,6 @@ public class Main {
 			}
 		}
 		
-		if(DEBUG) {
-			System.out.println("maxR = " + maxR);
-			System.out.println("maxC = " + maxC);
-			System.out.println("maxKill = " + maxKill);
-		}
-		
 		//	(maxR, maxC)를 중심으로 K 범위만큼 나무 죽이기
 		if(map[maxR][maxC] > 0) {	//	해당 칸이 나무일 경우 
 			ans += map[maxR][maxC];
@@ -180,26 +164,6 @@ public class Main {
 		}
 	}
 	
-	private static void print(String msg) {
-		if(DEBUG) {
-			System.out.println(msg);
-			
-			System.out.println("\nmap");
-			for(int r = 0; r < N; r++) {
-				for(int c = 0; c < N; c++)
-					System.out.print(map[r][c] + " ");
-				System.out.println();
-			}
-			
-			System.out.println("\nkilled");
-			for(int r = 0; r < N; r++) {
-				for(int c = 0; c < N; c++)
-					System.out.print(killed[r][c] + " ");
-				System.out.println();
-			}
-		}
-	}
-	
 	private static final int[] dy = {-1, 1, 1, -1, 0, 1, 0, -1};
 	private static final int[] dx = {1, 1, -1, -1, 1, 0, -1, 0};
 	
@@ -207,41 +171,3 @@ public class Main {
 		return (0 <= y && y < N) && (0 <= x && x < N);
 	}
 }	//	Main-class-end
-
-/*
-18 1 3 8
--1 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 
--1 -1 -1 -1 -1 0 -1 -1 0 -1 0 -1 -1 -1 -1 -1 -1 -1 
--1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 -1 -1 -1 
--1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
--1 -1 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
--1 -1 -1 -1 -1 -1 -1 -1 0 -1 0 -1 -1 -1 -1 -1 -1 -1 
--1 0 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
--1 -1 -1 0 0 -1 -1 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 
--1 0 0 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 -1 -1 -1 
--1 -1 0 -1 -1 0 0 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 
--1 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 -1 -1 -1 -1 19 
--1 -1 -1 -1 -1 68 -1 0 -1 -1 0 -1 0 -1 -1 -1 47 0 
--1 -1 -1 -1 -1 -1 0 -1 0 0 -1 -1 -1 -1 -1 0 -1 -1 
--1 -1 -1 0 -1 0 -1 -1 0 -1 -1 -1 -1 0 0 -1 -1 -1 
--1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
--1 -1 -1 0 -1 -1 0 0 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 
--1 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 -1 95 -1 -1 0 
--1 -1 -1 -1 -1 -1 0 0 -1 -1 0 -1 -1 0 -1 0 -1 -1
-
-5 1 3 4
--1 0 -1 -1 5 
--1 -1 -1 -1 -1 
-0 0 -1 -1 -1 
--1 -1 -1 -1 0 
--1 -1 -1 -1 0
-
-
-5 2 3 4
--1 0 -1 -1 5 
--1 -1 -1 -1 -1 
-0 0 -1 -1 -1 
--1 -1 -1 -1 0 
--1 -1 -1 -1 0
- 
-*/
