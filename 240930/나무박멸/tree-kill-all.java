@@ -90,7 +90,7 @@ public class Main {
 						int nr = r + dy[d];
 						int nc = c + dx[d];	//	(r, c) 주변 칸
 						
-						if(isIn(nr, nc) && map[nr][nc] == 0 && killed[nr][nc] <= year)	//	(nr, nc)에 번식이 가능할 경우
+						if(isIn(nr, nc) && map[nr][nc] == 0 && killed[nr][nc] < year)	//	(nr, nc)에 번식이 가능할 경우
 							canDir[canCnt++] = d;	//	d 방향으로 번식 가능, 번식 가능한 칸의 개수 1 증가
 					}
 					
