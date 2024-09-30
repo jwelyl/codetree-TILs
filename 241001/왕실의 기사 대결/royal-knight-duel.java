@@ -7,10 +7,6 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
-	private static final boolean DEBUG = false;
-//	private static final boolean DEBUG = true;
-	
-	private static final int EMPTY = 0;
 	private static final int TRAP = 1;
 	private static final int WALL = 2;
 	
@@ -61,7 +57,6 @@ public class Main {
 		}
 		
 		drawKnight();
-		print("after init\n");
 		
 		for(int q = 1; q <= Q; q++) {
 			st = new StringTokenizer(br.readLine());
@@ -71,22 +66,14 @@ public class Main {
 			Set<Integer> movedKnights = new HashSet<>();	//	움직여야 하는 기사 번호 집합
 			if(knights[num].isAlive()) {	//	해당 기사가 아직 살아있을 경우
 				if(checkMove(num, dir, movedKnights)) {		//	해당 기사를 이동시킬 수 있을 경우
-					if(DEBUG)
-						System.out.println("movedKnights = " + movedKnights);
-					
 					for(int movedKnightNum : movedKnights)
 						move(movedKnightNum, dir, num == movedKnightNum);	//	이동시킴
 					drawKnight();
 				}
 			}
-			
-			print("after " + q + "th query");
 		}
 		
 		for(int num = 1; num <= N; num++) {
-			if(DEBUG)
-			System.out.println(num + "th knight = " + knights[num]);
-			
 			if(knights[num].isAlive())	//	살아있는 기사의 경우
 				ans += initialHp[num] - knights[num].hp;	//	받은 데미지를 더함
 		}
@@ -113,11 +100,6 @@ public class Main {
 			}
 		}
 		
-		if(DEBUG) {
-			System.out.println("knight " + num);
-			System.out.println("minums = " + minus);
-		}
-		
 		knight.row = nRow;
 		knight.col = nCol;
 		if(!moved)	//	직접 이동한게 아니라 밀린 경우
@@ -125,18 +107,11 @@ public class Main {
 	}
 	
 	private static boolean checkMove(int num, int dir, Set<Integer> movedKnightSet) {
-		if(DEBUG)
-		System.out.println(String.format("\n\ncheckMove(%d, %d)", num, dir));
-		
 		Knight knight = knights[num];
 		int row = knight.row;
 		int col = knight.col;
 		final int h = knight.h;
 		final int w = knight.w;
-		
-		if(DEBUG) {
-			System.out.println("knight = " + knight);
-		}
 		
 		movedKnightSet.add(num);	//	이동시켜야 할 기사 번호에 추가
 		
@@ -159,10 +134,6 @@ public class Main {
 				
 		}
 		else if(dir == 2) {	//	아래쪽으로 이동할 경우
-			if(DEBUG) {
-				System.out.println("w = " + w);
-			}
-			
 			nextPosArr = new int[w][2];
 			for(int i = 0; i < w; i++) {
 				nextPosArr[i][0] = row + h;
@@ -177,13 +148,6 @@ public class Main {
 			}
 		}
 		
-		if(DEBUG) {
-			System.out.print("nextPosArr : ");
-			for(int i = 0; i < nextPosArr.length; i++)
-				System.out.print("[" + nextPosArr[i][0] + ", " + nextPosArr[i][1] + "] ");
-			System.out.println();
-		}
-		
 		for(int i = 0; i < nextPosArr.length; i++) {
 			int y = nextPosArr[i][0];
 			int x = nextPosArr[i][1];	//	현재 기사를 이동시켰을 때 차지하게 될 칸 (y, x)
@@ -192,17 +156,11 @@ public class Main {
 				return false;	//	기사를 밀 수 없음
 			
 			if(knightMap[y][x] != 0) {	//	다른 기사가 있을 경우
-				if(DEBUG) {
-					System.out.println("other kinght = " + knightMap[y][x]);
-				}
-				
 				if(!checkMove(knightMap[y][x], dir, movedKnightSet))	//	다른 기사를 밀 수 없을 경우
 					return false;
 			}
 		}
-		
-		if(DEBUG)
-			System.out.println("true");
+
 		return true;
 	}
 	
@@ -229,25 +187,7 @@ public class Main {
 			}
 		}
 	}
-	
-	private static void print(String msg) {
-		if(DEBUG) {
-			System.out.println(msg);
-			
-			System.out.println("knightMap");
-			for(int r = 1; r <= L; r++) {
-				for(int c = 1; c <= L; c++)
-					System.out.print(knightMap[r][c] + " ");
-				System.out.println();
-			}
-			
-			System.out.println("\nknights");
-			for(int num = 1; num <= N; num++)
-				System.out.print(knights[num] + " ");
-			System.out.println();
-		}
-	}
-	
+
 	private static final int[] dy = {-1, 0, 1, 0};
 	private static final int[] dx = {0, 1, 0, -1};
 	
@@ -269,23 +209,5 @@ public class Main {
 		public boolean isAlive() {
 			return this.hp > 0;
 		}
-
-		@Override
-		public String toString() {
-			return "Knight [row=" + row + ", col=" + col + ", h=" + h + ", w=" + w + ", hp=" + hp + "]";
-		}
 	}
 }	//	Main-class-end
-
-/*
-4 3 2
-0 0 1 0
-0 0 1 0
-1 1 0 1
-0 0 2 0
-1 2 2 1 5
-2 1 2 1 1
-3 2 1 2 3
-1 2
-2 1
- */
