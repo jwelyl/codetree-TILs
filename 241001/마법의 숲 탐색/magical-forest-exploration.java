@@ -17,8 +17,6 @@ public class Main {
 	private static int[][] map;	//	map[r][c] : (r, c)를 차지한 골렘 번호, EXIT일 경우, 출구임
 	private static boolean[][] exitMap;	//	exitMap[r][c] : (r, c)칸에 출구가 존재하면 true
 	
-	private static Golem[] golems;	//	golems[i] : i번째 골렘 객체
-	
 	private static int sum = 0;	//	각 정렬들이 최종적으로 위치한 행의 총합
 	
 	public static void main(String[] args) throws IOException {
@@ -30,16 +28,13 @@ public class Main {
 		map = new int[R + 4][C + 1];
 		exitMap = new boolean[R + 4][C + 1];
 		
-		golems = new Golem[K + 1];
 		for(int k = 1; k <= K; k++) {
 			st = new StringTokenizer(br.readLine());
 			int r = 2;
 			int c = Integer.parseInt(st.nextToken());
 			int dir = Integer.parseInt(st.nextToken());
 			
-			golems[k] = new Golem(k, r, c, dir);
-			
-			golems[k].move();
+			new Golem(k, r, c, dir).move();
 		}
 		
 		System.out.println(sum);
