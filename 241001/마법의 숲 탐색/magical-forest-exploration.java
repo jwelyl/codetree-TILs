@@ -7,9 +7,6 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-//	public static final boolean DEBUG = true;
-	public static final boolean DEBUG = false;
-	
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static StringTokenizer st;
 	
@@ -43,8 +40,6 @@ public class Main {
 			golems[k] = new Golem(k, r, c, dir);
 			
 			golems[k].move();
-			
-			print("after " + k + "th golem move");
 		}
 		
 		System.out.println(sum);
@@ -114,10 +109,7 @@ public class Main {
 				return false;
 			if(!Main.isIn(r + 1, c + 1) || map[r + 1][c + 1] != 0)
 				return false;
-			
-			if(DEBUG) {
-				System.out.println(this.num + " 골렘은 남쪽으로 내려갈 수 있음");
-			}
+
 			return true;
 		}
 		
@@ -138,10 +130,6 @@ public class Main {
 				return false;
 			if(!Main.isIn(r + 2, c - 1) || map[r + 2][c - 1] != 0)
 				return false;
-			
-			if(DEBUG) {
-				System.out.println(this.num + " 골렘은 서쪽으로 내려갈 수 있음");
-			}
 			
 			return true;
 		}
@@ -166,10 +154,6 @@ public class Main {
 				return false;
 			if(!Main.isIn(r + 2, c + 1) || map[r + 2][c + 1] != 0)
 				return false;
-			
-			if(DEBUG) {
-				System.out.println(this.num + " 골렘은 동쪽으로 내려갈 수 있음");
-			}
 			
 			return true;
 		}
@@ -246,31 +230,7 @@ public class Main {
 				}
 			}
 			
-			if(DEBUG) {
-				System.out.println("도착한 행 = " + (maxRow - 3));
-			}
-			
 			return maxRow - 3;
 		}
-		
-		@Override
-		public String toString() {
-			return "Golem [num=" + num + ", r=" + r + ", c=" + c + ", dir=" + dir + "]";
-		}
 	}	//	Golem-class-end
-	
-	private static void print(String msg) {
-		if(DEBUG) {
-			System.out.println(msg);
-			
-			System.out.println("map");
-			for(int r = 1; r <= R + 3; r++) {
-				for(int c = 1; c <= C; c++)
-					System.out.print(String.format("%3d", (exitMap[r][c] ? -1 : map[r][c])));
-				System.out.println();
-			}
-			
-			System.out.println("sum = " + sum);
-		}
-	}
 }	//	Main-class-end
