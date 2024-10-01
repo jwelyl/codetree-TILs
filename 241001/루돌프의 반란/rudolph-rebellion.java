@@ -4,9 +4,6 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-	private static final boolean DEBUG = false;
-//	private static final boolean DEBUG = true;
-	
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static final StringBuilder sb = new StringBuilder();
 	private static StringTokenizer st;
@@ -51,14 +48,10 @@ public class Main {
 		}
 		
 		for(int time = 1; time <= M; time++) {
-			print("===== in time " + time + " =====");
-			
 			rudolphMove(time);
-			print("after rudolph move");
 			if(isEnd())
 				break;
 			santaMove(time);
-			print("after santa move");
 			if(isEnd())
 				break;
 			addScores();
@@ -178,25 +171,6 @@ public class Main {
 		}
 	}
 	
-	private static void checkError() {
-		boolean[] used = new boolean[P + 1];
-		
-		for(int r = 1; r <= N; r++) {
-			for(int c = 1; c <= N; c++) {
-				int num = santaMap[r][c];
-				
-				if(num > 0) {
-					if(used[num]) {
-						System.out.println("ERROR 중복 산타 존재!!!!");
-					}
-					
-					if(!santas[num].isAlive())
-						System.out.println("ERROR 죽은 산타 존재!!!!");
-				}
-			}
-		}
-	}
-	
 	private static void collision(int num, int add, int dir, int time) {
 		santas[num].score += add;		//	점수 추가
 		santas[num].stunned = time + 1;	//	time에 루돌프와 충돌하여 time + 1까지 기절 상태
@@ -294,34 +268,6 @@ public class Main {
 		
 		public boolean isAlive() {
 			return !this.dead;
-		}
-
-		@Override
-		public String toString() {
-			return "Santa [y=" + y + ", x=" + x + ", score=" + score + ", dead=" + dead + ", stunned=" + stunned + "]";
-		}
-	}
-	
-	private static void print(String msg) {
-		if(DEBUG) {
-			checkError();
-			
-			System.out.println(msg);
-			
-			System.out.println("\nsantaMap");
-			for(int r = 1; r <= N; r++) {
-				for(int c = 1; c <= N; c++)
-					System.out.print(santaMap[r][c] + " ");
-				System.out.println();
-			}
-			
-			System.out.println("\nrudolph = (" + ry + ", " + rx + ")");
-			
-			System.out.println("\nsantas");
-			for(int p = 1; p <= P; p++) {
-				System.out.print(p + " : " +  santas[p] + " ");
-			}
-			System.out.println();
 		}
 	}
 }	//	Main-class-end
