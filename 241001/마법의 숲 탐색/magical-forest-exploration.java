@@ -216,7 +216,7 @@ public class Main {
 						}
 					}
 					else {	//	현재 칸이 출구가 아닐 경우
-						if(map[nr][nc] == cnum) {	//	다음 칸이 같은 골렘 칸이거나, 출구일 경우 갈 수 있음
+						if(map[nr][nc] == cnum) {	//	다음 칸이 같은 골렘 칸일경우 갈 수 있음
 							maxRow = Math.max(maxRow, nr);
 							visited[nr][nc] = true;
 							q.offer(new int[] {nr, nc, map[nr][nc]});
