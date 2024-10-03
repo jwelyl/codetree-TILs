@@ -26,7 +26,7 @@ public class Main {
     	
     	@Override
     	public String toString() {
-    		return "user " + this.id + " " + this.level;
+    		return "user " + this.id + " lv " + this.level;
     	}
     }
 }    //    Main-class-end
