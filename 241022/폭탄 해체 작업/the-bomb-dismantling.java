@@ -1,22 +1,22 @@
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
 
 public class Main {
-    private static final int MAX_DL = 10_001;   //  최대 데드라인 = 10,000
-
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static StringTokenizer st;
 
     private static int N;   //  폭탄 수
 
-    //  occupied[time] : time에 해체해야 할 폭탄이 있을 경우 true
-    private static final boolean[] occupied = new boolean[MAX_DL];
     private static final List<Bomb> bombs = new ArrayList<>();
+    
+    //	폭탄 하나 해체하는데 1의 시간이 걸리므로 pq의 원소 개수는 pq 안에 있는 폭탄을 모두 해체하는데 걸리는 총 시간임
+    private static final PriorityQueue<Integer> pq = new PriorityQueue<>();
 
     private static int ans = 0; //  얻을 수 있는 최대 보상
 
@@ -28,22 +28,22 @@ public class Main {
             bombs.add(new Bomb(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
         }
 
-        Collections.sort(bombs);    //  보상 큰 순서대로 정렬
+        Collections.sort(bombs);    //  데드라인 작은 순서대로 정렬
 
-        for(Bomb bomb : bombs) {    //  보상이 큰 폭탄부터 해체하기
+        for(Bomb bomb : bombs) {    //  데드라인이 작은 폭탄부터
             int reward = bomb.reward;
             int deadline = bomb.deadline;
 
-            //  해당 폭탄을 최대한 데드라인에 가깝게 해체하기
-            for(int time = deadline; time >= 1; time--) {
-                if(!occupied[time]) {   //  time에 해체할 수 있을 경우
-                    occupied[time] = true;
-                    ans += reward;
-                    break;
-                }
-            }
+            pq.offer(reward);	//	현재 폭탄을 해체했을때의 보상을 pq에 삽입
+            
+            if(deadline < pq.size())	//	현재 폭탄 해체 데드라인보다 많은 폭탄이 있을 경우
+            	pq.poll();	//	해체했을때 보상이 가장 작은 폭탄의 해체를 포기
         }
-
+        
+        //	해체할 수 있는 폭탄들 해체 보상 더하
+        while(!pq.isEmpty())
+        	ans += pq.poll();
+        
         System.out.println(ans);
     }   //  main-end
 
@@ -58,8 +58,8 @@ public class Main {
 
         @Override
         public int compareTo(Bomb bomb) {
-            //  해체 시 보상이 큰 순서대로 정렬
-            return Integer.compare(bomb.reward, this.reward);
+            // 해체 데드라인이 작은 폭탄 순으로 정렬
+            return Integer.compare(this.deadline, bomb.deadline);
         }
     }
 }   //  Main-class-end
