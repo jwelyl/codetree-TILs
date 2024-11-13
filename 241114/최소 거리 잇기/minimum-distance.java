@@ -45,8 +45,8 @@ public class Main {
 		
 		for(int e = 0; e < M; e++) {
 			st = new StringTokenizer(br.readLine());
-			int v1 = Integer.parseInt(st.nextToken());
-			int v2 = Integer.parseInt(st.nextToken());
+			int v1 = findDS(Integer.parseInt(st.nextToken()));
+			int v2 = findDS(Integer.parseInt(st.nextToken()));
 			
 			union(v1, v2);
 		}
@@ -59,6 +59,8 @@ public class Main {
 	}
 	
 	private static int findDS(int v) {
+//		System.out.println("findDS(" + v + ")");
+		
 		if(v == parents[v])
 			return v;
 		
