@@ -64,8 +64,6 @@ public class Main {
 	}
 	
 	private static int findDS(int v) {
-//		System.out.println("findDS(" + v + ")");
-		
 		if(v == parents[v])
 			return v;
 		
@@ -81,9 +79,7 @@ public class Main {
 		int edgeCnt = connected;
 		
 		edges.sort((e1, e2) -> Double.compare(e1.cost, e2.cost));
-		
-//		System.out.println(edges);
-		
+
 		for(Edge edge : edges) {
 			int v1 = findDS(edge.v1);
 			int v2 = findDS(edge.v2);
