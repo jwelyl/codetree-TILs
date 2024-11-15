@@ -68,9 +68,9 @@ public class Main {
 			}
 			
 			if(edgeCnt == N - 2)
-				return mstCost;
+				break;
 		}
 		
-		return -1;
+		return mstCost;
 	}
 }	//	Main-class-end
