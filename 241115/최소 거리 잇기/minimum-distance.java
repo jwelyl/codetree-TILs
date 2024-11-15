@@ -108,10 +108,5 @@ public class Main {
 			this.v2 = v2;
 			this.cost = cost;
 		}
-		
-		@Override
-		public String toString() {
-			return new StringBuilder().append(String.format("[%d, %d, %f]", v1, v2, cost)).toString();
-		}
 	}
 }	//	Main-class-end
