@@ -49,11 +49,14 @@ public class Main {
 	
 	private static int kruskal() {
 		int mstCost = 0;
-		int edgeCnt = 0;
+		int required = N - 2;
 		
 		edges.sort((edge1, edge2) -> Integer.compare(edge1[2], edge2[2]));
 		
 		for(int[] edge : edges) {
+			if(required <= 0)
+				break;
+			
 			int v1 = edge[0];
 			int v2 = edge[1];
 			int c = edge[2];
@@ -63,12 +66,9 @@ public class Main {
 			
 			if(v1 != v2) {
 				union(v1, v2);
-				edgeCnt++;
+				required--;
 				mstCost += c;
 			}
-			
-			if(edgeCnt == N - 2)
-				break;
 		}
 		
 		return mstCost;
