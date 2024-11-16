@@ -48,14 +48,9 @@ public class Main {
 	private static int kruskal(boolean mst) {
 		int mstCost = 0;
 		int required = N - 1;
-		
-//		System.out.println("mst = " + mst);
+
 		edges.sort((edge1, edge2) -> !mst ? Integer.compare(edge1[2], edge2[2]) : Integer.compare(edge2[2], edge1[2]));
-//		for(int[] edge : edges) {
-//			System.out.print(String.format("[%d, %d, %d] ", edge[0], edge[1], edge[2]));
-//		}
-//		System.out.println();
-		
+
 		for(int v = 1; v <= N; v++)
 			parents[v] = v;
 		
@@ -66,9 +61,7 @@ public class Main {
 			int v1 = edge[0];
 			int v2 = edge[1];
 			int c = edge[2];
-			
-//			System.out.println(String.format("[%d, %d, %d] ", v1, v2, c));
-			
+
 			v1 = findDS(v1);
 			v2 = findDS(v2);
 			
@@ -80,8 +73,6 @@ public class Main {
 					mstCost += 1;
 			}
 		}
-		
-//		System.out.println("mstCost = " + mstCost);
 		
 		return mstCost * mstCost;
 	}
