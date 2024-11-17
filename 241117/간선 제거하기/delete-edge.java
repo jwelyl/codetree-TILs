@@ -20,7 +20,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		st = new StringTokenizer(br.readLine());
 		// N = Integer.parseInt(st.nextToken());
-		N = null;
+		N = -1;
 		M = Integer.parseInt(st.nextToken());
 		
 		parents = new int[N + 1];
