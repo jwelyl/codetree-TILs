@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-32212112321
+
 public class Main {
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static StringTokenizer st;
@@ -19,7 +19,8 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
+		// N = Integer.parseInt(st.nextToken());
+		N = null;
 		M = Integer.parseInt(st.nextToken());
 		
 		parents = new int[N + 1];
