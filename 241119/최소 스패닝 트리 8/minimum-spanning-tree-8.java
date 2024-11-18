@@ -50,20 +50,19 @@ public class Main {
 		
 		while(!pq.isEmpty()) {
 			int[] cur = pq.poll();
-//			System.out.println("[" + cur[0] + ", " + cur[1] + "]");
-			
 			int cv = cur[0];
 			
-			if(!contained[cv]) {
-				mstCost += cur[1];
-				contained[cv] = true;
-			}
+			if(contained[cv])	//	이미 MST에 포함된 정점일 경우
+				continue;
+			
+			contained[cv] = true;	//	MST에 해당 정점 포함
+			mstCost += cur[1];		//	MST에 해당 정점을 연결하기 위한 비용 추가
 			
 			for(Edge edge : graph[cv]) {
 				int nv = edge.vertex;
-				int cost = edge.cost;
+				int cost = edge.cost;	//	cv와 연결된 정점들과 연결 비용
 				
-				if(cost < dist[nv] && !contained[nv]) {
+				if(cost < dist[nv]) {	//	기존에 알려진 nv의 연결 비용보다 적은 비용일 경우
 					dist[nv] = cost;
 					pq.offer(new int[] {nv, dist[nv]});
 				}
