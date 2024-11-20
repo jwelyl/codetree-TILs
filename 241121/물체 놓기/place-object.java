@@ -15,6 +15,7 @@ public class Main {
 	
 	private static int minPutV = -1;
 	private static int minPutCost = Integer.MAX_VALUE;
+	private static int sum = 0;
 	
 	private static List<Edge>[] graph;
 
@@ -28,6 +29,8 @@ public class Main {
 				minPutCost = putCost;
 				minPutV = v;
 			}
+
+			sum += putCost;
 		}
 		
 		graph = new ArrayList[N + 1];
@@ -78,7 +81,7 @@ public class Main {
 			}
 		}
 		
-		return mstCost;
+		return Math.min(sum, mstCost);
 	}
 
 	private static class Edge {
