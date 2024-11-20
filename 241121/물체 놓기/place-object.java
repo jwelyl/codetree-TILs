@@ -15,7 +15,7 @@ public class Main {
 	
 	private static int minPutV = -1;
 	private static int minPutCost = Integer.MAX_VALUE;
-	private static int sum = 0;
+	private static long sum = 0;
 	
 	private static List<Edge>[] graph;
 
