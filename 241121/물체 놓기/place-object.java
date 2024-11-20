@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
@@ -50,20 +49,18 @@ public class Main {
             pq.offer(new Edge(v, putCosts[v]));
 
         while (!pq.isEmpty()) {
-            Edge current = pq.poll();
+            Edge cur = pq.poll();
 
-            if (contained[current.vertex]) {
+            if (contained[cur.vertex])
                 continue;
-            }
 
-            contained[current.vertex] = true;
-            mstCost += current.cost;
+            contained[cur.vertex] = true;
+            mstCost += cur.cost;
 
             // 인접 정점들 추가
-            for (Edge edge : graph[current.vertex]) {
-                if (!contained[edge.vertex]) {
+            for (Edge edge : graph[cur.vertex]) {
+                if (!contained[edge.vertex])
                     pq.offer(edge);
-                }
             }
         }
 
