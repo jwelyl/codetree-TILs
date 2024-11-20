@@ -50,9 +50,9 @@ public class Main {
 		System.out.println(prim());
 	} // main-end
 	
-	private static int prim() {
+	private static long prim() {
 		PriorityQueue<long[]> pq = new PriorityQueue<>((v1, v2) -> Long.compare(v1[1], v2[1]));
-		int mstCost = minPutCost;
+		long mstCost = minPutCost;
 		long[] dist = new long[N + 1];
 		Arrays.fill(dist, 100_000L * 300 * 300 + 1);
 		boolean[] contained = new boolean[N + 1];
