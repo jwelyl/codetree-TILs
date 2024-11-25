@@ -22,8 +22,8 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
-		K = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
 		
 		st = new StringTokenizer(br.readLine());
 		for(int v = 1; v <= N; v++) {
