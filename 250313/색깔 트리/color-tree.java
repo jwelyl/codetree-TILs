@@ -5,12 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class Main {
-//	private static final boolean DEBUG = true;
-	private static final boolean DEBUG = false;
-	
-	private static int MAX_NUM = 0;
-	
+public class Solution {
 	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static final StringBuilder sb = new StringBuilder();
 	private static StringTokenizer st;
@@ -46,28 +41,15 @@ public class Main {
 			switch(opt) {
 			case 100:
 				addNode();
-				print("\ntime " + time + ", after addNode");
 				break;
 			case 200:
 				changeColor();
-				print("\ntime " + time + ", after changeColor");
 				break;
 			case 300:
-				int res300 = getColor();
-				
-//				sb.append(getColor()).append("\n");
-				sb.append(res300).append("\n");
-				print("\ntime " + time + ", after getColor");
-				if(DEBUG)
-					System.out.println("300 res = " + res300);
+				sb.append(getColor()).append("\n");
 				break;
 			case 400:
-				int res400 = dfs();
-//				sb.append(dfs()).append("\n");
-				sb.append(res400).append("\n");
-				print("\ntime " + time + ", after dfs");
-				if(DEBUG)
-					System.out.println("400 res = " + res400);
+				sb.append(dfs()).append("\n");
 				break;
 			}
 		}
@@ -87,9 +69,6 @@ public class Main {
 			colors[mId] = color;
 			maxDepths[mId] = maxDepth;
 			modified[mId] = time;
-			
-			if(DEBUG)
-				MAX_NUM = Math.max(MAX_NUM, mId);
 		}
 		else {	//	부모 노드가 존재할 경우
 //			if(maxDepths[pId] < maxDepth)	//	만약 부모 노드를 루트로 하는 서브트리의 최대 깊이보다 큰 최대 깊이를 가질 경우, 모순
@@ -114,9 +93,6 @@ public class Main {
 			modified[mId] = time;
 			
 			tree[pId].add(mId);
-			
-			if(DEBUG)
-				MAX_NUM = Math.max(MAX_NUM, mId);
 		}
 	}
 	
@@ -183,10 +159,6 @@ public class Main {
 	}
 	
 	private static int dfs(int vertex, int[] bitStatus) {
-		if(DEBUG) {
-			System.out.println("dfs(" + vertex + ")");
-		}
-		
 		int res = 0;
 		int mask = 0 | (1 << colors[vertex] - 1);	//	vertex의 색깔만 고려했을때 비트 상태 
 		
@@ -197,12 +169,6 @@ public class Main {
 		
 		int cnt = cnt(mask);	//	자식 노드들까지 전부 고려했을때 vertex를 루트로 하는 서브트리에 포함된 색깔 개수
 		res += cnt * cnt;
-		
-		if(DEBUG) {
-			System.out.println("cnt = " + cnt);
-			System.out.println("mask = " + mask);
-			System.out.println("res = " + res);
-		}
 		
 		bitStatus[vertex] = mask;
 		
@@ -219,39 +185,5 @@ public class Main {
 		}
 		
 		return res;
-	}
-	
-	private static void print(String msg) {
-		if(DEBUG) {
-			System.out.println(msg);
-			
-			System.out.println("\nTree");
-			for(int vertex = 1; vertex <= MAX_NUM; vertex++) {
-				System.out.print("tree[" + vertex + "] :");
-				for(int child : tree[vertex])
-					System.out.print(" -> " + child);
-				System.out.println();
-			}
-			
-			System.out.println("\ncolors");
-			for(int vertex = 1; vertex <= MAX_NUM; vertex++)
-				System.out.print(colors[vertex] + " ");
-			System.out.println();
-			
-			System.out.println("parents");
-			for(int vertex = 1; vertex <= MAX_NUM; vertex++)
-				System.out.print(parents[vertex] + " ");
-			System.out.println();
-			
-			System.out.println("maxDepths");
-			for(int vertex = 1; vertex <= MAX_NUM; vertex++)
-				System.out.print(maxDepths[vertex] + " ");
-			System.out.println();
-			
-			System.out.println("modified");
-			for(int vertex = 1; vertex <= MAX_NUM; vertex++)
-				System.out.print(modified[vertex] + " ");
-			System.out.println();
-		}
 	}
 }	//	Main-class-end
