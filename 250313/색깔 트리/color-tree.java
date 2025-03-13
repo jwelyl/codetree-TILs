@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class Main {
 //	private static final boolean DEBUG = true;
 	private static final boolean DEBUG = false;
 	
