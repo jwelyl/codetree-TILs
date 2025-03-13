@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class Main {
+public class Solution {
 //	private static final boolean DEBUG = true;
 	private static final boolean DEBUG = false;
 	
@@ -94,6 +94,19 @@ public class Main {
 		else {	//	부모 노드가 존재할 경우
 			if(maxDepths[pId] < maxDepth)	//	만약 부모 노드를 루트로 하는 서브트리의 최대 깊이보다 큰 최대 깊이를 가질 경우, 모순
 				return;
+			
+			int diff = 1;
+			int cur = pId;
+			
+			while(cur != NONE) {
+				int maxCurDepth = maxDepths[cur];
+				
+				if(maxCurDepth <= diff)
+					return;
+				
+				diff++;
+				cur = parents[cur];
+			}
 			
 			parents[mId] = pId;
 			colors[mId] = color;
